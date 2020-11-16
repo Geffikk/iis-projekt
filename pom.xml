@@ -14,10 +14,6 @@
 	<name>iis_forum</name>
 	<description>Demo project for Spring Boot</description>
 
-	<properties>
-		<java.version>11</java.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -77,9 +73,6 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-
-
-
 	</dependencies>
 
 	<build>
