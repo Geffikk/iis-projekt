@@ -1,8 +1,5 @@
 package org.forum.jdbc;
 
-import org.forum.entity.DatabaseOperations;
-import org.forum.entity.Uzivatel;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 

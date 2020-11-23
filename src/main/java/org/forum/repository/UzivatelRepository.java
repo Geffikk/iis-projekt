@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface UzivatelRepository extends JpaRepository<Uzivatel, String> {
+public interface UzivatelRepository extends JpaRepository<Uzivatel, Integer> {
 
+    Uzivatel findByUzivatelskeMeno(String uzivatelskeMeno);
+
+    Uzivatel findByEmail(String email);
 
 }

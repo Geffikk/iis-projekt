@@ -1,6 +1,7 @@
 package org.forum.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "prispevok")
@@ -10,7 +11,19 @@ public class Prispevok {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private int id;
+
+    /** VLAKNO PRISPEVKU**/
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "id_vlakna")
+    private Vlakno vlaknoPrispevku;
+
+    /** ZAKLADATEL PRISPEVKU **/
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "id_uzivatela")
+    private Uzivatel zakladatelPrispevku;
 
     /** OBSAH PRISPEVKU **/
     @Column(name = "obsah")
@@ -20,20 +33,26 @@ public class Prispevok {
     @Column(name = "ranking")
     private Integer ranking;
 
-    /** ZAKLADATEL PRISPEVKU **/
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "uzivatel_meno3")
-    private Uzivatel zakladatelPrispevku;
+    @Column(name = "datum_zalozenia", updatable = false, nullable = false)
+    private Date datumZalozenia;
 
-    /** VLAKNO PRISPEVKU**/
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                        CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "vlakno_id")
-    private Vlakno vlaknoPrispevku;
+    @Column(name = "posledny_datum_upravy", nullable = false)
+    private Date poslednyDatumUpravy;
 
     /** CONSTRUCTORS **/
     public Prispevok() {
+    }
+
+
+    @PrePersist
+    protected void onCreate() {
+        this.datumZalozenia = new Date();
+        this.poslednyDatumUpravy = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.poslednyDatumUpravy = new Date();
     }
 
     public Prispevok(String obsah, Integer ranking) {
@@ -42,28 +61,13 @@ public class Prispevok {
     }
 
     /** GETTERS AND SETTERS **/
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getObsah() {
-        return obsah;
-    }
-
-    public void setObsah(String obsah) {
-        this.obsah = obsah;
-    }
-
-    public Integer getRanking() {
-        return ranking;
-    }
-
-    public void setRanking(Integer ranking) {
-        this.ranking = ranking;
     }
 
     public Vlakno getVlaknoPrispevku() {
@@ -82,16 +86,38 @@ public class Prispevok {
         this.zakladatelPrispevku = zakladatelPrispevku;
     }
 
-
-    // add methods for bi-directional relationship
-    /** PRIRADIT ZAKLADATELA PRISPVEKU **/
-    public void addZakladatelaPrispevku(Uzivatel tempUzivatel) {
-        zakladatelPrispevku = tempUzivatel;
+    public String getObsah() {
+        return obsah;
     }
 
-    /** PRIRADIT VLAKNO PRISPEVKU **/
-    public void addVlaknoPrispevku(Vlakno tempVlakno) {
-        vlaknoPrispevku = tempVlakno;
+    public void setObsah(String obsah) {
+        this.obsah = obsah;
     }
+
+    public Integer getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(Integer ranking) {
+        this.ranking = ranking;
+    }
+
+    public Date getDatumZalozenia() {
+        return datumZalozenia;
+    }
+
+    public void setDatumZalozenia(Date datumZalozenia) {
+        this.datumZalozenia = datumZalozenia;
+    }
+
+    public Date getPoslednyDatumUpravy() {
+        return poslednyDatumUpravy;
+    }
+
+    public void setPoslednyDatumUpravy(Date poslednyDatumUpravy) {
+        this.poslednyDatumUpravy = poslednyDatumUpravy;
+    }
+
+
 
 }

@@ -15,25 +15,34 @@ public class UzivatelServiceImpl implements UzivatelService {
     private UzivatelRepository uzivatelRepository;
 
     @Override
-    public List<Uzivatel> getAllUzivatelov() {
+    public List<Uzivatel> findAll() {
         return uzivatelRepository.findAll();
     }
 
     @Override
-    public void saveUzivatel(Uzivatel uzivatel) {
-        this.uzivatelRepository.save(uzivatel);
+    public Uzivatel findOne(int id) {
+            Optional<Uzivatel> optional = uzivatelRepository.findById(id);
+            Uzivatel uzivatel = null;
+            if(optional.isPresent()) {
+                uzivatel = optional.get();
+            }else {
+                throw new RuntimeException("Uzivatel s id: " + id + " nebol najdeny!");
+            }
+            return uzivatel;
     }
 
     @Override
-    public Uzivatel getUzivatelByName(String name) {
-        Optional<Uzivatel> optional = uzivatelRepository.findById(name);
-        Uzivatel uzivatel = null;
-        if(optional.isPresent()) {
-            uzivatel = optional.get();
-        }else {
-            throw new RuntimeException("Uzivatel s menom: " + name + " nebol najdeny!");
+    public Uzivatel findByUzivatelskeMeno(String uzivatelskeMeno) {
+        Uzivatel user = uzivatelRepository.findByUzivatelskeMeno(uzivatelskeMeno);
+        if (user == null) {
+            throw new RuntimeException("Uzivatel s menom: " + uzivatelskeMeno + " nebol najdeny!");
         }
-        return uzivatel;
+        return user;
+    }
+
+    @Override
+    public Uzivatel save(Uzivatel uzivatel) {
+        return uzivatelRepository.save(uzivatel);
     }
 
 }

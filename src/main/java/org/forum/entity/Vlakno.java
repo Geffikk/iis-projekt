@@ -1,10 +1,10 @@
 package org.forum.entity;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
+
+import org.forum.entity.Uzivatel;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Table(name = "vlakno")
@@ -14,30 +14,52 @@ public class Vlakno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
-
-    /** PREDMET VLAKNA **/
-    @Column(name = "predmet")
-    private String predmet;
+    private int id;
 
     /** ZAKLADATEL VLAKNA **/
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                        CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "uzivatel_meno2")
+            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "id_uzivatela")
     private Uzivatel zakladatelVlakna;
 
     /** VLAKNO PATRI DO SKUPINY **/
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "skupina_nazov")
+    @JoinColumn(name = "id_skupiny")
     private Skupina skupinaVlakna;
 
-    /** PRISPEVKY PATRIACE DO VLAKNA **/
-    @OneToMany(mappedBy = "vlaknoPrispevku" , cascade = CascadeType.ALL)
-    private List<Prispevok> prispevkyVlakna;
+
+    /** PREDMET VLAKNA **/
+    @Column(name = "predmet", length = 50)
+    private String predmet;
+
+    @Column(name = "kontent", columnDefinition = "TEXT")
+    private String kontent;
+
+    @Column(name = "pohlady")
+    private int pohlady;
+
+    @Column(name = "datum_zalozenia", updatable = false, nullable = false)
+    private Date datumZalozenia;
+
+    @Column(name = "posledny_datum_upravy")
+    private Date poslednyDatumUpravy;
+
+    @Column(name = "je_zavrete")
+    private boolean zavrete;
 
     /** CONSTRUCTORS **/
     public Vlakno() {
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.datumZalozenia = new Date();
+        this.poslednyDatumUpravy = new Date();
+    }
+    @PreUpdate
+    protected void onUpdate() {
+        this.poslednyDatumUpravy = new Date();
     }
 
     public Vlakno(String predmet) {
@@ -53,12 +75,12 @@ public class Vlakno {
         this.id = id;
     }
 
-    public String getPredmet() {
-        return predmet;
+    public Uzivatel getZakladatelVlakna() {
+        return zakladatelVlakna;
     }
 
-    public void setPredmet(String predmet) {
-        this.predmet = predmet;
+    public void setZakladatelVlakna(Uzivatel zakladatelVlakna) {
+        this.zakladatelVlakna = zakladatelVlakna;
     }
 
     public Skupina getSkupinaVlakna() {
@@ -69,32 +91,51 @@ public class Vlakno {
         this.skupinaVlakna = skupinaVlakna;
     }
 
-    public Uzivatel getZakladatelVlakna() {
-        return zakladatelVlakna;
+    public String getPredmet() {
+        return predmet;
     }
 
-    public void setZakladatelVlakna(Uzivatel zakladatelVlakna) {
-        this.zakladatelVlakna = zakladatelVlakna;
+    public void setPredmet(String predmet) {
+        this.predmet = predmet;
     }
 
-    // add methods for bi-directional relationship
-    /** PRIRADIT ZAKLADATELA VLAKNA **/
-    public void addZakladatelaVlakna(Uzivatel tempUzivatel) {
-        zakladatelVlakna = tempUzivatel;
+    public String getKontent() {
+        return kontent;
     }
 
-    /** PRIRADIT SKUPINU VLAKNA **/
-    public void addSkupinuVlakna(Skupina tempSkupina) {
-        skupinaVlakna = tempSkupina;
+    public void setKontent(String kontent) {
+        this.kontent = kontent;
     }
 
-    /** PRIDAT PRISPEVOK DO VLAKNA **/
-    public void addPrispevokDoVlakna(Prispevok tempPrispevok) {
-        if (prispevkyVlakna == null) {
-            prispevkyVlakna = new ArrayList<>();
-        }
-        prispevkyVlakna.add(tempPrispevok);
+    public int getPohlady() {
+        return pohlady;
+    }
 
-        tempPrispevok.setVlaknoPrispevku(this);
+    public void setPohlady(int pohlady) {
+        this.pohlady = pohlady;
+    }
+
+    public Date getDatumZalozenia() {
+        return datumZalozenia;
+    }
+
+    public void setDatumZalozenia(Date datumZalozenia) {
+        this.datumZalozenia = datumZalozenia;
+    }
+
+    public Date getPoslednyDatumUpravy() {
+        return poslednyDatumUpravy;
+    }
+
+    public void setPoslednyDatumUpravy(Date poslednyDatumUpravy) {
+        this.poslednyDatumUpravy = poslednyDatumUpravy;
+    }
+
+    public boolean isZavrete() {
+        return zavrete;
+    }
+
+    public void setZavrete(boolean zavrete) {
+        this.zavrete = zavrete;
     }
 }

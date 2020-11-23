@@ -1,97 +1,155 @@
 package org.forum.entity;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Table(name = "uzivatel")
 public class Uzivatel {
 
-    /** MENO UZIVATELA **/
+    /** ID UZIVATELA **/
     @Id
-    @Column(name = "meno")
-    private String meno;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 
-    /** PRIEZVISKO UZIVATELA **/
-    @Column(name = "priezvisko")
-    private String priezvisko;
+    /** EMAIL UZIVATELA **/
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
-    /** SKUPINY ZALOZENE UZIVATELOM **/
-    @OneToMany(mappedBy = "zakladatelSkupiny" , cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
-    private List<Skupina> zalozeneSkupiny;
+    /** MENO UZIVATELA **/
+    @Column(name = "uzivatelske_meno", length = 50, nullable = false, unique = true)
+    private String uzivatelskeMeno;
 
-    /** VLAKNA ZALOZENE UZIVATELOM **/
-    @OneToMany(mappedBy = "zakladatelVlakna" , cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                                                         CascadeType.DETACH, CascadeType.REFRESH})
-    private List<Vlakno> zalozeneVlakna;
+    /** HESLO UZIVATELA **/
+    @Column(name = "heslo", length = 60, nullable = false)
+    private String heslo;
+
+    @Column(name = "je_aktivny")
+    private boolean aktivny;
+
+    @Column(name = "is_email_verifed")
+    private boolean overenyEmail;
+
+    @Column(name = "datum_registarcie")
+    private Date zalozeny;
+
+    @Column(name = "posledny_datum_prihlasenia")
+    private Date poslednyDatumPrihlasenia;
+
+    @Column(name = "pohlavie")
+    private Pohlavie pohlavie;
+
+    @Column(name = "rola")
+    private Rola role = Rola.UNDEFINED;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "uzivatelske_info_id")
+    private UzivatelskeInfo info;
+
+//    /** SKUPINY ZALOZENE UZIVATELOM **/
+//    @OneToMany(mappedBy = "zakladatelSkupiny" , cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+//            CascadeType.DETACH, CascadeType.REFRESH})
+//    private List<Skupina> zalozeneSkupiny;
+//
+//    /** VLAKNA ZALOZENE UZIVATELOM **/
+//    @OneToMany(mappedBy = "zakladatelVlakna" , cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+//                                                         CascadeType.DETACH, CascadeType.REFRESH})
+//    private List<Vlakno> zalozeneVlakna;
 
     /** CONSTRUCTORS **/
-    public Uzivatel() {
+    @PrePersist
+    protected void onCreate() {
+        this.zalozeny = new Date();
     }
 
-    public Uzivatel(String meno, String priezvisko) {
-        this.meno = meno;
-        this.priezvisko = priezvisko;
-    }
 
     /** GETTERS AND SETTERS **/
-    public String getMeno() {
-        return meno;
+    public int getId() {
+        return id;
     }
 
-    public void setMeno(String meno) {
-        this.meno = meno;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getPriezvisko() {
-        return priezvisko;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPriezvisko(String priezvisko) {
-        this.priezvisko = priezvisko;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public List<Vlakno> getZalozeneVlakna() {
-        return zalozeneVlakna;
+    public String getUzivatelskeMeno() {
+        return uzivatelskeMeno;
     }
 
-    public void setZalozeneVlakna(List<Vlakno> zalozeneVlakna) {
-        this.zalozeneVlakna = zalozeneVlakna;
+    public void setUzivatelskeMeno(String uzivatelskeMeno) {
+        this.uzivatelskeMeno = uzivatelskeMeno;
     }
 
-    public List<Skupina> getZalozeneSkupiny() {
-        return zalozeneSkupiny;
+    public String getHeslo() {
+        return heslo;
     }
 
-    public void setZalozeneSkupiny(List<Skupina> zalozeneSkupiny) {
-        this.zalozeneSkupiny = zalozeneSkupiny;
+    public void setHeslo(String heslo) {
+        this.heslo = heslo;
     }
 
-    // add methods for bi-directional relationship
-    /** PRIDAT ZALOZENU SKUPINU KU UZIVATELOVI **/
-    public void addSkupinu(Skupina tempSkupina) {
-        if (zalozeneSkupiny == null) {
-            zalozeneSkupiny = new ArrayList<>();
-        }
-        zalozeneSkupiny.add(tempSkupina);
-
-        tempSkupina.setZakladatelSkupiny(this);
+    public boolean isAktivny() {
+        return aktivny;
     }
 
-    /** PRIDAT ZALOZENE VLAKNO KU UZIVATELOVI **/
-    public void addVlakno(Vlakno tempVlakno) {
-        if (zalozeneVlakna == null) {
-            zalozeneVlakna = new ArrayList<>();
-        }
-        zalozeneVlakna.add(tempVlakno);
-
-        tempVlakno.setZakladatelVlakna(this);
+    public void setAktivny(boolean aktivny) {
+        this.aktivny = aktivny;
     }
 
+    public boolean isOverenyEmail() {
+        return overenyEmail;
+    }
+
+    public void setOverenyEmail(boolean overenyEmail) {
+        this.overenyEmail = overenyEmail;
+    }
+
+    public Date getZalozeny() {
+        return zalozeny;
+    }
+
+    public void setZalozeny(Date zalozeny) {
+        this.zalozeny = zalozeny;
+    }
+
+    public Date getPoslednyDatumPrihlasenia() {
+        return poslednyDatumPrihlasenia;
+    }
+
+    public void setPoslednyDatumPrihlasenia(Date poslednyDatumPrihlasenia) {
+        this.poslednyDatumPrihlasenia = poslednyDatumPrihlasenia;
+    }
+
+    public Pohlavie getPohlavie() {
+        return pohlavie;
+    }
+
+    public void setPohlavie(Pohlavie pohlavie) {
+        this.pohlavie = pohlavie;
+    }
+
+    public Rola getRole() {
+        return role;
+    }
+
+    public void setRole(Rola role) {
+        this.role = role;
+    }
+
+    public UzivatelskeInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(UzivatelskeInfo info) {
+        this.info = info;
+    }
 }
