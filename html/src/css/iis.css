@@ -1,0 +1,46 @@
+/* .css pre login.html								*/
+/* Vytvoril: Tomáš Lisický, xlisic01 VUTBR FIT		*/
+/* využíva prvky s prefixom IIS						*/
+
+html, body { height: 100%; width: 100%; margin: 0; }
+
+.iis-bg-dbrown, body {
+	background-color: #201005;
+}
+.iis-bg-brown {
+	background-color: #302015;
+}
+.iis-bg-lbrown {
+	background-color: #442509;
+}
+.iis-login-blank10 {
+	height: 10%;
+}
+.iis-login-blank15 {
+	height: 15%;
+}
+.iis-login-blank20 {
+	height: 20%;
+}
+.iis-login-screen {
+	height: 600px;
+	width: 400px;
+	border-radius: 35px;
+	
+	color: #DEB887;
+}
+a:link, a:visited {
+	color: #DEB887;
+	text-decoration: underline;
+}
+a:hover {
+	color: #FFFFFF;
+}
+.iis-btn {
+	position: absolute;
+	left: 40%;
+	width: 20%;
+}
+.iis-btn-color {
+	background-color: #302015;
+}

@@ -1,0 +1,82 @@
+<!-- IIS-projekt 2020 - Login stránka				-->
+<!-- Vytvoril: Tomáš Lisický, xlisic01 VUTBR FIT	-->
+<!-- Login/Register stránka na ktorú sa odkazuje... -->
+<!-- ...hlavná web stránka diskusného fóra.			-->
+
+<!DOCTYPE html>
+<html lang="sk">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="src/bootstrap-4.5.3-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="src/css/iis.css">
+	</head>
+	
+	<body>
+		<div class="row iis-bg-brown text-secondary">
+			<div class="col"></div>
+			<div class="col.display-1">
+				<h1>IIS Forum</h1>
+			</div>
+			<div class="col"></div>
+		</div>
+		
+		<div class="iis-login-blank20"></div>
+		
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-xl-3">
+				<div class="container iis-login-screen iis-bg-lbrown">
+					<br>
+					<div class="row">
+						<div class="col"></div>
+						<div class="col.display-4">
+							<h4>Vitajte na IIS diskusnom fóre!</h4>
+						</div>
+						<div class="col"></div>
+					</div>
+					
+					<div class="iis-login-blank10"></div>
+					
+					<!-- Prevzaté zo stránky W3Schools.com, begin -->
+					<form action="/action_page.php">
+						<div class="form-group">
+							<label for="usr">Uživateľské meno:</label>
+							<input type="text" class="form-control btn-outline-warning" id="usr" name="username">
+						</div>
+						<br>
+						<div class="form-group">
+							<label for="pwd">Heslo:</label>
+							<input type="password" class="form-control btn-outline-warning" id="pwd" name="password">
+						</div>
+						<button type="submit" class="btn iis-btn iis-btn-color btn-outline-warning">Prihlásiť</button>
+					</form>
+					<!-- End Copy -->
+					
+					<div class="iis-login-blank10"></div>
+					
+					<div class="row">
+						<div class="col"></div>
+						<div class="col.display-4">
+							<a href="">Zabudli ste heslo?</a>
+						</div>
+						<div class="col"></div>
+					</div>
+					
+					<div class="iis-login-blank10"></div>
+					
+					<div class="row">
+						<div class="col"></div>
+						<div class="col.display-4">
+							<p><h2>Registrácia</h2></p>
+						</div>
+						<div class="col"></div>
+					</div>
+				<!-- End of Login Screen -->
+				</div>
+			<!-- End of offset placeholder -->
+			</div>
+		<!-- End of offset -->
+		</div>
+	</body>
+</html>
