@@ -29,7 +29,18 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/user").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/").permitAll().and().formLogin();
+                .and()
+                .authorizeRequests().anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/home", true)
+                .usernameParameter("username").passwordParameter("password")
+                .permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/login?logout")
+                .logoutUrl("/logout")
+                .permitAll();
     }
 
     @Bean
