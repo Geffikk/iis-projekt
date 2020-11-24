@@ -1,0 +1,1 @@
+# prázdny súbor vyhradený pre registráciu účtu

@@ -1,9 +1,6 @@
 /* .css pre login.html								*/
 /* Vytvoril: Tomáš Lisický, xlisic01 VUTBR FIT		*/
 /* využíva prvky s prefixom IIS						*/
-
-html, body { height: 100%; width: 100%; margin: 0; }
-
 .iis-bg-dbrown, body {
 	background-color: #201005;
 }
@@ -14,12 +11,15 @@ html, body { height: 100%; width: 100%; margin: 0; }
 	background-color: #442509;
 }
 .iis-login-blank10 {
+	min-height: 25px;
 	height: 10%;
 }
 .iis-login-blank15 {
+	min-height: 50px;
 	height: 15%;
 }
 .iis-login-blank20 {
+	min-height: 100px;
 	height: 20%;
 }
 .iis-login-screen {

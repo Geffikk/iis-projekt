@@ -1,0 +1,1 @@
+# prázdny súbor vyhradený pre login na účet
