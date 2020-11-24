@@ -6,6 +6,7 @@ import org.forum.entities.user.exception.UserNotFoundException;
 import org.forum.service.UserProfileService;
 import org.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 
+@ComponentScan
 @Controller
 public class UserController {
 

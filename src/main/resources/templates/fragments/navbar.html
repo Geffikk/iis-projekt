@@ -2,11 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-
-
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-
 
 <body>
     <nav th:fragment="navbar" class="nav-wrapper amber darken-4">
@@ -21,7 +19,6 @@
             <li sec:authorize="isAuthenticated()"><a th:href="@{/myprofile}">My Profile</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
         </ul>
-
 
         <div th:replace="fragments/user_form :: modal_user_login_form"></div>
         <div th:replace="fragments/create_user_modal_form :: create_user_modal_form"></div>
