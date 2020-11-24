@@ -8,7 +8,7 @@ public class TestJDBC {
     public static void main(String[] args) {
 
 
-        String jdbcUrl = "jdbc:mysql://localhost:9030/hb_database?useSSL=false";
+        String jdbcUrl = "jdbc:mysql://localhost:9030/forum?useSSL=false";
         String user = "root";
         String password = "root";
 
