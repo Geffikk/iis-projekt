@@ -16,6 +16,7 @@ public class ActivationCode {
     private String id;
 
     @OneToOne(mappedBy = "activationCode")
+    @JoinColumn(name = "id_uzivatela")
     private User user;
 
     @Column(name = "date", nullable = false)

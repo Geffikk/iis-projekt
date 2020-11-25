@@ -44,11 +44,29 @@ public class DemoDatabaseSet {
             UserAdditionalInfo tempInfo4 = new UserAdditionalInfo("441223118", "Adam", "Ondejka", "Bardejov", "Som chuj", "Chuj1");
             UserAdditionalInfo tempInfo5 = new UserAdditionalInfo("441223118", "Tomas", "Lysicky", "Bardejov", "Som chuj", "Chuj1");
 
+            ActivationCode tempCode1 = new ActivationCode("1");
+            ActivationCode tempCode2 = new ActivationCode("2");
+            ActivationCode tempCode3 = new ActivationCode("3");
+            ActivationCode tempCode4 = new ActivationCode("4");
+            ActivationCode tempCode5 = new ActivationCode("5");
+
+            tempCode1.setUser(tempUzivatel1);
+            tempCode2.setUser(tempUzivatel2);
+            tempCode3.setUser(tempUzivatel3);
+            tempCode4.setUser(tempUzivatel4);
+            tempCode5.setUser(tempUzivatel5);
+
             tempUzivatel1.setInfo(tempInfo1);
             tempUzivatel2.setInfo(tempInfo2);
             tempUzivatel3.setInfo(tempInfo3);
             tempUzivatel4.setInfo(tempInfo4);
             tempUzivatel5.setInfo(tempInfo5);
+
+            tempUzivatel1.setActivationCode(tempCode1);
+            tempUzivatel2.setActivationCode(tempCode2);
+            tempUzivatel3.setActivationCode(tempCode3);
+            tempUzivatel4.setActivationCode(tempCode4);
+            tempUzivatel5.setActivationCode(tempCode5);
 
 
             Section tempSkupina1 = new Section("IMA", "Matematika");
@@ -150,6 +168,12 @@ public class DemoDatabaseSet {
             session.save(tempInfo3);
             session.save(tempInfo4);
             session.save(tempInfo5);
+
+            session.save(tempCode1);
+            session.save(tempCode2);
+            session.save(tempCode3);
+            session.save(tempCode4);
+            session.save(tempCode5);
 
             session.save(tempSkupina1);
             session.save(tempSkupina2);

@@ -27,7 +27,6 @@ public class UserCreationForm {
     @Size(min = 2, max = 30)
     private String lastName;
 
-    private Gender gender;
 
     @JsonIgnore
     public User getNewUserEntity() {
@@ -84,14 +83,5 @@ public class UserCreationForm {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
 
 }
