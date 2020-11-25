@@ -7,7 +7,7 @@
 <body>
     <nav th:insert="fragments/navbar :: navbar"></nav>
     <div class="container">
-        <div th:replace="fragments/messages :: messages"></div>
+        <div th:insert="fragments/messages :: messages"></div>
 
         <!-- SECTIONS -->
         <div class="row" th:if="${sections.size() > 0}">

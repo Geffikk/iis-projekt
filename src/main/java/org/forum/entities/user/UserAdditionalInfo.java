@@ -34,6 +34,18 @@ public class UserAdditionalInfo {
     @Column(name = "footer", length = 50)
     private String footer;
 
+    public UserAdditionalInfo() {
+    }
+
+    public UserAdditionalInfo(String phone, String name, String lastName, String city, String aboutMe, String footer) {
+        this.phone = phone;
+        this.name = name;
+        this.lastName = lastName;
+        this.city = city;
+        this.aboutMe = aboutMe;
+        this.footer = footer;
+    }
+
     /** GETTERS AND SETTERS **/
     public int getId() {
         return id;
@@ -99,37 +111,6 @@ public class UserAdditionalInfo {
         this.footer = footer;
     }
 
-    @Override
-    public String toString() {
-        return "UserAdditionalInfo{" +
-                "id=" + id +
-                ", user=" + user +
-                ", phone='" + phone + '\'' +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", city='" + city + '\'' +
-                ", aboutMe='" + aboutMe + '\'' +
-                ", footer='" + footer + '\'' +
-                '}';
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserAdditionalInfo)) return false;
-        UserAdditionalInfo that = (UserAdditionalInfo) o;
-        return id == that.id &&
-                Objects.equals(user, that.user) &&
-                Objects.equals(phone, that.phone) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(lastName, that.lastName) &&
-                Objects.equals(city, that.city) &&
-                Objects.equals(aboutMe, that.aboutMe) &&
-                Objects.equals(footer, that.footer);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, user, phone, name, lastName, city, aboutMe, footer);
-    }
 }

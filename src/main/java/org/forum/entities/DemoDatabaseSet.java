@@ -40,21 +40,33 @@ public class DemoDatabaseSet {
             User tempUzivatel3 = new User("andrejchuj@gmail.com", "Ander", "123456");
             User tempUzivatel4 = new User("adamondrejka@gmail.com", "Adam", "123456");
             User tempUzivatel5 = new User("tomaslisina@gmail.com", "Tomasqo", "123456");
-//
-//
+
+            UserAdditionalInfo tempInfo1 = new UserAdditionalInfo("441223118", "Maros", "Geffer", "Bardejov", "Som chuj1", "Chuj1");
+            UserAdditionalInfo tempInfo2 = new UserAdditionalInfo("441223118", "Patrik", "Tomov", "Bardejov", "Som chuj2", "Chuj2");
+            UserAdditionalInfo tempInfo3 = new UserAdditionalInfo("441223118", "Andrej", "Pavlovic", "Leopoldov", "Som chuj", "Chuj1");
+            UserAdditionalInfo tempInfo4 = new UserAdditionalInfo("441223118", "Adam", "Ondejka", "Bardejov", "Som chuj", "Chuj1");
+            UserAdditionalInfo tempInfo5 = new UserAdditionalInfo("441223118", "Tomas", "Lysicky", "Bardejov", "Som chuj", "Chuj1");
+
+            tempUzivatel1.setInfo(tempInfo1);
+            tempUzivatel2.setInfo(tempInfo2);
+            tempUzivatel3.setInfo(tempInfo3);
+            tempUzivatel4.setInfo(tempInfo4);
+            tempUzivatel5.setInfo(tempInfo5);
+
+
             Section tempSkupina1 = new Section("IMA", "Matematika");
             Section tempSkupina2 = new Section("ISA", "Siete 2");
             Section tempSkupina3 = new Section("Hry", "Pocitacove hry");
             Section tempSkupina4 = new Section("Vtipy", "Vtipy");
             Section tempSkupina5 = new Section("Bazar", "BazarPiko");
-//
+
             Topic tempVlakno1 = new Topic("Polsemka");
             Topic tempVlakno2 = new Topic("Skuska");
             Topic tempVlakno3 = new Topic("Metin 2");
             Topic tempVlakno4 = new Topic("Predam sufusky");
             Topic tempVlakno5 = new Topic("Vtipy o ciganoch");
             Topic tempVlakno6 = new Topic("CSKO");
-//
+
             tempVlakno1.setSection(tempSkupina1);
             tempVlakno2.setSection(tempSkupina1);
             tempVlakno3.setSection(tempSkupina3);
@@ -135,6 +147,12 @@ public class DemoDatabaseSet {
             session.save(tempUzivatel3);
             session.save(tempUzivatel4);
             session.save(tempUzivatel5);
+
+            session.save(tempInfo1);
+            session.save(tempInfo2);
+            session.save(tempInfo3);
+            session.save(tempInfo4);
+            session.save(tempInfo5);
 
             session.save(tempSkupina1);
             session.save(tempSkupina2);

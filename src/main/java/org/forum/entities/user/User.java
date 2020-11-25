@@ -44,10 +44,10 @@ public class User {
     private Gender gender;
 
     @Column(name = "rola")
-    private Role role;
+    private String role = "ANONYMOUS";
 
     @Column(name = "id_profile_picture")
-    private Role idProfilePicture;
+    private int idProfilePicture;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "uzivatelske_info_id")
@@ -146,19 +146,19 @@ public class User {
         this.gender = gender;
     }
 
-    public Role getRole() {
+    public String  getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public Role getIdProfilePicture() {
+    public int getIdProfilePicture() {
         return idProfilePicture;
     }
 
-    public void setIdProfilePicture(Role idProfilePicture) {
+    public void setIdProfilePicture(int idProfilePicture) {
         this.idProfilePicture = idProfilePicture;
     }
 
@@ -178,47 +178,8 @@ public class User {
         this.activationCode = activationCode;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", active=" + active +
-                ", removed=" + removed +
-                ", createdAt=" + createdAt +
-                ", lastLoginTime=" + lastLoginTime +
-                ", gender=" + gender +
-                ", role=" + role +
-                ", idProfilePicture=" + idProfilePicture +
-                ", info=" + info +
-                ", activationCode=" + activationCode +
-                '}';
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return id == user.id &&
-                active == user.active &&
-                removed == user.removed &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(createdAt, user.createdAt) &&
-                Objects.equals(lastLoginTime, user.lastLoginTime) &&
-                gender == user.gender &&
-                role == user.role &&
-                idProfilePicture == user.idProfilePicture &&
-                Objects.equals(info, user.info) &&
-                Objects.equals(activationCode, user.activationCode);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, username, password, active, removed, createdAt, lastLoginTime, gender, role, idProfilePicture, info, activationCode);
-    }
+
+
 }

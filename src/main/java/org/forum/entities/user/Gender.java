@@ -5,7 +5,7 @@ import org.forum.exception.ForumException;
 import javax.persistence.Embeddable;
 import org.forum.exception.ForumException;
 
-@Embeddable
+
 public enum Gender {
     MALE(0),
     FEMALE(1);
