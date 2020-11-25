@@ -27,7 +27,7 @@ public class ActivationSenderServiceImpl implements ActivationSenderService {
     @Override
     public void sendActivationCode(User user) {
         createActivationCode(user);
-        saveActivationCode();
+        this.saveActivationCode();
         sendMessage();
     }
 
@@ -38,7 +38,7 @@ public class ActivationSenderServiceImpl implements ActivationSenderService {
     }
 
     private void saveActivationCode() {
-        activationCode = repository.save(activationCode);
+        repository.save(activationCode);
     }
 
     private void sendMessage() {

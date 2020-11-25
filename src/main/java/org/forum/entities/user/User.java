@@ -40,9 +40,6 @@ public class User {
     @Column(name = "posledny_datum_prihlasenia")
     private Date lastLoginTime;
 
-    @Column(name = "pohlavie")
-    private Gender gender;
-
     @Column(name = "rola")
     private String role = "ANONYMOUS";
 
@@ -136,14 +133,6 @@ public class User {
 
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     public String  getRole() {
