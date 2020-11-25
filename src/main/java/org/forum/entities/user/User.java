@@ -3,8 +3,7 @@ package org.forum.entities.user;
 import org.forum.entities.user.activation.ActivationCode;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "uzivatel")
@@ -29,7 +28,7 @@ public class User {
     private String password;
 
     @Column(name = "je_aktivny")
-    private boolean active;
+    private int active = 1;
 
     @Column(name = "is_email_verifed")
     private boolean removed;
@@ -39,9 +38,6 @@ public class User {
 
     @Column(name = "posledny_datum_prihlasenia")
     private Date lastLoginTime;
-
-    @Column(name = "pohlavie")
-    private Gender gender;
 
     @Column(name = "rola")
     private String role = "ANONYMOUS";
@@ -106,11 +102,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean isActive() {
+    public int isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(int active) {
         this.active = active;
     }
 
@@ -136,14 +132,6 @@ public class User {
 
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     public String  getRole() {
@@ -178,8 +166,10 @@ public class User {
         this.activationCode = activationCode;
     }
 
-
-
-
-
+    public List<String> getRoleList() {
+        if(this.role.length() > 0) {
+            return Arrays.asList(this.role.split(","));
+        }
+        return new ArrayList<>();
+    }
 }

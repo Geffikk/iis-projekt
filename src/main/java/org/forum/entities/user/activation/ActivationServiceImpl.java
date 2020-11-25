@@ -45,7 +45,7 @@ public class ActivationServiceImpl implements ActivationService {
     private void activateUser(ActivationCode activationCode) {
         User user = activationCode.getUser();
         //user.setRole(Role.USER);
-        user.setActive(true);
+        user.setActive(1);
         userService.save(user);
     }
 

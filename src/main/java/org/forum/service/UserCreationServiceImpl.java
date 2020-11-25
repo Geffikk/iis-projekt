@@ -27,7 +27,7 @@ public class UserCreationServiceImpl implements UserCreationService {
 
     private User prepareUzivatel(User user) {
         user.setPassword(getEncodedPassword(user.getPassword()));
-        user.setActive(false);
+        user.setActive(1);
         return user;
     }
 

@@ -35,7 +35,6 @@ public class UserCreationForm {
         user.setEmail(email);
         user.setUsername(username);
         user.setPassword(password);
-        user.setGender(gender);
 
         UserAdditionalInfo userAdditionalInfo = new UserAdditionalInfo();
         userAdditionalInfo.setName(name);

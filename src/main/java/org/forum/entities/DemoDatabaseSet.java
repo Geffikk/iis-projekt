@@ -30,9 +30,6 @@ public class DemoDatabaseSet {
 
         try {
 
-
-
-
             // create objects
             System.out.println("Creating new objects...");
             User tempUzivatel1 = new User("marosgeffert@gmail.com", "Marosko", "123456");
