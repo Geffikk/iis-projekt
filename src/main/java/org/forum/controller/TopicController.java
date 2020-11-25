@@ -40,7 +40,7 @@ public class TopicController {
     private UserService userService;
 
     @RequestMapping(value = "{idTopic}", method = RequestMethod.GET)
-    public String getVlaknoById(@PathVariable int  idTopic, Model model) {
+    public String getTopicById(@PathVariable int idTopic, Model model) {
 
         Topic topic = topicService.findOne(idTopic);
         topic.setViews(topic.getViews() + 1);
@@ -53,11 +53,11 @@ public class TopicController {
     }
 
     @RequestMapping(value = "{idTopic}", method = RequestMethod.POST)
-    public String addPrispevok(@Valid @ModelAttribute("newPost") NewPostFrom newPrispevok,
-                               BindingResult result,
-                               Authentication authentication,
-                               @PathVariable int idTopic,
-                               Model model) {
+    public String addPost(@Valid @ModelAttribute("newPost") NewPostFrom newPrispevok,
+                          BindingResult result,
+                          Authentication authentication,
+                          @PathVariable int idTopic,
+                          Model model) {
 
         if(result.hasErrors()) {
             model.addAttribute("topic", topicService.findOne(idTopic));

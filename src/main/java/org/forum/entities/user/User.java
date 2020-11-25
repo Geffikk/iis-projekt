@@ -46,6 +46,9 @@ public class User {
     @Column(name = "rola")
     private Role role;
 
+    @Column(name = "id_profile_picture")
+    private Role idProfilePicture;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "uzivatelske_info_id")
     private UserAdditionalInfo info;
@@ -151,6 +154,14 @@ public class User {
         this.role = role;
     }
 
+    public Role getIdProfilePicture() {
+        return idProfilePicture;
+    }
+
+    public void setIdProfilePicture(Role idProfilePicture) {
+        this.idProfilePicture = idProfilePicture;
+    }
+
     public UserAdditionalInfo getInfo() {
         return info;
     }
@@ -180,6 +191,7 @@ public class User {
                 ", lastLoginTime=" + lastLoginTime +
                 ", gender=" + gender +
                 ", role=" + role +
+                ", idProfilePicture=" + idProfilePicture +
                 ", info=" + info +
                 ", activationCode=" + activationCode +
                 '}';
@@ -200,12 +212,13 @@ public class User {
                 Objects.equals(lastLoginTime, user.lastLoginTime) &&
                 gender == user.gender &&
                 role == user.role &&
+                idProfilePicture == user.idProfilePicture &&
                 Objects.equals(info, user.info) &&
                 Objects.equals(activationCode, user.activationCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, username, password, active, removed, createdAt, lastLoginTime, gender, role, info, activationCode);
+        return Objects.hash(id, email, username, password, active, removed, createdAt, lastLoginTime, gender, role, idProfilePicture, info, activationCode);
     }
 }

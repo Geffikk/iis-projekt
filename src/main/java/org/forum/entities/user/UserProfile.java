@@ -9,18 +9,18 @@ public class UserProfile {
 
     private User user;
 
-    private Set<Post> prispevky;
+    private Set<Post> posts;
 
-    private Set<Topic> vlakna;
+    private Set<Topic> topics;
 
     public UserProfile() {
     }
 
-    public UserProfile(User user, Set<Post> prispevky, Set<Topic> vlakna) {
+    public UserProfile(User user, Set<Post> posts, Set<Topic> topics) {
         super();
         this.user = user;
-        this.prispevky = prispevky;
-        this.vlakna = vlakna;
+        this.posts = posts;
+        this.topics = topics;
     }
 
     public User getUser() {
@@ -31,19 +31,19 @@ public class UserProfile {
         this.user = user;
     }
 
-    public Set<Post> getPrispevky() {
-        return prispevky;
+    public Set<Post> getPosts() {
+        return posts;
     }
 
-    public void setPrispevky(Set<Post> prispevky) {
-        this.prispevky = prispevky;
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
     }
 
-    public Set<Topic> getVlakna() {
-        return vlakna;
+    public Set<Topic> getTopics() {
+        return topics;
     }
 
-    public void setVlakna(Set<Topic> vlakna) {
-        this.vlakna = vlakna;
+    public void setTopics(Set<Topic> topics) {
+        this.topics = topics;
     }
 }

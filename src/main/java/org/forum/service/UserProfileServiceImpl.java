@@ -22,8 +22,8 @@ public class UserProfileServiceImpl implements UserProfileService {
         UserProfile userProfile = new UserProfile();
         User user = userService.findOne(uzivatelId);
         userProfile.setUser(user);
-        userProfile.setPrispevky(postService.findByUser(user));
-        userProfile.setVlakna(topicService.findByUser(user));
+        userProfile.setPosts(postService.findByUser(user));
+        userProfile.setTopics(topicService.findByUser(user));
         return userProfile;
     }
 
