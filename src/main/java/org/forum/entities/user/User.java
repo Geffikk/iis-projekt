@@ -40,7 +40,7 @@ public class User {
     private Date lastLoginTime;
 
     @Column(name = "rola")
-    private String role = "ANONYMOUS";
+    private String role = "USER";
 
     @Column(name = "id_profile_picture")
     private int idProfilePicture;
