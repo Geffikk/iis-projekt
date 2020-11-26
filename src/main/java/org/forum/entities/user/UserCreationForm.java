@@ -38,6 +38,7 @@ public class UserCreationForm {
         UserAdditionalInfo userAdditionalInfo = new UserAdditionalInfo();
         userAdditionalInfo.setName(name);
         userAdditionalInfo.setLastName(lastName);
+        userAdditionalInfo.setUser(user);
 
         user.setInfo(userAdditionalInfo);
 

@@ -8,7 +8,7 @@
 
 <body>
     <div th:fragment="messages" class="row">
-        <div th:if="${message != null}" class="col s12 green lighten-4">
+        <div th:if="${#messages != null}" class="col s12 green lighten-4">
             <p th:text="#{${message}}">Message</p>
         </div>
     </div>

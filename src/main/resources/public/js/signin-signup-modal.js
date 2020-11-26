@@ -3,7 +3,6 @@ const passwordSignupField = $("#password-signup");
 const usernameSignupField = $("#username-signup");
 const nameSignupField = $("#name-signup");
 const lastNameSignupField = $("#lastname-signup");
-const genderSignupField = $('#modal-user-create input[name=gender]:checked');
 
 const registrationForm = {
   email: "",
@@ -12,7 +11,6 @@ const registrationForm = {
   name: "",
   lastName: "",
   birthDay: "",
-  gender: "",
 };
 
 $(document).ready(function () {
@@ -47,7 +45,6 @@ function onSignupSubmit() {
   registrationForm.password = passwordSignupField.val();
   registrationForm.name = nameSignupField.val();
   registrationForm.lastName = lastNameSignupField.val();
-  registrationForm.gender = genderSignupField.val();
 
   sendRegistrationForm();
 }

@@ -1,5 +1,6 @@
 package org.forum.entities.user.activation;
 
+
 import org.forum.entities.user.User;
 import org.forum.entities.user.email.ActivationMessageGenerator;
 import org.forum.entities.user.email.EmailMessage;
@@ -27,7 +28,7 @@ public class ActivationSenderServiceImpl implements ActivationSenderService {
     @Override
     public void sendActivationCode(User user) {
         createActivationCode(user);
-        this.saveActivationCode();
+        saveActivationCode();
         sendMessage();
     }
 

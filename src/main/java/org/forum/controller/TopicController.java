@@ -84,10 +84,10 @@ public class TopicController {
 
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public String processAndAddNewVlakno(@Valid @ModelAttribute("newTopic") NewTopicForm newVlakno,
-                                         BindingResult result,
-                                         Authentication authentication,
-                                         Model model) {
+    public String processAndAddNewTopic(@Valid @ModelAttribute("newTopic") NewTopicForm newTopic,
+                                        BindingResult result,
+                                        Authentication authentication,
+                                        Model model) {
 
         if(result.hasErrors()) {
             model.addAttribute("sections", sectionService.findAll());
@@ -96,9 +96,9 @@ public class TopicController {
 
         Topic topic = new Topic();
         topic.setUser(userService.findByUsername(authentication.getName()));
-        topic.setTitle(newVlakno.getTitle());
-        topic.setContent(newVlakno.getContent());
-        topic.setSection(sectionService.findOne(newVlakno.getSectionId()));
+        topic.setTitle(newTopic.getTitle());
+        topic.setContent(newTopic.getContent());
+        topic.setSection(sectionService.findOne(newTopic.getSectionId()));
         topicService.save(topic);
 
         return "redirect:/topic/" + topic.getId();

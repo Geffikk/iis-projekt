@@ -1,9 +1,10 @@
 package org.forum.entities.user.activation;
 
+
 import org.forum.entities.user.Role;
+import org.forum.entities.user.User;
 import org.forum.exception.ForumException;
 import org.forum.exception.ForumException.ErrorCode;
-import org.forum.entities.user.User;
 import org.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,9 +38,9 @@ public class ActivationServiceImpl implements ActivationService {
         }
     }
 
-    private boolean isActivationRequestInvalid(ActivationCode activationCode, String uzivatelskeMeno) {
+    private boolean isActivationRequestInvalid(ActivationCode activationCode, String username) {
         return activationCode.getUser() == null ||
-            !activationCode.getUser().getUsername().equalsIgnoreCase(uzivatelskeMeno);
+            !activationCode.getUser().getUsername().equalsIgnoreCase(username);
     }
 
     private void activateUser(ActivationCode activationCode) {

@@ -49,8 +49,7 @@ public class User {
     @JoinColumn(name = "uzivatelske_info_id")
     private UserAdditionalInfo info;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "activation_code_id")
+    @OneToOne(mappedBy = "user")
     private ActivationCode activationCode;
 
 

@@ -7,11 +7,10 @@
 <body>
     <nav th:insert="fragments/navbar :: navbar"></nav>
     <div class="container">
-        <div th:insert="fragments/messages :: messages"></div>
 
-        <!-- SECTIONS -->
         <div class="row" th:if="${sections.size() > 0}">
             <div class="col s12">
+
                 <div class="row" id="sections">
                     <div class="col s12">
                         <div class="row">
@@ -24,7 +23,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="row">
@@ -41,9 +39,7 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
-
         </div>
 
         <!-- RECENT TOPICS -->
@@ -62,7 +58,8 @@
                             <div class="col s12">
                                 <div class="section">
                                     <a th:href="@{/topic/} + ${topic.id}">
-                                        <span th:text="'@' + ${topic.user.username} + ': ' + ${topic.title}"></span> <span class="right" th:text="${topic.creationDate} ? ${#calendars.format(topic.creationDate, 'dd MMMM yyyy HH:mm')}"></span> <span class="truncate"
+                                        <span th:text="'@' + ${topic.user.username} + ': ' + ${topic.title}"></span> <span class="right"
+                                                                                                                           th:text="${topic.creationDate} ? ${#calendars.format(topic.creationDate, 'dd MMMM yyyy HH:mm')}"></span> <span class="truncate"
                                                                                                                                                                                                                                           th:text="${topic.content}"></span>
                                     </a>
                                 </div>
@@ -73,6 +70,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- RECENT POSTS -->
 

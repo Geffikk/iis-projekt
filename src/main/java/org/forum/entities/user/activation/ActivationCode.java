@@ -15,7 +15,7 @@ public class ActivationCode {
     @Column(name = "id")
     private String id;
 
-    @OneToOne(mappedBy = "activationCode")
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_uzivatela")
     private User user;
 
