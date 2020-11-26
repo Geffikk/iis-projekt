@@ -13,6 +13,8 @@ public class UserProfile {
 
     private Set<Topic> topics;
 
+
+
     public UserProfile() {
     }
 
@@ -46,4 +48,5 @@ public class UserProfile {
     public void setTopics(Set<Topic> topics) {
         this.topics = topics;
     }
+
 }
