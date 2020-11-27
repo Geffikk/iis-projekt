@@ -21,6 +21,8 @@ public class Section {
     @Column(name = "popis", length = 150)
     private String description;
 
+    @Column(name = "je_verejna")
+    private int isPublic = 1;
 
     /** CONSTRUCTORS **/
     public Section() {
@@ -55,6 +57,14 @@ public class Section {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(int isPublic) {
+        this.isPublic = isPublic;
     }
 
     @Override

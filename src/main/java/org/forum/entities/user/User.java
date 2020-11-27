@@ -52,6 +52,8 @@ public class User {
     @OneToOne(mappedBy = "user")
     private ActivationCode activationCode;
 
+    @Column(name = "je_verejny")
+    private int isPublic = 1;
 
     /** CONSTRUCTORS **/
     @PrePersist
@@ -163,6 +165,18 @@ public class User {
 
     public void setActivationCode(ActivationCode activationCode) {
         this.activationCode = activationCode;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public int getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(int isPublic) {
+        this.isPublic = isPublic;
     }
 
     public List<String> getRoleList() {
