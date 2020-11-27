@@ -52,8 +52,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private void configureAccessRules(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(FOR_AUTHORIZED_USERS).authenticated()
-                .antMatchers(FOR_ADMINS).hasAnyAuthority(ADMINS_ROLES)
+                .antMatchers(FOR_AUTHORIZED_USERS).hasRole("USER")
+                .antMatchers(FOR_ADMINS).hasAnyRole(ADMINS_ROLES)
                 .antMatchers(FOR_EVERYONE).permitAll();
     }
 
