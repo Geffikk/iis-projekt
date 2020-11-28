@@ -27,6 +27,8 @@ public class UserCreationForm {
     @Size(min = 2, max = 30)
     private String lastName;
 
+    @Size(max = 30)
+    private String isPublic;
 
     @JsonIgnore
     public User getNewUserEntity() {
@@ -85,4 +87,11 @@ public class UserCreationForm {
         this.lastName = lastName;
     }
 
+    public String getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(String isPublic) {
+        this.isPublic = isPublic;
+    }
 }

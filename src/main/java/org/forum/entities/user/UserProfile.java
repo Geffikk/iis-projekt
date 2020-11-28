@@ -13,8 +13,6 @@ public class UserProfile {
 
     private Set<Topic> topics;
 
-
-
     public UserProfile() {
     }
 

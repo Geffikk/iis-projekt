@@ -34,4 +34,5 @@ public class UserCreationServiceImpl implements UserCreationService {
     private String getEncodedPassword(String heslo) {
         return passwordEncoder.encode(heslo);
     }
+
 }

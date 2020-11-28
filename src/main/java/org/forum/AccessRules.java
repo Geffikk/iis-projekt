@@ -4,6 +4,7 @@ public class AccessRules {
 
     protected static final String[] FOR_EVERYONE = {
         "/error",
+        "/users/**",
             "/"
     };
 
@@ -18,7 +19,6 @@ public class AccessRules {
 
     protected static final String[] FOR_ADMINS = {
         "/admin/**",
-        "/users/**",
         "/section/new"};
 
     protected static final String[] ADMINS_ROLES = {"ADMIN", "USER", "MODERATOR"};

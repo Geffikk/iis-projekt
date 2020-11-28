@@ -3,6 +3,7 @@ package org.forum.controller;
 import org.forum.entities.user.User;
 import org.forum.entities.user.UserProfile;
 import org.forum.entities.user.exception.UserNotFoundException;
+import org.forum.newform.ProfilForm;
 import org.forum.service.UserProfileService;
 import org.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @ComponentScan
 @Controller
@@ -35,20 +35,30 @@ public class UserController {
 
     @RequestMapping(value = "/user/{username}")
     public String findUserByUsernameAndViewProfilePage(@PathVariable String username,
-                                                       Model model) {
+                                                       Model model, Authentication authentication) {
         UserProfile userProfile;
         try {
             userProfile = userProfileService.findOne(username);
         } catch (NullPointerException e) {
             throw new UserNotFoundException();
         }
+
+        if (userProfile.getUser().getIsPublic() == 0 && !authentication.getName().equals(username)) {
+            return "redirect:/";
+        }
+
         model.addAttribute("userProfile", userProfile);
-        return "user";
+        return "myprofile";
     }
 
     @RequestMapping(value = "/users")
-    public String listOfAllUser(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String listOfAllUser(Model model, @RequestParam(defaultValue="") String name) {
+        try {
+            model.addAttribute("users", userService.findAllByUsername(name));
+        } catch (Exception e) {
+            model.addAttribute("users", userService.findAll());
+            System.out.println("kokotina");
+        }
         return "users";
     }
 
@@ -63,6 +73,7 @@ public class UserController {
             throw new UserNotFoundException();
         }
         model.addAttribute("userProfile", userProfile);
+        model.addAttribute("profilForm", new ProfilForm());
         return "user";
     }
 

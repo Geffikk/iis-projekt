@@ -170,6 +170,22 @@
                             </div>
                         </div>
                     </div>
+                    <form class="col s12" name='form' th:action='@{/myprofile/edit}' th:object="${profilForm}" method="POST">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select class="browser-default" id="section" th:field="*{isPublic}">
+                                    <option value="0" disabled="disabled" selected="selected">Choose section</option>
+                                    <option th:text="public" th:value="public"></option>
+                                    <option th:text="private" th:value="private"></option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input class="btn waves-effect waves-light" type="submit" name="action" th:value="#{user.apply}" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
