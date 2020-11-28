@@ -15,11 +15,6 @@
 
                 <div class="col s2">
                     <div class="row">
-                        <div class="col s12">
-                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.idProfilePicture} + '.jpg'" class="responsive-img z-depth-2" />
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col s12 right-align">
                             <h6 th:text="'@' + ${userProfile.user.username}"></h6>
                             <h6 th:text="${userProfile.user.info.name}" class="bold"></h6>

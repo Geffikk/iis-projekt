@@ -16,9 +16,8 @@
             <li sec:authorize="!hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/login}" class="modal-trigger">Sign in</a></li>
 
             <li><a th:href="@{/users}">Users</a></li>
-            <li sec:authorize="hasAnyAuthority('ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN')"><a th:href="@{/topic/new}">New topic</a></li>
-            <li sec:authorize="hasAnyAuthority('ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN')"><a th:href="@{/myprofile}">My Profile</a></li>
-            <li sec:authorize="hasAnyAuthority('ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN')"><a th:href="@{/logout}">Logout</a></li>
+            <li sec:authorize="hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/myprofile}">My Profile</a></li>
+            <li sec:authorize="hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/logout}">Logout</a></li>
         </ul>
 
         <div th:replace="fragments/user_form :: modal_user_login_form"></div>
