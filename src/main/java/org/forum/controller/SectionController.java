@@ -42,6 +42,31 @@ public class SectionController {
         return "section";
     }
 
+    @RequestMapping(value = "{id}/moderators", method = RequestMethod.GET)
+    public String getModeratorsOfSection(@PathVariable int id,
+                                       Model model) {
+        model.addAttribute("section", sectionService.findOne(id));
+        model.addAttribute("users", sectionService.findOne(id).getModerators());
+        return "moderators_or_members";
+    }
+
+    @RequestMapping(value = "{id}/members", method = RequestMethod.GET)
+    public String getMembersOfSection(@PathVariable int id, Model model) {
+        model.addAttribute("section", sectionService.findOne(id));
+        model.addAttribute("users", sectionService.findOne(id).getMembers());
+        return "moderators_or_members";
+    }
+
+    @RequestMapping(value = "{id}/add", method = RequestMethod.GET)
+    public String addModeratorsAndMembersToSection(@PathVariable int id, Model model){
+        model.addAttribute("section", sectionService.findOne(id));
+        model.addAttribute("users", userService.findAll());
+        return "add";
+    }
+
+
+
+
     @RequestMapping(value = "new", method = RequestMethod.GET)
     public String getNewSectionForm(Model model) {
         model.addAttribute("newSection", new NewSectionForm());
@@ -74,6 +99,11 @@ public class SectionController {
         section = sectionService.save(section);
         return "redirect:/section/" + section.getId();
     }
+
+//    @RequestMapping(value = "moderators", method = RequestMethod.GET)
+//    public String showModeratorsOfSections(Model model){
+//        model.addAttribute("sections", sectionService.)
+//    }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable int id,

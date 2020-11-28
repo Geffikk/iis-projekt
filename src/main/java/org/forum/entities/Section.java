@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -40,11 +41,20 @@ public class Section {
 
     @ManyToMany
     @JoinTable(
-            name = "moderators",
+            name = "moderatori_skupiny",
             joinColumns = @JoinColumn(name = "id_skupiny"),
             inverseJoinColumns = @JoinColumn(name = "id_uzivatela")
     )
-    private List<User> moderators;
+    private Set<User> moderators;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "clenovia_skupiny",
+            joinColumns = @JoinColumn(name = "id_skupiny"),
+            inverseJoinColumns = @JoinColumn(name = "id_uzivatela")
+    )
+    private Set<User> members;
 
     /** CONSTRUCTORS **/
     public Section() {
@@ -111,12 +121,20 @@ public class Section {
         this.isPublic = isPublic;
     }
 
-    public List<User> getModerators() {
+    public Set<User> getModerators() {
         return moderators;
     }
 
-    public void setModerators(List<User> moderators) {
+    public void setModerators(Set<User> moderators) {
         this.moderators = moderators;
+    }
+
+    public Set<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Set<User> members) {
+        this.members = members;
     }
 
     @Override

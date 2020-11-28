@@ -62,11 +62,4 @@ public class HomeResource {
         return "home";
     }
 
-    @RequestMapping("/navbar")
-    public String navbar(Model model) {
-        model.addAttribute("sections", sectionService.findAll());
-        model.addAttribute("topics", topicService.findRecent());
-        model.addAttribute("posts", postService.findRecent());
-        return "fragments/navbar";
-    }
 }
