@@ -16,25 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class HomeResource {
 
-//    @RequestMapping("/")
-//    public String home() {
-//        return "teraz";
-//    }
-//    @GetMapping
-//    public ModelAndView main(Model model) {
-//        model.addAttribute("post", new Post());
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("index.html");
-//        return modelAndView;
-//    }
-//
-//    @PostMapping
-//    public ModelAndView save(Post post, Model model) {
-//        model.addAttribute("post", post);
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("saved.html");
-//        return modelAndView;
-//    }
 
     @Autowired
     private SectionService sectionService;
@@ -45,8 +26,6 @@ public class HomeResource {
     @Autowired
     private PostService postService;
 
-    @Autowired
-    private UserService userService;
 
     @RequestMapping(value = { "/", "/home" })
     public String home(Model model) {

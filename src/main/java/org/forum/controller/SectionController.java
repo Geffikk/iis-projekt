@@ -13,10 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -35,6 +32,7 @@ public class SectionController {
     @Autowired
     private UserService userService;
 
+    /** SECTION OVERVIEW **/
     @RequestMapping("{id}")
     public String getTopicsFromSection(@PathVariable int id,
                                        Model model) {
@@ -43,6 +41,7 @@ public class SectionController {
         return "section/section";
     }
 
+    /** SECTION MODERATORS OVERVIEW **/
     @RequestMapping(value = "{id}/moderators", method = RequestMethod.GET)
     public String getModeratorsOfSection(@PathVariable int id,
                                        Model model) {
@@ -51,6 +50,8 @@ public class SectionController {
         return "section/moderators";
     }
 
+
+    /** SECTION MEMBERS OVERVIEW **/
     @RequestMapping(value = "{id}/members", method = RequestMethod.GET)
     public String getMembersOfSection(@PathVariable int id, Model model) {
         model.addAttribute("section", sectionService.findOne(id));
@@ -78,6 +79,7 @@ public class SectionController {
         return "section/new_section_form";
     }
 
+    /** CREATE NEW SECTION AND REDIRECT TO THIS SECTION VIEW**/
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public String processAndAddNewSection(
             @Valid @ModelAttribute("newSection") NewSectionForm newSkupina,
@@ -101,6 +103,7 @@ public class SectionController {
             section.setIsPublic(0);
         }
         section.setUser(user);
+        section.getModerators().add(user);
         section = sectionService.save(section);
         return "redirect:/section/" + section.getId();
     }
@@ -114,6 +117,11 @@ public class SectionController {
 //        if (!user.getRoles().contains(adminRole)) {
 //            return "redirect:/section/" + id;
 //        }
+        Section section = sectionService.findOne(id);
+        if(!user.equals(section.getUser()) || !section.getModerators().contains(user)){
+            return "redirect:/section/" + id;
+        }
+
         sectionService.delete(id);
 
         model.addFlashAttribute("message", "section.successfully.deleted");
