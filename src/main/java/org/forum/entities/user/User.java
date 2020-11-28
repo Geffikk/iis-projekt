@@ -58,11 +58,19 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-            name = "moderators",
+            name = "moderatori_skupiny",
             joinColumns = @JoinColumn(name = "id_uzivatela"),
             inverseJoinColumns = @JoinColumn(name = "id_skupiny")
     )
-    private List<Section> sections;
+    private List<Section> moderatorOfSections;
+
+    @ManyToMany
+    @JoinTable(
+            name = "clenovia_skupiny",
+            joinColumns = @JoinColumn(name = "id_uzivatela"),
+            inverseJoinColumns = @JoinColumn(name = "id_skupiny")
+    )
+    private List<Section> memberOfSections;
 
     /** CONSTRUCTORS **/
     @PrePersist
@@ -188,12 +196,20 @@ public class User {
         this.isPublic = isPublic;
     }
 
-    public List<Section> getSections() {
-        return sections;
+    public List<Section> getModeratorOfSections() {
+        return moderatorOfSections;
     }
 
-    public void setSections(List<Section> sections) {
-        this.sections = sections;
+    public void setModeratorOfSections(List<Section> sections) {
+        this.moderatorOfSections = sections;
+    }
+
+    public List<Section> getMemberOfSections() {
+        return memberOfSections;
+    }
+
+    public void setMemberOfSections(List<Section> memberOfSections) {
+        this.memberOfSections = memberOfSections;
     }
 
     public List<String> getRoleList() {
