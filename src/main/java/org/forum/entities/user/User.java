@@ -1,10 +1,10 @@
 package org.forum.entities.user;
 
+import org.forum.entities.Section;
 import org.forum.entities.user.activation.ActivationCode;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "uzivatel")
@@ -29,7 +29,7 @@ public class User {
     private String password;
 
     @Column(name = "je_aktivny")
-    private boolean active;
+    private int active = 1;
 
     @Column(name = "is_email_verifed")
     private boolean removed;
@@ -40,20 +40,29 @@ public class User {
     @Column(name = "posledny_datum_prihlasenia")
     private Date lastLoginTime;
 
-    @Column(name = "pohlavie")
-    private Gender gender;
-
     @Column(name = "rola")
-    private Role role;
+    private String role = "USER";
+
+    @Column(name = "id_profile_picture")
+    private int idProfilePicture;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "uzivatelske_info_id")
     private UserAdditionalInfo info;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "activation_code_id")
+    @OneToOne(mappedBy = "user")
     private ActivationCode activationCode;
 
+    @Column(name = "je_verejny")
+    private int isPublic = 1;
+
+    @ManyToMany
+    @JoinTable(
+            name = "moderators",
+            joinColumns = @JoinColumn(name = "id_uzivatela"),
+            inverseJoinColumns = @JoinColumn(name = "id_skupiny")
+    )
+    private List<Section> sections;
 
     /** CONSTRUCTORS **/
     @PrePersist
@@ -103,11 +112,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean isActive() {
+    public int isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(int active) {
         this.active = active;
     }
 
@@ -135,20 +144,20 @@ public class User {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public Role getRole() {
+    public String  getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
+    }
+
+    public int getIdProfilePicture() {
+        return idProfilePicture;
+    }
+
+    public void setIdProfilePicture(int idProfilePicture) {
+        this.idProfilePicture = idProfilePicture;
     }
 
     public UserAdditionalInfo getInfo() {
@@ -167,45 +176,30 @@ public class User {
         this.activationCode = activationCode;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", active=" + active +
-                ", removed=" + removed +
-                ", createdAt=" + createdAt +
-                ", lastLoginTime=" + lastLoginTime +
-                ", gender=" + gender +
-                ", role=" + role +
-                ", info=" + info +
-                ", activationCode=" + activationCode +
-                '}';
+    public int getActive() {
+        return active;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return id == user.id &&
-                active == user.active &&
-                removed == user.removed &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(createdAt, user.createdAt) &&
-                Objects.equals(lastLoginTime, user.lastLoginTime) &&
-                gender == user.gender &&
-                role == user.role &&
-                Objects.equals(info, user.info) &&
-                Objects.equals(activationCode, user.activationCode);
+    public int getIsPublic() {
+        return isPublic;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, username, password, active, removed, createdAt, lastLoginTime, gender, role, info, activationCode);
+    public void setIsPublic(int isPublic) {
+        this.isPublic = isPublic;
+    }
+
+    public List<Section> getSections() {
+        return sections;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
+    }
+
+    public List<String> getRoleList() {
+        if(this.role.length() > 0) {
+            return Arrays.asList(this.role.split(","));
+        }
+        return new ArrayList<>();
     }
 }

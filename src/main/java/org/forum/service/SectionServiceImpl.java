@@ -1,12 +1,14 @@
 package org.forum.service;
 
 import org.forum.entities.Section;
+import org.forum.entities.user.User;
 import org.forum.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class SectionServiceImpl implements SectionService {
@@ -39,6 +41,11 @@ public class SectionServiceImpl implements SectionService {
     @Override
     public Section save(Section section) {
         return sectionRepository.save(section);
+    }
+
+    @Override
+    public Set<Section> findByUser(User user) {
+        return sectionRepository.findByUser(user);
     }
 
     @Override

@@ -1,9 +1,12 @@
 package org.forum.service;
 
 import org.forum.entities.Section;
+import org.forum.entities.Topic;
+import org.forum.entities.user.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public interface SectionService {
@@ -15,6 +18,8 @@ public interface SectionService {
     Section findByName(String name);
 
     Section save(Section section);
+
+    Set<Section> findByUser(User user);
 
     void delete(int id);
 

@@ -5,6 +5,7 @@ import org.forum.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,15 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new RuntimeException("Uzivatel s menom: " + username + " nebol najdeny!");
+        }
+        return user;
+    }
+
+    public List<User> findAllByUsername(String name) {
+        List<User> user = userRepository.findByUsernameLike("%" + name + "%");
+
+        if (user == null) {
+            throw new RuntimeException("Uzivatel s menom: " + name + " nebol najdeny!");
         }
         return user;
     }

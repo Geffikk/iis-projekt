@@ -1,7 +1,12 @@
 package org.forum.entities;
 
+import org.forum.entities.user.User;
+
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+
 
 @Entity
 @Table(name = "skupina")
@@ -13,6 +18,12 @@ public class Section {
     @Column(name = "id")
     private int id;
 
+    /** ZAKLADATEL SKUPINY **/
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "id_uzivatela")
+    private User user;
+
     /** NAZOV SKUPINY **/
     @Column(name = "nazov", length = 50)
     private String name;
@@ -21,6 +32,19 @@ public class Section {
     @Column(name = "popis", length = 150)
     private String description;
 
+    @Column(name = "datum_zalozenia", updatable = false, nullable = false)
+    private Date creationDate;
+
+    @Column(name = "je_verejna")
+    private int isPublic = 1;
+
+    @ManyToMany
+    @JoinTable(
+            name = "moderators",
+            joinColumns = @JoinColumn(name = "id_skupiny"),
+            inverseJoinColumns = @JoinColumn(name = "id_uzivatela")
+    )
+    private List<User> moderators;
 
     /** CONSTRUCTORS **/
     public Section() {
@@ -32,6 +56,11 @@ public class Section {
         this.description = popis;
     }
 
+    @PrePersist
+    protected void onCreate() {
+        this.creationDate = new Date();
+    }
+
     /** GETTERS AND SETTERS **/
     public int getId() {
         return id;
@@ -39,6 +68,15 @@ public class Section {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
@@ -55,6 +93,30 @@ public class Section {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public int getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(int isPublic) {
+        this.isPublic = isPublic;
+    }
+
+    public List<User> getModerators() {
+        return moderators;
+    }
+
+    public void setModerators(List<User> moderators) {
+        this.moderators = moderators;
     }
 
     @Override

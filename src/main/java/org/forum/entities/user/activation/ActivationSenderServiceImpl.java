@@ -1,5 +1,6 @@
 package org.forum.entities.user.activation;
 
+
 import org.forum.entities.user.User;
 import org.forum.entities.user.email.ActivationMessageGenerator;
 import org.forum.entities.user.email.EmailMessage;
@@ -38,7 +39,7 @@ public class ActivationSenderServiceImpl implements ActivationSenderService {
     }
 
     private void saveActivationCode() {
-        activationCode = repository.save(activationCode);
+        repository.save(activationCode);
     }
 
     private void sendMessage() {
