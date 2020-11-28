@@ -27,7 +27,8 @@
                                         name="action"
                                         class="btn waves-effect waves-light"
                                         th:text="#{user.view}"
-                                        th:disabled="${user.isPublic == 0 && user.getUsername() != #authentication.name}"></button>
+                                        th:disabled="${user.isPublic == 0 && user.getUsername() != #authentication.name}">
+                                </button>
                             </form>
                         </td>
                     </tr>

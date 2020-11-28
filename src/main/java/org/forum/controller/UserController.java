@@ -124,6 +124,12 @@ public class UserController {
         return "login";
     }
 
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(){
+        return "register";
+    }
+
+
     @RequestMapping(value = "/logout")
     public String logOutAndRedirectToLoginPage(Authentication authentication,
                                                HttpServletRequest request,

@@ -48,6 +48,16 @@ public class SectionServiceImpl implements SectionService {
         return sectionRepository.findByUser(user);
     }
 
+//    @Override
+//    public Set<Section> findAllByModerators() {
+//        return sectionRepository.findAllByModerators();
+//    }
+//
+//    @Override
+//    public Set<Section> findAllByMembers() {
+//        return sectionRepository.findAllByMembers();
+//    }
+
     @Override
     public void delete(int id) {
         delete(findOne(id));

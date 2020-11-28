@@ -1,0 +1,48 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
+    <form th:action="@{/section/} +  ${section.id} + '/add'">
+        <input type="submit" value="SEARCH FOR USERS" />
+    </form>
+    <div class="row">
+        <div class="col s12">
+            <table>
+                <tr>
+                    <th>NAME</th>
+                    <th>EMAIL</th>
+                </tr>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.username}">Onions</td>
+                    <td th:text="${user.email}">123</td>
+                    <td>
+                        <form>
+                            <button type="submit"
+                                    name="action"
+                                    class="btn waves-effect waves-light"
+                                    th:text="#{delete.mod}">
+                            </button>
+                        </form>
+                        <form>
+                            <button type="submit"
+                                    name="action"
+                                    class="btn waves-effect waves-light"
+                                    th:text="#{delete.mem}">
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
