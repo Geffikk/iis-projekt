@@ -3,7 +3,6 @@ body {
 	min-height: 100vh;
 	flex-direction: column;
 	background-color: #DABE99;
-	padding-top: 16vh;
 }
 
 footer {
@@ -31,8 +30,13 @@ body>.container {
 	background-color: #35281e;
 }
 .iis-footer {
-	padding-top: 20px;
+
 	color: #E2BB7B;
+}
+.iis-copyright {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #261C15;
 }
 .iis-btn {
 	width: 100px;
@@ -48,6 +52,9 @@ body>.container {
 }
 a.iis-brand:link, a.iis-brand:visited {
 	color: #E2BB7B;
+}
+.iis-resp-padding {
+	padding-top: 22vh !important;
 }
 /* update bootstrap to keep navbar horizontal */
 .navbar-nav { flex-direction:row !important; }
