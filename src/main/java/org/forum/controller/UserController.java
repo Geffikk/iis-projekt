@@ -1,9 +1,12 @@
 package org.forum.controller;
 
+import org.forum.entities.Section;
 import org.forum.entities.user.User;
 import org.forum.entities.user.UserProfile;
 import org.forum.entities.user.exception.UserNotFoundException;
+import org.forum.newform.NewSectionForm;
 import org.forum.newform.ProfilForm;
+import org.forum.service.SectionService;
 import org.forum.service.UserProfileService;
 import org.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +15,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +37,9 @@ public class UserController {
 
     @Autowired
     private UserProfileService userProfileService;
+
+    @Autowired
+    private SectionService sectionService;
 
     @RequestMapping(value = "/user/{username}")
     public String findUserByUsernameAndViewProfilePage(@PathVariable String username,
@@ -74,6 +82,7 @@ public class UserController {
         }
         model.addAttribute("userProfile", userProfile);
         model.addAttribute("profilForm", new ProfilForm());
+        model.addAttribute("newSection", new NewSectionForm());
         return "user";
     }
 
@@ -123,5 +132,28 @@ public class UserController {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
         return "redirect:/login?logout=true";
+    }
+
+    @RequestMapping(value = "/myprofile/edit/sec/{name}", method = RequestMethod.POST)
+    public String editSection(
+            @Valid @ModelAttribute("newSection") NewSectionForm newSkupina,
+            BindingResult result,
+            Authentication authentication,
+            @PathVariable String name) {
+
+        if (result.hasErrors()) {
+            return "user";
+        }
+        User user = userService.findByUsername(authentication.getName());
+        Section section = sectionService.findByName(name);
+
+        if (newSkupina.getIsPublic().toLowerCase().equals("public")) {
+            section.setIsPublic(1);
+        } else {
+            section.setIsPublic(0);
+        }
+        section.setUser(user);
+        section = sectionService.save(section);
+        return "redirect:/myprofile/";
     }
 }

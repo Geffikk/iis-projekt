@@ -5,11 +5,11 @@ public class AccessRules {
     protected static final String[] FOR_EVERYONE = {
         "/error",
         "/users/**",
-            "/"
+        "/user/**",
+        "/"
     };
 
     protected static final String[] FOR_AUTHORIZED_USERS = {
-        "/user/**",
         "/topic/new/**",
         "/topic/delete/**",
         "/section/delete/**",
