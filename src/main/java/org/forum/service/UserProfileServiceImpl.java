@@ -17,6 +17,9 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Autowired
     private TopicService topicService;
 
+    @Autowired
+    private SectionService sectionService;
+
     @Override
     public UserProfile findOne(int uzivatelId) {
         UserProfile userProfile = new UserProfile();
@@ -24,6 +27,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         userProfile.setUser(user);
         userProfile.setPosts(postService.findByUser(user));
         userProfile.setTopics(topicService.findByUser(user));
+        userProfile.setSections(sectionService.findByUser(user));
         return userProfile;
     }
 

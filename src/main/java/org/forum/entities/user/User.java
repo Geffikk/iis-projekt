@@ -1,5 +1,6 @@
 package org.forum.entities.user;
 
+import org.forum.entities.Section;
 import org.forum.entities.user.activation.ActivationCode;
 
 import javax.persistence.*;
@@ -54,6 +55,14 @@ public class User {
 
     @Column(name = "je_verejny")
     private int isPublic = 1;
+
+    @ManyToMany
+    @JoinTable(
+            name = "moderators",
+            joinColumns = @JoinColumn(name = "id_uzivatela"),
+            inverseJoinColumns = @JoinColumn(name = "id_skupiny")
+    )
+    private List<Section> sections;
 
     /** CONSTRUCTORS **/
     @PrePersist
@@ -177,6 +186,14 @@ public class User {
 
     public void setIsPublic(int isPublic) {
         this.isPublic = isPublic;
+    }
+
+    public List<Section> getSections() {
+        return sections;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
     }
 
     public List<String> getRoleList() {

@@ -16,7 +16,7 @@
                 <div class="col s2">
                     <div class="row">
                         <div class="col s12">
-                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.id} + '.jpg'" class="responsive-img z-depth-2" />
+                            <img th:src="@{/resources/img/pp/} + ${userProfile.user.idProfilePicture} + '.jpg'" class="responsive-img z-depth-2" />
                         </div>
                     </div>
                     <div class="row">
@@ -70,6 +70,42 @@
                         </div>
 
                     </div>
+
+                    <!-- SECTIONS -->
+
+                    <div class="row" th:if="${userProfile.sections.size() > 0}">
+                        <div class="col s12">
+                            <div class="row z-depth-2">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <h5 class="center bold">SECTIONS</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <span>Date</span> <span class="right">Section</span>
+                                            <div class="divider"></div>
+                                        </div>
+                                        <div class="col s6">
+                                            <span>Description</span> <span class="right">is public</span>
+                                            <div class="divider"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" th:each="section : ${userProfile.sections}">
+                                        <div class="col s6">
+                                            <span th:text="${section.creationDate} ? ${#calendars.format(section.creationDate, ' d MMM yy HH:mm')}"></span>
+                                            <a th:href="@{/section/} + ${section.id}" th:text="${section.name}" class="right"></a>
+                                        </div>
+                                        <div class="col s6">
+                                            <a th:text="${section.description}"></a>
+                                            <span th:text="${section.isPublic}" class="right"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
 
                     <!-- TOPICS -->
@@ -158,10 +194,12 @@
                                     <div class="divider"></div>
                                     <div class="row">
                                         <div class="col s6 center">
+                                            <p>Sections</p>
                                             <p>Topics</p>
                                             <p>Posts</p>
                                         </div>
                                         <div class="col s6 center">
+                                            <p th:text="${userProfile.sections.size()}"></p>
                                             <p th:text="${userProfile.topics.size()}"></p>
                                             <p th:text="${userProfile.posts.size()}"></p>
                                         </div>

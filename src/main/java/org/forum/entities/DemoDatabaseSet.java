@@ -57,6 +57,13 @@ public class DemoDatabaseSet {
             Section tempSkupina4 = new Section("Vtipy", "Vtipy");
             Section tempSkupina5 = new Section("Bazar", "BazarPiko");
 
+            tempSkupina1.setUser(tempUzivatel1);
+            tempSkupina3.setUser(tempUzivatel3);
+            tempSkupina4.setUser(tempUzivatel5);
+            tempSkupina2.setUser(tempUzivatel2);
+            tempSkupina5.setUser(tempUzivatel4);
+
+
             Topic tempVlakno1 = new Topic("Polsemka");
             Topic tempVlakno2 = new Topic("Skuska");
             Topic tempVlakno3 = new Topic("Metin 2");

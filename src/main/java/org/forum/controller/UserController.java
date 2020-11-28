@@ -81,7 +81,7 @@ public class UserController {
         try {
             String path =
                     request.getSession().getServletContext().getRealPath("/resources/public/img/pp/");
-            profilePicture.transferTo(new File(path + user.getId() + ".jpg"));
+            profilePicture.transferTo(new File(path + user.getIdProfilePicture() + ".jpg"));
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }
