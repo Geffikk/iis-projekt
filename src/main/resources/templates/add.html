@@ -20,18 +20,18 @@
                 </tr>
                 <tr th:each="user : ${users}">
                     <td th:text="${user.username}">Onions</td>
-                    <td th:text="${user.email}">123</td>
+                    <td th:text="${user.id}">123</td>
                     <td>
-                        <form>
+                        <form th:action="@{/section/} + ${section.id} + '/add'">
                             <button type="submit"
-                                    name="action"
+                                    th:name="${user.id}"
                                     class="btn waves-effect waves-light"
                                     th:text="#{add.user.as.moderator}">
                             </button>
                         </form>
-                        <form>
+                        <form th:action="@{/section/} + ${section.id} + '/add'">
                             <button type="submit"
-                                    name="action"
+                                    th:name="${user.id}"
                                     class="btn waves-effect waves-light"
                                     th:text="#{add.user.as.member}">
                             </button>

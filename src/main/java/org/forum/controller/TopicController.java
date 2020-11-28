@@ -39,6 +39,7 @@ public class TopicController {
     @Autowired
     private UserService userService;
 
+
     @RequestMapping(value = "{idTopic}", method = RequestMethod.GET)
     public String getTopicById(@PathVariable int idTopic, Model model) {
 

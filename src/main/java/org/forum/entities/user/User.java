@@ -218,4 +218,31 @@ public class User {
         }
         return new ArrayList<>();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id == user.id &&
+                active == user.active &&
+                removed == user.removed &&
+                idProfilePicture == user.idProfilePicture &&
+                isPublic == user.isPublic &&
+                email.equals(user.email) &&
+                username.equals(user.username) &&
+                password.equals(user.password) &&
+                createdAt.equals(user.createdAt) &&
+                Objects.equals(lastLoginTime, user.lastLoginTime) &&
+                role.equals(user.role) &&
+                info.equals(user.info) &&
+                activationCode.equals(user.activationCode) &&
+                Objects.equals(moderatorOfSections, user.moderatorOfSections) &&
+                Objects.equals(memberOfSections, user.memberOfSections);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, username, password, active, removed, createdAt, lastLoginTime, role, idProfilePicture, info, activationCode, isPublic, moderatorOfSections, memberOfSections);
+    }
 }
