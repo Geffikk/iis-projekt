@@ -57,12 +57,19 @@ public class SectionController {
         if (result.hasErrors()) {
             return "new_section_form";
         }
+        System.out.println(newSkupina.getIsPublic());
 
         User user = userService.findByUsername(authentication.getName());
 
         Section section = new Section();
         section.setName(newSkupina.getName());
         section.setDescription(newSkupina.getDescription());
+
+        if (newSkupina.getIsPublic().toLowerCase().equals("public")) {
+            section.setIsPublic(1);
+        } else {
+            section.setIsPublic(0);
+        }
         section.setUser(user);
         section = sectionService.save(section);
         return "redirect:/section/" + section.getId();

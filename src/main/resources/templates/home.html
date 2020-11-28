@@ -18,7 +18,7 @@
                                 <h4 th:text="#{sections}">Sections</h4>
                             </div>
                             <div class="col s6">
-                                <a sec:authorize="hasAnyAuthority('ROLE_USER')" th:href="@{/section/new}" th:text="#{new.section}"
+                                <a sec:authorize="hasAnyAuthority('ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN')" th:href="@{/section/new}" th:text="#{new.section}"
                                    class="right waves-effect waves-light btn"></a>
                             </div>
                         </div>
@@ -30,10 +30,10 @@
                         <ul class="collapsible" data-collapsible="accordion">
                             <li th:each="section : ${sections}">
                                 <div class="collapsible-header">
-                                    <a th:href="@{/section/} + ${section.id}" th:text="${section.name}"></a>
-                                </div>
-                                <div class="collapsible-body">
-                                    <p th:text="${section.description}"></p>
+                                    <div th:text="${section.name}"></div>
+                                    <form th:action="@{/section/} + ${section.id}">
+                                        <button th:text="EDIT" th:disabled="${section.getIsPublic() == 0}"></button>
+                                    </form>
                                 </div>
                             </li>
                         </ul>
