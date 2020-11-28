@@ -10,6 +10,9 @@ public class NewSectionForm {
     @Size(max = 300)
     private String description;
 
+    @Size(max = 10)
+    private String isPublic;
+
     public NewSectionForm() {
     }
 
@@ -27,5 +30,13 @@ public class NewSectionForm {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(String isPublic) {
+        this.isPublic = isPublic;
     }
 }

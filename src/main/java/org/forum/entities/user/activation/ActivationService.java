@@ -2,5 +2,5 @@ package org.forum.entities.user.activation;
 
 public interface ActivationService {
 
-    void activate(String uzivatelskeMeno, String id);
+    void activate(String username, String id);
 }

@@ -15,5 +15,4 @@ public class IisForumApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(IisForumApplication.class, args);
 	}
-
 }

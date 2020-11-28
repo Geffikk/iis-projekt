@@ -17,13 +17,17 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Autowired
     private TopicService topicService;
 
+    @Autowired
+    private SectionService sectionService;
+
     @Override
     public UserProfile findOne(int uzivatelId) {
         UserProfile userProfile = new UserProfile();
         User user = userService.findOne(uzivatelId);
         userProfile.setUser(user);
-        userProfile.setPrispevky(postService.findByUser(user));
-        userProfile.setVlakna(topicService.findByUser(user));
+        userProfile.setPosts(postService.findByUser(user));
+        userProfile.setTopics(topicService.findByUser(user));
+        userProfile.setSections(sectionService.findByUser(user));
         return userProfile;
     }
 

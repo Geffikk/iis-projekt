@@ -2,21 +2,29 @@ package org.forum.service;
 
 import org.forum.entities.user.User;
 import org.forum.entities.user.exception.UserNotFoundException;
+import org.forum.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserService userService;
 
+    private UserRepository userRepository;
+
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String uzivatelskeMeno) throws UsernameNotFoundException {
@@ -34,8 +42,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserDetails tryToLoadUserByUsername(String username) {
         User user = userService.findByUsername(username);
-
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        UserPrincipal userPrincipal = new UserPrincipal(user);
+        /*Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
 
@@ -44,8 +52,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 user.getPassword(),
                 user.isActive(),
                 true, true, true,
-                grantedAuthorities);
+                grantedAuthorities);*/
 
-        return userDetails;
+        return userPrincipal;
     }
 }
