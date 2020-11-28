@@ -11,6 +11,7 @@ footer {
 
 nav {
 	font-weight: 300;
+	box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
 }
 
 body>.container {
@@ -46,7 +47,7 @@ body>.container {
 	background-color: #261C15;
 }
 .iis-btn {
-	width: 100px;
+	min-width: 100px;
 	background-color: #BF9972;
 	border-color: #BF9972;
 }
@@ -56,6 +57,11 @@ body>.container {
 }
 .iis-brand {
 	font-size: 100%;
+}
+.iis-oval {
+	padding: 10px;
+	border-radius: 15px;
+	box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
 }
 a.iis-brand:link, a.iis-brand:visited {
 	color: #E2BB7B;
