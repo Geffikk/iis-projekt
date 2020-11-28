@@ -30,9 +30,8 @@
                         <ul class="collapsible" data-collapsible="accordion">
                             <li th:each="section : ${sections}">
                                 <div class="collapsible-header">
-                                    <div th:text="${section.name}"></div>
                                     <form th:action="@{/section/} + ${section.id}">
-                                        <button th:text="EDIT" th:disabled="${section.getIsPublic() == 0}"></button>
+                                        <button th:text="${section.name}" th:disabled="${section.getIsPublic() == 0 && #authorization.expression('hasRole(''ROLE_ANONYMOUS'')')}"></button>
                                     </form>
                                 </div>
                             </li>

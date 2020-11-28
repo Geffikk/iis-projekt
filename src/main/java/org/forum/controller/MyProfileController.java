@@ -46,7 +46,7 @@ public class MyProfileController {
         }
 
         user.setIsPublic(ifPublic);
-        user = userService.save(user);
+        userService.save(user);
         return "redirect:/myprofile/";
     }
 }
