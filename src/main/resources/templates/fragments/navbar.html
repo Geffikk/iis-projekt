@@ -7,17 +7,31 @@
 </head>
 
 <body>
-    <nav th:fragment="navbar" class="nav-wrapper amber darken-4">
-        <a th:href=" @{~/}" class="brand-logo" style="margin-left: 10px;"> Forum</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-
-            <!-- <li sec:authorize="!hasAnyRole('USER, MODERATOR, ADMIN')"><a href="#modal-user-create" class="modal-trigger">Sign up</a></li> -->
-            <li sec:authorize="!hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/register}" class="modal-trigger">Sign up</a></li>
-            <li sec:authorize="!hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/login}" class="modal-trigger">Sign in</a></li>
-
-            <li><a th:href="@{/users}">Users</a></li>
-            <li sec:authorize="hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/myprofile}">My Profile</a></li>
-            <li sec:authorize="hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/logout}">Logout</a></li>
+    <nav th:fragment="navbar" class="navbar navbar-expand-sm fixed-top iis-cocoa">
+        <h1>
+            <a th:href=" @{~/}" class="navbar-brand mr-auto iis-brand" style="margin-left: 10px;">IIS Forum</a>
+        </h1>
+        <ul id="nav-mobile" class="navbar-nav ml-auto">
+            <!--
+			<li sec:authorize="!hasAnyRole('USER, MODERATOR, ADMIN')" class="nav-item">
+                <a class="nav-link btn iis-btn modal-trigger" href="#modal-user-create">Sign up</a>
+            </li>
+			-->
+            <li sec:authorize="!hasAnyRole('USER, MODERATOR, ADMIN')" class="nav-item">
+                <a class="nav-link btn iis-btn modal-trigger" th:href="@{/login}">Sign in</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn iis-btn" th:href="@{/users}">Users</a>
+            </li>
+            <li sec:authorize="hasAnyAuthority('ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN')" class="nav-item">
+                <a class="nav-link btn iis-btn" th:href="@{/topic/new}">New topic</a>
+            </li>
+            <li sec:authorize="hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/myprofile}">
+                <a class="nav-link btn iis-btn" th:href="@{/myprofile}">My Profile</a>
+            </li>
+            <li sec:authorize="hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/logout}">
+                <a class="nav-link btn iis-btn" th:href="@{/logout}">Logout</a>
+            </li>
         </ul>
 
         <div th:replace="fragments/user_form :: modal_user_login_form"></div>
