@@ -38,7 +38,7 @@ body>.container {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	height: 165px;
+	min-height: 165px;
 	color: #E2BB7B;
 }
 .iis-copyright {
@@ -55,24 +55,52 @@ body>.container {
 	background-color: #A47449;
 	border-color: #A47449;
 }
-.iis-brand {
-	font-size: 100%;
+.iis-btn2 {
+	height: 50px;
+	background-color: #A47449;
+	border-color: #35281e;
+}
+.iis-btn2:hover {
+	background-color: #BF9972;
+	border-color: #35281e;
 }
 .iis-oval {
 	padding: 10px;
 	border-radius: 15px;
 	box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
 }
+.iis-topics {
+	padding: 5px;
+	background-color: #81613e;
+	border-color: #8F6B45;
+
+	border-style: inset;
+}
+.iis-tpc-head {
+	font-weight: bold;
+	font-size: 20px;
+}
+div.iis-topics a, div.iis-topics a:hover {
+	color: #E2BB7B;
+}
+
+.iis-brand {
+	font-size: 100%;
+}
 a.iis-brand:link, a.iis-brand:visited {
 	color: #E2BB7B;
 }
+ul.iis-list {
+	list-style-type: none;
+	padding-left: 0;
+	margin-left: 0;
+}
 .iis-resp-padding {
 	padding-top: 22vh !important;
-	padding-bottom: 165px;
+	padding-bottom: 230px;
 }
-/* update bootstrap to keep navbar horizontal */
-.navbar-nav { flex-direction:row !important; }
-
 div.row.iis-coffee {
 	margin-bottom: 10px;
 }
+/* update bootstrap to keep navbar horizontal */
+.navbar-nav { flex-direction:row !important; }
