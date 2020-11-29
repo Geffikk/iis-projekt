@@ -9,7 +9,6 @@
         <nav th:insert="fragments/navbar :: navbar"></nav>
         <div class="container iis-camel iis-resp-padding">
             <div class="container">
-
                 <div class="row iis-coffee iis-oval" th:if="${sections.size() > 0}">
                     <div class="col">
                         <div class="row" id="sections">
@@ -20,8 +19,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="d-flex justify-content-end">
-                                            <a sec:authorize="hasAnyAuthority('ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN')" th:href="@{/section/new}" th:text="#{new.section}"
-                                               class="btn iis-btn"></a>
+                                            <a sec:authorize="hasAnyAuthority('ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN')" th:href="@{/section/new}" th:text="#{new.section}" class="btn iis-btn"></a>
                                         </div>
                                     </div>
                                 </div>

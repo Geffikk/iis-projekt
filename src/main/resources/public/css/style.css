@@ -18,6 +18,9 @@ body>.container {
 	padding-top: 50px;
 	min-height: 75vh;
 }
+th, td {
+	min-width: 100px;
+}
 .bold {
 	font-weight: bold;
 }
@@ -46,6 +49,12 @@ body>.container {
 	padding-bottom: 10px;
 	background-color: #261C15;
 }
+.iis-back {
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 35px;
+}
 .iis-btn {
 	min-width: 100px;
 	background-color: #BF9972;
@@ -69,6 +78,17 @@ body>.container {
 	border-radius: 15px;
 	box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
 }
+.iis-tpc-head {
+	font-weight: bold;
+	font-size: 20px;
+}
+.iis-link {
+	color: #E2BB7B;
+}
+.iis-link:hover {
+	text-decoration: underline;
+	color: #E2BB7B;
+}
 .iis-topics {
 	padding: 5px;
 	background-color: #81613e;
@@ -76,14 +96,9 @@ body>.container {
 
 	border-style: inset;
 }
-.iis-tpc-head {
-	font-weight: bold;
-	font-size: 20px;
-}
 div.iis-topics a, div.iis-topics a:hover {
 	color: #E2BB7B;
 }
-
 .iis-brand {
 	font-size: 100%;
 }
@@ -98,6 +113,9 @@ ul.iis-list {
 .iis-resp-padding {
 	padding-top: 22vh !important;
 	padding-bottom: 230px;
+}
+.iis-users-padding {
+	padding-bottom: 300px;
 }
 div.row.iis-coffee {
 	margin-bottom: 10px;

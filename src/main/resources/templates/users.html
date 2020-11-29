@@ -7,14 +7,15 @@
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
     <div class="iis-main">
-        <div class="container iis-camel iis-resp-padding">
-            <div class="container iis-coffee"
+        <div class="container iis-camel iis-users-padding iis-resp-padding">
+            <div class="container iis-coffee iis-oval p-4"
                 <form th:action="@{/users}">
-                    <input type="text" class="form-control" name="name" placeholder="Search User" />
-                    <input type="submit" value="Search" />
+                    <input type="text" class="form-control iis-btn2" name="name" placeholder="Search User" />
+                    <input class="btn iis-btn" type="submit" value="Search" />
                 </form>
+                <br>
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col">
                         <table>
                             <tr>
                                 <th>NAME</th>
@@ -27,13 +28,15 @@
                                     <form th:action="@{/user/} + ${user.username}">
                                         <button type="submit"
                                                 name="action"
-                                                class="btn waves-effect waves-light"
+                                                class="btn iis-link"
                                                 th:text="#{user.view}"
-                                                th:disabled="${user.isPublic == 0 && user.getUsername() != #authentication.name}"></button>
+                                                th:disabled="${user.isPublic == 0 && user.getUsername() != #authentication.name}"
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
                         </table>
+
                     </div>
                 </div>
         </div>
