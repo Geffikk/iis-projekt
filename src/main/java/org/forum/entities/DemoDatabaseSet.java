@@ -6,6 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 
 public class DemoDatabaseSet {
 
@@ -62,6 +67,14 @@ public class DemoDatabaseSet {
             tempSkupina4.setUser(tempUzivatel5);
             tempSkupina2.setUser(tempUzivatel2);
             tempSkupina5.setUser(tempUzivatel4);
+
+            Set<User> moderators = new HashSet<>();
+            moderators.add(tempUzivatel2);
+            moderators.add(tempUzivatel3);
+            tempSkupina1.setModerators(moderators);
+            tempSkupina2.setModerators(moderators);
+            tempSkupina3.setModerators(moderators);
+
 
 
             Topic tempVlakno1 = new Topic("Polsemka");

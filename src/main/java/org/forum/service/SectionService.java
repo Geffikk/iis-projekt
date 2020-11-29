@@ -21,6 +21,10 @@ public interface SectionService {
 
     Set<Section> findByUser(User user);
 
+    //Set<Section> findAllByModerators();
+
+    //Set<Section> findAllByMembers();
+
     void delete(int id);
 
     void delete(Section section);

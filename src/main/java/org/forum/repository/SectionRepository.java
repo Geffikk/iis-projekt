@@ -14,4 +14,8 @@ public interface SectionRepository extends JpaRepository<Section, Integer> {
     Section findByName(String name);
 
     Set<Section> findByUser(User user);
+
+   // Set<Section> findAllByModerators();
+
+    //Set<Section> findAllByMembers();
 }
