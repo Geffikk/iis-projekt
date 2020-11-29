@@ -49,7 +49,7 @@ public class TopicController {
         model.addAttribute("topic", topic);
         model.addAttribute("posts", postService.findByTopic(idTopic));
         model.addAttribute("newPost", new NewPostFrom());
-        return "topic";
+        return "section/topic/topic";
     }
 
     @RequestMapping(value = "{idTopic}", method = RequestMethod.POST)
@@ -62,7 +62,7 @@ public class TopicController {
         if(result.hasErrors()) {
             model.addAttribute("topic", topicService.findOne(idTopic));
             model.addAttribute("posts", postService.findByTopic(idTopic));
-            return "topic";
+            return "section/topic/topic";
         }
 
         Post post = new Post();
@@ -79,7 +79,7 @@ public class TopicController {
     public String getNewVlaknoForm(Model model) {
         model.addAttribute("newTopic", new NewTopicForm());
         model.addAttribute("sections", sectionService.findAll());
-        return "new_topic_form";
+        return "section/topic/new_topic_form";
     }
 
 

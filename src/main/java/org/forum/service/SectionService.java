@@ -3,6 +3,7 @@ package org.forum.service;
 import org.forum.entities.Section;
 import org.forum.entities.Topic;
 import org.forum.entities.user.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,4 +30,9 @@ public interface SectionService {
 
     void delete(Section section);
 
+    boolean deleteUserInCurrentSection(Authentication auth, User userForDelete, Section section, Integer id_S);
+
+    boolean addUserInCurrentSection(Authentication auth, User userForAdd, Section section,Integer id_S);
+
+    boolean addModeratorInCurrentSection(User userForAdd, Section section);
 }

@@ -7,6 +7,9 @@ public class ProfilForm {
     @Size(max=30, message = "{Size.Topic.content.validation}")
     private String isPublic;
 
+    @Size(max=30, message = "{Size.Topic.content.validation}")
+    private int id;
+
     public ProfilForm() {}
 
     public String getIsPublic() {
@@ -15,5 +18,13 @@ public class ProfilForm {
 
     public void setIsPublic(String isPublic) {
         this.isPublic = isPublic;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -25,8 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @ComponentScan
 @Controller
@@ -56,7 +54,7 @@ public class UserController {
         }
 
         model.addAttribute("userProfile", userProfile);
-        return "myprofile";
+        return "user/myprofile";
     }
 
     @RequestMapping(value = "/users")
@@ -67,7 +65,7 @@ public class UserController {
             model.addAttribute("users", userService.findAll());
             System.out.println("kokotina");
         }
-        return "users";
+        return "user/users";
     }
 
     @RequestMapping(value = "/myprofile")
@@ -83,7 +81,7 @@ public class UserController {
         model.addAttribute("userProfile", userProfile);
         model.addAttribute("profilForm", new ProfilForm());
         model.addAttribute("newSection", new NewSectionForm());
-        return "user";
+        return "user/user";
     }
 
     @RequestMapping(value = "/myprofile/edit/picture", method = RequestMethod.POST)
@@ -121,12 +119,12 @@ public class UserController {
             model.addAttribute("message", "You have been logged out successfully.");
         }
 
-        return "login";
+        return "home/login";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(){
-        return "register";
+        return "home/register";
     }
 
 
@@ -148,7 +146,7 @@ public class UserController {
             @PathVariable String name) {
 
         if (result.hasErrors()) {
-            return "user";
+            return "user/user";
         }
         User user = userService.findByUsername(authentication.getName());
         Section section = sectionService.findByName(name);

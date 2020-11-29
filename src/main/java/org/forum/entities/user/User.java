@@ -43,6 +43,9 @@ public class User {
     @Column(name = "rola")
     private String role = "USER";
 
+    @Column(name = "prava")
+    private String permissions = "";
+
     @Column(name = "id_profile_picture")
     private int idProfilePicture;
 
@@ -81,10 +84,12 @@ public class User {
     public User() {
     }
 
-    public User(String email, String username, String password) {
+    public User(String email, String username, String password, String role, String permissions) {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = role;
+        this.permissions = permissions;
     }
 
     /** GETTERS AND SETTERS **/
@@ -212,10 +217,43 @@ public class User {
         this.memberOfSections = memberOfSections;
     }
 
+    public String getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
+    }
+
     public List<String> getRoleList() {
         if(this.role.length() > 0) {
             return Arrays.asList(this.role.split(","));
         }
         return new ArrayList<>();
     }
+
+    public List<String> getPermissionList() {
+        List<String> temp_permissions = new ArrayList<>();
+
+        if(this.permissions.length() > 0) {
+            temp_permissions = Arrays.asList(this.permissions.split(","));
+
+            return new ArrayList<>(temp_permissions);
+        }
+        return new ArrayList<>();
+    }
+
+    public void setPermissionsFromListToString(List<String> permissions) {
+        StringBuilder permissionsAsString = new StringBuilder();
+        for(int i = 0; i<permissions.size(); i++) {
+            if (i < permissions.size()-1) {
+                permissionsAsString.append(permissions.get(i)).append(",");
+            } else {
+                permissionsAsString.append(permissions.get(i));
+            }
+        }
+        setPermissions(permissionsAsString.toString());
+    }
 }
+
+

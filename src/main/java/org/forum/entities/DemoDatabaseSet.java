@@ -6,10 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class DemoDatabaseSet {
@@ -37,11 +34,11 @@ public class DemoDatabaseSet {
 
             // create objects
             System.out.println("Creating new objects...");
-            User tempUzivatel1 = new User("marosgeffert@gmail.com", "Marosko", "123456");
-            User tempUzivatel2 = new User("patriktomov@gmail.com", "Patres", "123456");
-            User tempUzivatel3 = new User("andrejchuj@gmail.com", "Ander", "123456");
-            User tempUzivatel4 = new User("adamondrejka@gmail.com", "Adam", "123456");
-            User tempUzivatel5 = new User("tomaslisina@gmail.com", "Tomasqo", "123456");
+            User tempUzivatel1 = new User("marosgeffert@gmail.com", "Marosko", "123456", "USER", "100,102");
+            User tempUzivatel2 = new User("patriktomov@gmail.com", "Patres", "123456", "USER", "100,101");
+            User tempUzivatel3 = new User("andrejchuj@gmail.com", "Ander", "123456", "USER", "100,101,102");
+            User tempUzivatel4 = new User("adamondrejka@gmail.com", "Adam", "123456", "USER", "");
+            User tempUzivatel5 = new User("tomaslisina@gmail.com", "Tomasqo", "123456", "USER", "");
 
             UserAdditionalInfo tempInfo1 = new UserAdditionalInfo("441223118", "Maros", "Geffer", "Bardejov", "Som chuj1", "Chuj1");
             UserAdditionalInfo tempInfo2 = new UserAdditionalInfo("441223118", "Patrik", "Tomov", "Bardejov", "Som chuj2", "Chuj2");
@@ -68,14 +65,22 @@ public class DemoDatabaseSet {
             tempSkupina2.setUser(tempUzivatel2);
             tempSkupina5.setUser(tempUzivatel4);
 
-            Set<User> moderators = new HashSet<>();
-            moderators.add(tempUzivatel2);
-            moderators.add(tempUzivatel3);
-            tempSkupina1.setModerators(moderators);
-            tempSkupina2.setModerators(moderators);
-            tempSkupina3.setModerators(moderators);
+            List<User> members = new ArrayList<>();
+            members.add(tempUzivatel1);
+            members.add(tempUzivatel2);
+            members.add(tempUzivatel3);
 
+            List<User> members3 = new ArrayList<>();
+            members3.add(tempUzivatel2);
+            members3.add(tempUzivatel3);
 
+            List<User> members2 = new ArrayList<>();
+            members2.add(tempUzivatel1);
+            members2.add(tempUzivatel3);
+
+            tempSkupina1.setMembers(members);
+            tempSkupina2.setMembers(members3);
+            tempSkupina3.setMembers(members2);
 
             Topic tempVlakno1 = new Topic("Polsemka");
             Topic tempVlakno2 = new Topic("Skuska");

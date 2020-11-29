@@ -9,6 +9,7 @@ import org.forum.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,7 +40,7 @@ public class SectionController {
                                        Model model) {
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("topics", topicService.findBySection(id));
-        return "section";
+        return "section/section";
     }
 
     @RequestMapping(value = "{id}/moderators", method = RequestMethod.GET)
@@ -47,30 +48,34 @@ public class SectionController {
                                        Model model) {
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("users", sectionService.findOne(id).getModerators());
-        return "moderators_or_members";
+        return "section/moderators";
     }
 
     @RequestMapping(value = "{id}/members", method = RequestMethod.GET)
     public String getMembersOfSection(@PathVariable int id, Model model) {
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("users", sectionService.findOne(id).getMembers());
-        return "moderators_or_members";
+        return "section/members";
     }
 
-    @RequestMapping(value = "{id}/add", method = RequestMethod.GET)
-    public String addModeratorsAndMembersToSection(@PathVariable int id, Model model){
+    @RequestMapping(value = "{id}/add/member", method = RequestMethod.GET)
+    public String addMembersToSection(@PathVariable int id, Model model){
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("users", userService.findAll());
-        return "add";
+        return "section/add_member";
     }
 
-
-
+    @RequestMapping(value = "{id}/add/moderator", method = RequestMethod.GET)
+    public String addModeratorsToSection(@PathVariable int id, Model model){
+        model.addAttribute("section", sectionService.findOne(id));
+        model.addAttribute("users", userService.findAll());
+        return "section/add_moderator";
+    }
 
     @RequestMapping(value = "new", method = RequestMethod.GET)
     public String getNewSectionForm(Model model) {
         model.addAttribute("newSection", new NewSectionForm());
-        return "new_section_form";
+        return "section/new_section_form";
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
@@ -80,7 +85,7 @@ public class SectionController {
             Authentication authentication) {
 
         if (result.hasErrors()) {
-            return "new_section_form";
+            return "section/new_section_form";
         }
         System.out.println(newSkupina.getIsPublic());
 
@@ -100,11 +105,6 @@ public class SectionController {
         return "redirect:/section/" + section.getId();
     }
 
-//    @RequestMapping(value = "moderators", method = RequestMethod.GET)
-//    public String showModeratorsOfSections(Model model){
-//        model.addAttribute("sections", sectionService.)
-//    }
-
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable int id,
                          Authentication authentication,
@@ -120,5 +120,39 @@ public class SectionController {
         return "redirect:/home";
     }
 
+    @RequestMapping(value = "delete/user/{id_S}/{id_U}", method = RequestMethod.GET)
+    public String deleteUserFromSection(@PathVariable Integer id_S,
+                                        @PathVariable Integer id_U) {
 
+        // todo tests and checking if user is admin
+        //        if (!user.getRoles().contains(adminRole)) {
+        //            return "redirect:/section/" + id;
+        //        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Section section = sectionService.findOne(id_S);
+        User user = userService.findOne(id_U);
+        sectionService.deleteUserInCurrentSection(auth, user, section, id_S);
+
+        return "redirect:/section/"+section.getId()+"/members";
+    }
+
+    @RequestMapping(value = "add/member/{id_S}/{id_U}", method = RequestMethod.POST)
+    public String addMemberToSection(@PathVariable Integer id_S, @PathVariable Integer id_U, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findOne(id_U);
+        Section section = sectionService.findOne(id_S);
+        sectionService.addUserInCurrentSection(auth, user, section, id_S);
+
+        return "redirect:/section/"+section.getId()+"/members";
+    }
+
+    @RequestMapping(value = "add/moderator/{id_S}/{id_U}", method = RequestMethod.POST)
+    public String addModeratorToSection(@PathVariable Integer id_S, @PathVariable Integer id_U, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findOne(id_U);
+        Section section = sectionService.findOne(id_S);
+        sectionService.addModeratorInCurrentSection(user, section);
+
+        return "redirect:/section/"+section.getId()+"/moderators";
+    }
 }

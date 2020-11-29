@@ -3,10 +3,7 @@ package org.forum.entities;
 import org.forum.entities.user.User;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -45,8 +42,11 @@ public class Section {
             joinColumns = @JoinColumn(name = "id_skupiny"),
             inverseJoinColumns = @JoinColumn(name = "id_uzivatela")
     )
-    private Set<User> moderators;
 
+    private List<User> moderators;
+
+    @Column(name = "list_moderatorov")
+    private String moderators_list = "";
 
     @ManyToMany
     @JoinTable(
@@ -54,7 +54,7 @@ public class Section {
             joinColumns = @JoinColumn(name = "id_skupiny"),
             inverseJoinColumns = @JoinColumn(name = "id_uzivatela")
     )
-    private Set<User> members;
+    private List<User> members;
 
     /** CONSTRUCTORS **/
     public Section() {
@@ -121,20 +121,28 @@ public class Section {
         this.isPublic = isPublic;
     }
 
-    public Set<User> getModerators() {
+    public List<User> getModerators() {
         return moderators;
     }
 
-    public void setModerators(Set<User> moderators) {
+    public void setModerators(List<User> moderators) {
         this.moderators = moderators;
     }
 
-    public Set<User> getMembers() {
+    public List<User> getMembers() {
         return members;
     }
 
-    public void setMembers(Set<User> members) {
+    public void setMembers(List<User> members) {
         this.members = members;
+    }
+
+    public String getModerators_list() {
+        return moderators_list;
+    }
+
+    public void setModerators_list(String moderators_list) {
+        this.moderators_list = moderators_list;
     }
 
     @Override
@@ -159,5 +167,34 @@ public class Section {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description);
+    }
+
+    public List<User> getMembersNotModerators() {
+        List<User> moderators = getModerators();
+        List<User> members = getMembers();
+
+        members.removeAll(moderators);
+        return members;
+    }
+
+    public List<String> getModeratorsAsList() {
+        List<String> temp_moderators = new ArrayList<>();
+        if(this.moderators_list.length() > 0) {
+            temp_moderators = Arrays.asList(this.moderators_list.split(","));
+            return new ArrayList<>(temp_moderators);
+        }
+        return new ArrayList<>();
+    }
+
+    public void setModeratorsFromListToString(List<User> moderators) {
+        StringBuilder moderatorsAsString = new StringBuilder();
+        for(int i = 0; i<moderators.size(); i++) {
+            if (i < moderators.size()-1) {
+                moderatorsAsString.append(moderators.get(i).getUsername()).append(",");
+            } else {
+                moderatorsAsString.append(moderators.get(i).getUsername());
+            }
+        }
+        setModerators_list(moderatorsAsString.toString());
     }
 }

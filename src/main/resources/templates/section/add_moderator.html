@@ -18,22 +18,15 @@
                     <th>NAME</th>
                     <th>EMAIL</th>
                 </tr>
-                <tr th:each="user : ${users}">
+                <tr th:each="user : ${section.getMembersNotModerators()}">
                     <td th:text="${user.username}">Onions</td>
                     <td th:text="${user.email}">123</td>
                     <td>
-                        <form>
+                        <form th:action="@{/section/add/moderator/}+ ${section.id} + '/' + ${user.id}" method="POST">
                             <button type="submit"
                                     name="action"
                                     class="btn waves-effect waves-light"
                                     th:text="#{add.user.as.moderator}">
-                            </button>
-                        </form>
-                        <form>
-                            <button type="submit"
-                                    name="action"
-                                    class="btn waves-effect waves-light"
-                                    th:text="#{add.user.as.member}">
                             </button>
                         </form>
                     </td>
