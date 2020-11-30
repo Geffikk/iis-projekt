@@ -28,7 +28,9 @@
 
                         <a th:href="@{/section/} + ${section.id} + '/moderators'" th:text="#{page.section.moderators.in.section}" class="right waves-effect waves-light btn"></a>
 
-                        <a th:href="@{/section/} + ${section.id} + '/members'" th:text="#{page.section.members.in.section}" class="right waves-effect waves-light btn"></a>
+                        <div th:if="${section.isPublic != 1}">
+                            <a th:href="@{/section/} + ${section.id} + '/members'" th:text="#{page.section.members.in.section}" class="right waves-effect waves-light btn"></a>
+                        </div>
 
                         <div th:if="${section.getUser().username.equals(#authentication.name)}">
                             <a th:href="@{/section/delete/} + ${section.id}" th:text="#{page.section.delete.section}" class="waves-effect waves-light btn"></a>
