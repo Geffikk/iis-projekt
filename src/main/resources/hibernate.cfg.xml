@@ -8,9 +8,9 @@
 
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:9030/forum?useSSL=false</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.url">jdbc:mysql://iis-forum-db-do-user-8375878-0.b.db.ondigitalocean.com:25060/forum?ssl-mode=REQUIRED</property>
+        <property name="connection.username">doadmin</property>
+        <property name="connection.password">lj8tpe23c7yv5h05</property>
 
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">10</property>
