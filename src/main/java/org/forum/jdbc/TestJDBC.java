@@ -8,9 +8,9 @@ public class TestJDBC {
     public static void main(String[] args) {
 
 
-        String jdbcUrl = "jdbc:mysql://localhost:9030/forum?useSSL=false";
-        String user = "root";
-        String password = "root";
+        String jdbcUrl = "jdbc:mysql://iis-forum-db-do-user-8375878-0.b.db.ondigitalocean.com:25060/forum?ssl-mode=REQUIRED";
+        String user = "doadmin";
+        String password = "lj8tpe23c7yv5h05";
 
         try {
 

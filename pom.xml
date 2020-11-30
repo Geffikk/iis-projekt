@@ -12,7 +12,10 @@
 	<artifactId>iis_forum</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>iis_forum</name>
+
 	<description>Demo project for Spring Boot</description>
+	<packaging>war</packaging>
+
 
 	<dependencies>
 		<dependency>
@@ -97,9 +100,24 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.6.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>iis-forum</finalName>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 		<plugins>
 			<plugin>
