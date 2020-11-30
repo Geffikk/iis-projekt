@@ -1,5 +1,6 @@
 package org.forum.service;
 
+import org.forum.AccessRules;
 import org.forum.entities.Section;
 import org.forum.entities.user.User;
 import org.forum.repository.SectionRepository;

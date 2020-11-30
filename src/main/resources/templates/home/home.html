@@ -31,8 +31,14 @@
                             <li th:each="section : ${sections}">
                                 <div class="collapsible-header">
                                     <form th:action="@{/section/} + ${section.id}">
-                                        <button th:text="${section.name}" th:disabled="${section.getIsPublic() == 0 && #authorization.expression('hasRole(''ROLE_ANONYMOUS'')')}"></button>
+                                        <button th:text="${section.name}" th:disabled="${section.getIsPublic() == 0 && #authorization.expression('hasRole(''ROLE_ANONYMOUS'')') ||
+                                                                                         section.getIsPublic() == 2 && !section.getMembersUsername().contains(#authentication.name)}"></button>
                                     </form>
+                                    <div th:if="${!section.getMembersUsername().contains(#authentication.name)}" sec:authorize="!hasRole('ANONYMOUS')">
+                                        <form th:action="@{/section/} + ${section.id} + '/register'">
+                                            <button type="submit" th:text="Register" class="right waves-effect waves-light btn"></button>
+                                        </form>
+                                    </div>
                                 </div>
                             </li>
                         </ul>

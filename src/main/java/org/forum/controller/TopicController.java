@@ -39,6 +39,12 @@ public class TopicController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = "new", method = RequestMethod.GET)
+    public String getNewTopicForm(Model model) {
+        model.addAttribute("newTopic", new NewTopicForm());
+        model.addAttribute("sections", sectionService.findAll());
+        return "section/topic/new_topic_form";
+    }
 
     @RequestMapping(value = "{idTopic}", method = RequestMethod.GET)
     public String getTopicById(@PathVariable int idTopic, Model model) {
@@ -46,11 +52,51 @@ public class TopicController {
         Topic topic = topicService.findOne(idTopic);
         topic.setViews(topic.getViews() + 1);
         topicService.save(topic);
+        NewPostFrom editPostFrom = new NewPostFrom();
+
+        model.addAttribute("editPost", editPostFrom);
 
         model.addAttribute("topic", topic);
         model.addAttribute("posts", postService.findByTopic(idTopic));
         model.addAttribute("newPost", new NewPostFrom());
         return "section/topic/topic";
+    }
+
+    @RequestMapping(value = "{idTopic}/edit/{idPost}", method = RequestMethod.GET)
+    public String editPost(@PathVariable int idPost,
+                           @PathVariable int idTopic,
+                       @Valid @ModelAttribute("editPost") NewPostFrom editPost,
+                       Model model) {
+
+        Post post = postService.findOne(idPost);
+        Topic topic = topicService.findOne(idTopic);
+
+        editPost.setContent(post.getContent());
+        model.addAttribute("editPost", editPost);
+        model.addAttribute("topic", topic);
+        model.addAttribute("posts", postService.findByTopic(idTopic));
+
+        return "section/topic/edit_post";
+    }
+
+    @RequestMapping(value = "{idTopic}/save/{idPost}", method = RequestMethod.POST)
+    public String editPost(@Valid @ModelAttribute("editPost") NewPostFrom editPost,
+                          BindingResult result,
+                          @PathVariable int idTopic,
+                          @PathVariable int idPost,
+                          Model model) {
+
+        if(result.hasErrors()) {
+            model.addAttribute("topic", topicService.findOne(idTopic));
+            model.addAttribute("posts", postService.findByTopic(idTopic));
+            return "section/topic/topic";
+        }
+        Post postEdited = postService.findOne(idPost);
+        postEdited.setContent(editPost.getContent());
+        postService.save(postEdited);
+
+        model.asMap().clear();
+        return "redirect:/topic/" + idTopic;
     }
 
     @RequestMapping(value = "{idTopic}", method = RequestMethod.POST)
@@ -76,16 +122,8 @@ public class TopicController {
         return "redirect:/topic/" + idTopic;
     }
 
-    @RequestMapping(value = "new", method = RequestMethod.GET)
-    public String getNewVlaknoForm(Model model) {
-        model.addAttribute("newTopic", new NewTopicForm());
-        model.addAttribute("sections", sectionService.findAll());
-        return "section/topic/new_topic_form";
-    }
-
-
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public String processAndAddNewTopic(@Valid @ModelAttribute("newTopic") NewTopicForm newTopic,
+    public String addNewTopic(@Valid @ModelAttribute("newTopic") NewTopicForm newTopic,
                                         BindingResult result,
                                         Authentication authentication,
                                         Model model) {

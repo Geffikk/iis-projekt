@@ -16,11 +16,43 @@
                     <div class="col s12">
                         <h3 th:text="#{page.section.topics.in.section} + ' ' + ${section.name}">Topics in section</h3>
                         <p th:text="${section.description}"></p>
+
+                        <div th:if="${section.getMembersUsername().contains(#authentication.name)}">
+                            <div th:if="${section.getModeratorsUsername().contains(#authentication.name)}">
+                                <h6>You are: MODERATOR</h6>
+                            </div>
+                            <div th:if="${!section.getModeratorsUsername().contains(#authentication.name)}">
+                                <h6>You are: MEMBER</h6>
+                            </div>
+                        </div>
+
                         <a th:href="@{/section/} + ${section.id} + '/moderators'" th:text="#{page.section.moderators.in.section}" class="right waves-effect waves-light btn"></a>
+
                         <a th:href="@{/section/} + ${section.id} + '/members'" th:text="#{page.section.members.in.section}" class="right waves-effect waves-light btn"></a>
-                        <a sec:authorize="hasAnyAuthority('ADMIN', 'HEAD_ADMIN')" th:href="@{/section/delete/} + ${section.id}"
-                            th:text="#{page.section.delete.section}" class="waves-effect waves-light btn"></a>
-                        <a th:href="@{/topic/new}" th:text="#{page.section.new.topic}" class="right waves-effect waves-light btn"></a>
+
+                        <div th:if="${section.getUser().username.equals(#authentication.name)}">
+                            <a th:href="@{/section/delete/} + ${section.id}" th:text="#{page.section.delete.section}" class="waves-effect waves-light btn"></a>
+                        </div>
+
+                        <div th:if="${section.getMembersUsername().contains(#authentication.name)}">
+                            <a th:href="@{/topic/new}" th:text="#{page.section.new.topic}" class="right waves-effect waves-light btn"></a>
+                        </div>
+
+                        <div th:if="${section.getModeratorsUsername().contains(#authentication.name)}">
+                            <a id="app_member" th:href="@{/section/} + ${section.id} + '/applications'" th:text="#{page.section.applications}" class="right waves-effect waves-light btn"></a>
+                            <label for="app_member">Members</label>
+                        </div>
+
+                        <div th:if="${section.getUser().username.equals(#authentication.name)}">
+                            <a id="app_moderator" th:href="@{/section/} + ${section.id} + '/applications/moderator'" th:text="#{page.section.applications}" class="right waves-effect waves-light btn"></a>
+                            <label for="app_moderator">Moderators</label>
+                        </div>
+
+                        <div th:if="${section.getMembersUsername().contains(#authentication.name) && !section.getModeratorsUsername().contains(#authentication.name)}">
+                            <form th:action="@{/section/} + ${section.id} + '/register/moderator'">
+                                <button type="submit" th:text="Register" class="right waves-effect waves-light btn"></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div class="divider"></div>
@@ -33,7 +65,6 @@
                         </div>
                         <div class="divider"></div>
                     </div>
-
                 </div>
             </div>
         </div>
