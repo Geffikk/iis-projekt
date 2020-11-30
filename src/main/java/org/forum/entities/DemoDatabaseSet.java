@@ -65,6 +65,30 @@ public class DemoDatabaseSet {
             tempSkupina2.setUser(tempUzivatel2);
             tempSkupina5.setUser(tempUzivatel4);
 
+            tempSkupina1.setModerators_list(tempUzivatel1.getUsername());
+            tempSkupina2.setModerators_list(tempUzivatel2.getUsername());
+            tempSkupina3.setModerators_list(tempUzivatel3.getUsername());
+            tempSkupina4.setModerators_list(tempUzivatel4.getUsername());
+            tempSkupina5.setModerators_list(tempUzivatel5.getUsername());
+
+            List<User> moderator1 = new ArrayList<>();
+            List<User> moderator2 = new ArrayList<>();
+            List<User> moderator3 = new ArrayList<>();
+            List<User> moderator4 = new ArrayList<>();
+            List<User> moderator5 = new ArrayList<>();
+
+            moderator1.add(tempUzivatel1);
+            moderator2.add(tempUzivatel2);
+            moderator3.add(tempUzivatel3);
+            moderator4.add(tempUzivatel4);
+            moderator5.add(tempUzivatel5);
+
+            tempSkupina1.setModerators(moderator1);
+            tempSkupina2.setModerators(moderator2);
+            tempSkupina3.setModerators(moderator3);
+            tempSkupina4.setModerators(moderator4);
+            tempSkupina5.setModerators(moderator5);
+
             List<User> members = new ArrayList<>();
             members.add(tempUzivatel1);
             members.add(tempUzivatel2);

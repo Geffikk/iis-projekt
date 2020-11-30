@@ -151,13 +151,15 @@ public class UserController {
         User user = userService.findByUsername(authentication.getName());
         Section section = sectionService.findByName(name);
 
-        if (newSkupina.getIsPublic().toLowerCase().equals("public")) {
-            section.setIsPublic(1);
-        } else {
+        if (newSkupina.getIsPublic().toLowerCase().equals("private")) {
             section.setIsPublic(0);
+        } else if (newSkupina.getIsPublic().toLowerCase().equals("members")){
+            section.setIsPublic(2);
+        } else {
+            section.setIsPublic(1);
         }
         section.setUser(user);
-        section = sectionService.save(section);
+        sectionService.save(section);
         return "redirect:/myprofile/";
     }
 }

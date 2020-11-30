@@ -56,10 +56,15 @@ public class Section {
     )
     private List<User> members;
 
+    @Column(name = "list_register_user")
+    private String application_registers_user = "";
+
+    @Column(name = "list_register_moderator")
+    private String application_registers_moderator = "";
+
     /** CONSTRUCTORS **/
     public Section() {
     }
-
 
     public Section(String nazov, String popis) {
         this.name = nazov;
@@ -145,6 +150,22 @@ public class Section {
         this.moderators_list = moderators_list;
     }
 
+    public String getApplication_registers_user() {
+        return application_registers_user;
+    }
+
+    public void setApplication_registers_user(String application_registers_user) {
+        this.application_registers_user = application_registers_user;
+    }
+
+    public String getApplication_registers_moderator() {
+        return application_registers_moderator;
+    }
+
+    public void setApplication_registers_moderator(String application_registers_moderator) {
+        this.application_registers_moderator = application_registers_moderator;
+    }
+
     @Override
     public String toString() {
         return "Section{" +
@@ -178,12 +199,33 @@ public class Section {
     }
 
     public List<String> getModeratorsAsList() {
-        List<String> temp_moderators = new ArrayList<>();
-        if(this.moderators_list.length() > 0) {
-            temp_moderators = Arrays.asList(this.moderators_list.split(","));
-            return new ArrayList<>(temp_moderators);
+        List<String> temp_application_registers_user = new ArrayList<>();
+        if(this.application_registers_user.length() > 0) {
+            temp_application_registers_user = Arrays.asList(this.application_registers_user.split(","));
+            return new ArrayList<>(temp_application_registers_user);
         }
         return new ArrayList<>();
+    }
+
+
+    public List<String> getMembersUsername() {
+        List<User> users = getMembers();
+        List<String> usernames = new ArrayList<>();
+
+        for (User value : users) {
+            usernames.add(value.getUsername());
+        }
+        return usernames;
+    }
+
+    public List<String> getModeratorsUsername() {
+        List<User> moderators = getModerators();
+        List<String> usernames = new ArrayList<>();
+
+        for (User value : moderators) {
+            usernames.add(value.getUsername());
+        }
+        return usernames;
     }
 
     public void setModeratorsFromListToString(List<User> moderators) {
@@ -196,5 +238,47 @@ public class Section {
             }
         }
         setModerators_list(moderatorsAsString.toString());
+    }
+
+    public void setApplicationFromListToString(List<String> application) {
+        StringBuilder applicationAsString = new StringBuilder();
+        for(int i = 0; i<application.size(); i++) {
+            if (i < application.size()-1) {
+                applicationAsString.append(application.get(i)).append(",");
+            } else {
+                applicationAsString.append(application.get(i));
+            }
+        }
+        setApplication_registers_user(applicationAsString.toString());
+    }
+
+    public List<String> getRegisterApplicationAsList() {
+        List<String> temp_register_application = new ArrayList<>();
+        if(this.application_registers_user.length() > 0) {
+            temp_register_application = Arrays.asList(this.application_registers_user.split(","));
+            return new ArrayList<>(temp_register_application);
+        }
+        return new ArrayList<>();
+    }
+
+    public void setApplicationModeratorFromListToString(List<String> application) {
+        StringBuilder applicationAsString = new StringBuilder();
+        for(int i = 0; i<application.size(); i++) {
+            if (i < application.size()-1) {
+                applicationAsString.append(application.get(i)).append(",");
+            } else {
+                applicationAsString.append(application.get(i));
+            }
+        }
+        setApplication_registers_moderator(applicationAsString.toString());
+    }
+
+    public List<String> getRegisterModeratorApplicationAsList() {
+        List<String> temp_register_application = new ArrayList<>();
+        if(this.application_registers_moderator.length() > 0) {
+            temp_register_application = Arrays.asList(this.application_registers_moderator.split(","));
+            return new ArrayList<>(temp_register_application);
+        }
+        return new ArrayList<>();
     }
 }

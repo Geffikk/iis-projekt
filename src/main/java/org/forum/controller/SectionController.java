@@ -13,13 +13,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @ComponentScan
 @Controller
@@ -35,6 +33,7 @@ public class SectionController {
     @Autowired
     private UserService userService;
 
+    /** SECTION OVERVIEW **/
     @RequestMapping("{id}")
     public String getTopicsFromSection(@PathVariable int id,
                                        Model model) {
@@ -43,6 +42,7 @@ public class SectionController {
         return "section/section";
     }
 
+    /** SECTION MODERATORS OVERVIEW **/
     @RequestMapping(value = "{id}/moderators", method = RequestMethod.GET)
     public String getModeratorsOfSection(@PathVariable int id,
                                        Model model) {
@@ -51,6 +51,7 @@ public class SectionController {
         return "section/moderators";
     }
 
+    /** SECTION MEMBERS OVERVIEW **/
     @RequestMapping(value = "{id}/members", method = RequestMethod.GET)
     public String getMembersOfSection(@PathVariable int id, Model model) {
         model.addAttribute("section", sectionService.findOne(id));
@@ -78,6 +79,7 @@ public class SectionController {
         return "section/new_section_form";
     }
 
+    /** CREATE NEW SECTION AND REDIRECT TO THIS SECTION VIEW**/
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public String processAndAddNewSection(
             @Valid @ModelAttribute("newSection") NewSectionForm newSkupina,
@@ -101,6 +103,7 @@ public class SectionController {
             section.setIsPublic(0);
         }
         section.setUser(user);
+        section.getModerators().add(user);
         section = sectionService.save(section);
         return "redirect:/section/" + section.getId();
     }
@@ -114,6 +117,11 @@ public class SectionController {
 //        if (!user.getRoles().contains(adminRole)) {
 //            return "redirect:/section/" + id;
 //        }
+        Section section = sectionService.findOne(id);
+        if(!user.equals(section.getUser()) || !section.getModerators().contains(user)){
+            return "redirect:/section/" + id;
+        }
+
         sectionService.delete(id);
 
         model.addFlashAttribute("message", "section.successfully.deleted");
@@ -154,5 +162,82 @@ public class SectionController {
         sectionService.addModeratorInCurrentSection(user, section);
 
         return "redirect:/section/"+section.getId()+"/moderators";
+    }
+
+    @RequestMapping(value = "{id}/register", method = RequestMethod.GET)
+    public String registerToSection(@PathVariable Integer id, Authentication auth){
+        Section section = sectionService.findOne(id);
+
+        if (section.getRegisterApplicationAsList().contains(auth.getName())) {
+            System.out.println("Uz si poziadal o registraciu");
+        } else {
+            section.setApplication_registers_user(auth.getName());
+        }
+        sectionService.save(section);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "{id}/applications", method = RequestMethod.GET)
+    public String getApplicationsOfSection(@PathVariable int id,
+                                         Model model) {
+        model.addAttribute("section", sectionService.findOne(id));
+        model.addAttribute("users", userService.findAll());
+        return "section/register_application";
+    }
+
+    @RequestMapping(value = "{id_S}/accept/{id_U}", method = RequestMethod.GET)
+    public String acceptApplicationsOfSection(@PathVariable int id_S,
+                                              @PathVariable int id_U,
+                                           Model model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Section section = sectionService.findOne(id_S);
+        User user = userService.findOne(id_U);
+
+        List<String> str = section.getRegisterApplicationAsList();
+        str.remove(user.getUsername());
+
+        section.setApplicationFromListToString(str);
+        sectionService.addUserInCurrentSection(auth, user, section, id_S);
+        sectionService.save(section);
+        return "section/register_application";
+    }
+
+    @RequestMapping(value = "{id}/register/moderator", method = RequestMethod.GET)
+    public String registerModeratorToSection(@PathVariable Integer id, Authentication auth){
+        Section section = sectionService.findOne(id);
+
+        if (section.getRegisterModeratorApplicationAsList().contains(auth.getName())) {
+            System.out.println("Uz si poziadal o registraciu");
+        } else {
+            section.setApplication_registers_moderator(auth.getName());
+        }
+        sectionService.save(section);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "{id}/applications/moderator", method = RequestMethod.GET)
+    public String getApplicationsModeratorOfSection(@PathVariable int id,
+                                           Model model) {
+        model.addAttribute("section", sectionService.findOne(id));
+        model.addAttribute("users", userService.findAll());
+        return "section/register_application_moderator";
+    }
+
+    @RequestMapping(value = "{id_S}/accept/moderator/{id_U}", method = RequestMethod.GET)
+    public String acceptApplicationsModeratorOfSection(@PathVariable int id_S,
+                                              @PathVariable int id_U,
+                                              Model model) {
+
+        Section section = sectionService.findOne(id_S);
+        User user = userService.findOne(id_U);
+
+        List<String> str = section.getRegisterModeratorApplicationAsList();
+        str.remove(user.getUsername());
+
+        section.setApplicationModeratorFromListToString(str);
+        sectionService.addModeratorInCurrentSection(user, section);
+        sectionService.save(section);
+        return "section/register_application_moderator";
     }
 }
