@@ -9,6 +9,8 @@
         <nav th:insert="fragments/navbar :: navbar"></nav>
         <div class="container iis-camel iis-resp-padding">
             <div class="container">
+
+                <!-- SECTIONS -->
                 <div class="row iis-coffee iis-oval" th:if="${sections.size() > 0}">
                     <div class="col">
                         <div class="row" id="sections">
@@ -40,7 +42,6 @@
                 </div>
 
                 <!-- RECENT TOPICS -->
-
                 <div class="row iis-coffee iis-oval pb-4" th:if="${topics.size() > 0}" id="recent-topics">
                     <div class="col">
                         <div class="row">
@@ -74,7 +75,6 @@
                 </div>
 
                 <!-- RECENT POSTS -->
-
                 <div class="row iis-coffee iis-oval pb-4" th:if="${posts.size() > 0}" id="recent-posts">
                     <div class="col">
                         <div class="row">

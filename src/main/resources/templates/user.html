@@ -4,70 +4,53 @@
 <head th:replace="fragments/head :: head">
 </head>
 <body>
-    <nav th:replace="fragments/navbar :: navbar"></nav>
-    <div class="container">
+    <div class="iis-main">
+        <nav th:replace="fragments/navbar :: navbar"></nav>
 
-
-        <div class="row">
-            <div class="row">
+        <div class="container iis-camel iis-resp-padding">
+            <div class="row  iis-coffee iis-oval">
 
                 <!-- LEFT -->
-
-                <div class="col s2">
-                    <div class="row">
-                        <div class="col s12 right-align">
-                            <h6 th:text="'@' + ${userProfile.user.username}"></h6>
-                            <h6 th:text="${userProfile.user.info.name}" class="bold"></h6>
-                            <h6 th:text="${userProfile.user.info.lastName}" class="bold"></h6>
-                            <a th:if="${userProfile.user.username} eq ${userProfile.user.username}" th:href="@{/myprofile/edit}">
-                                <i class="material-icons medium black-text">mode_edit</i>
-                            </a>
-                        </div>
-                    </div>
+                <div class="col-sm-2 p-5">
+                    <h3 th:text="'@' + ${userProfile.user.username}"></h3>
+                    <h4 th:text="${userProfile.user.info.name}"></h4>
+                    <h4 th:text="${userProfile.user.info.lastName}"></h4>
+                    <a th:if="${userProfile.user.username} eq ${userProfile.user.username}" th:href="@{/myprofile/edit}">
+                        <i class="material-icons medium black-text">mode_edit</i>
+                    </a>
                 </div>
 
-
                 <!-- MID -->
-
-                <div class="col s8 ">
+                <div class="col-xl-5 p-5 iis-coyote">
 
                     <!-- INFROMATION -->
-
                     <div class="row">
-                        <div class="col s12">
-                            <div class="row z-depth-2">
-                                <div class="row">
-                                    <div class="col s12">
-                                        <h5 class="center bold">INFO</h5>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s6 right-align">
-                                        <p th:if="${userProfile.user.info.name != ''}">Name</p>
-                                        <p th:if="${userProfile.user.info.LastName != ''}">Last name</p>
-                                        <p th:if="${userProfile.user.info.city != ''}">City</p>
-                                        <p th:if="${userProfile.user.createdAt != null}">Register date</p>
-                                        <p th:if="${userProfile.user.lastLoginTime != null}">Last login</p>
-                                        <p th:if="${userProfile.user.info.footer != ''}">Footer</p>
-                                        <p th:if="${userProfile.user.info.aboutMe != ''}">Biography</p>
-                                    </div>
-                                    <div class="col s6">
-                                        <p th:text="${userProfile.user.info.name}"></p>
-                                        <p th:text="${userProfile.user.info.LastName}"></p>
-                                        <p th:text="${userProfile.user.info.city}"></p>
-                                        <p th:text="${userProfile.user.createdAt} ? ${#calendars.format(userProfile.user.createdAt, 'dd MMMM yyyy HH:mm')}"></p>
-                                        <p th:text="${userProfile.user.lastLoginTime} ? ${#calendars.format(userProfile.user.lastLoginTime, 'dd MMMM yyyy HH:mm')}"></p>
-                                        <p th:text="${userProfile.user.info.footer}"></p>
-                                        <p th:text="${userProfile.user.info.aboutMe}"></p>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col">
+                            <h5 class="bold">INFO</h5>
                         </div>
-
+                    </div>
+                    <div class="row">
+                        <div class="col text-right">
+                            <p th:if="${userProfile.user.info.name != ''}">Name:</p>
+                            <p th:if="${userProfile.user.info.LastName != ''}">Last name:</p>
+                            <p th:if="${userProfile.user.info.city != ''}">City:</p>
+                            <p th:if="${userProfile.user.createdAt != null}">Register date:</p>
+                            <p th:if="${userProfile.user.lastLoginTime != null}">Last login:</p>
+                            <p th:if="${userProfile.user.info.footer != ''}">Signature:</p>
+                            <p th:if="${userProfile.user.info.aboutMe != ''}">Biography:</p>
+                        </div>
+                        <div class="col">
+                            <p th:text="${userProfile.user.info.name}"></p>
+                            <p th:text="${userProfile.user.info.LastName}"></p>
+                            <p th:text="${userProfile.user.info.city}"></p>
+                            <p th:text="${userProfile.user.createdAt} ? ${#calendars.format(userProfile.user.createdAt, 'dd MMMM yyyy')}"></p>
+                            <p th:text="${userProfile.user.lastLoginTime} ? ${#calendars.format(userProfile.user.lastLoginTime, 'dd MMMM yyyy HH:mm')}"></p>
+                            <p th:text="${userProfile.user.info.footer}"></p>
+                            <p th:text="${userProfile.user.info.aboutMe}"></p>
+                        </div>
                     </div>
 
                     <!-- SECTIONS -->
-
                     <div class="row" th:if="${userProfile.sections.size() > 0}">
                         <div class="col s12">
                             <div class="row z-depth-2">
@@ -112,10 +95,7 @@
                         </div>
                     </div>
 
-
-
                     <!-- TOPICS -->
-
                     <div class="row" th:if="${userProfile.topics.size() > 0}">
                         <div class="col s12">
                             <div class="row z-depth-2">
@@ -149,9 +129,7 @@
                         </div>
                     </div>
 
-
                     <!-- POSTS -->
-
                     <div class="row" th:if="${userProfile.posts.size() > 0}">
                         <div class="col s12">
                             <div class="row">
@@ -185,15 +163,12 @@
                     </div>
                 </div>
 
-
                 <!-- RIGHT -->
-
-                <div class="col s2">
+                <div class="col-xl-5 p-5">
                     <div class="row">
                         <div class="col s12">
 
                             <!-- STATISTICS -->
-
                             <div class="row">
                                 <div class="col s11 z-depth-2 right">
                                     <h6 class="center bold">STATISTICS</h6>
@@ -231,9 +206,11 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
+
+        <footer th:replace="fragments/footer :: footer"></footer>
     </div>
-    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>
