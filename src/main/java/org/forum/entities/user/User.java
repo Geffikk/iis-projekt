@@ -34,6 +34,9 @@ public class User {
     @Column(name = "datum_registarcie")
     private Date createdAt;
 
+    @Column(name = "posledny_datum_prihlasenia")
+    private Date lastLoginTime;
+
     @Column(name = "rola")
     private String role = "USER";
 
@@ -131,6 +134,14 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
     public String  getRole() {
