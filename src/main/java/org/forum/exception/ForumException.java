@@ -41,7 +41,6 @@ public class ForumException extends RuntimeException {
         public int index;
     }
 
-
     public ErrorCode getErrorCode() {
         return errorCode;
     }

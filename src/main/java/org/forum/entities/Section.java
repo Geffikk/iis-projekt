@@ -1,6 +1,8 @@
 package org.forum.entities;
 
 import org.forum.entities.user.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.util.*;
@@ -280,5 +282,14 @@ public class Section {
             return new ArrayList<>(temp_register_application);
         }
         return new ArrayList<>();
+    }
+
+    public boolean canRegister() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if(!getMembersUsername().contains(auth.getName())) {
+            return true;
+        }
+        return false;
     }
 }

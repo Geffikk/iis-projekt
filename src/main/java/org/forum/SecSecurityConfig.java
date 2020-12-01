@@ -54,7 +54,9 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(FOR_AUTHORIZED_USERS).hasRole("USER")
                 .antMatchers(FOR_ADMINS).hasAnyRole(ADMINS_ROLES)
-                .antMatchers(FOR_EVERYONE).permitAll();
+                .antMatchers(FOR_EVERYONE).permitAll()
+                .and().logout()
+                .and().exceptionHandling().accessDeniedPage("/403");
     }
 
     private void configureLoginForm(HttpSecurity http) throws Exception {

@@ -3,15 +3,12 @@ package org.forum.controller;
 import org.forum.service.PostService;
 import org.forum.service.SectionService;
 import org.forum.service.TopicService;
-import org.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeResource {
@@ -38,6 +35,11 @@ public class HomeResource {
         System.out.println(authentication.getAuthorities());
         System.out.println(authentication.getPrincipal());
         return "home/home";
+    }
+
+    @RequestMapping("/403")
+    public String accessdenied() {
+        return "fragments/403";
     }
 
 }

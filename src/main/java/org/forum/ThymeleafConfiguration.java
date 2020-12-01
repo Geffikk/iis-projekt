@@ -2,6 +2,7 @@ package org.forum;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -12,9 +13,15 @@ public class ThymeleafConfiguration {
     private static final String HTML_5 = "HTML5";
 
     @Bean
+    public SpringSecurityDialect springSecurityDialect() {
+        return new SpringSecurityDialect();
+    }
+
+    @Bean
     public SpringTemplateEngine templateEngine() {
         final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.addTemplateResolver(templateResolver());
+        templateEngine.addDialect(new SpringSecurityDialect());
         return templateEngine;
     }
 
@@ -42,4 +49,13 @@ public class ThymeleafConfiguration {
         return templateResolver;
     }
 
+    @Bean
+    public SpringResourceTemplateResolver thymeleafTemplateResolver() {
+        SpringResourceTemplateResolver templateResolver
+                = new SpringResourceTemplateResolver();
+        templateResolver.setPrefix("/WEB-INF/views/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode("HTML5");
+        return templateResolver;
+    }
 }
