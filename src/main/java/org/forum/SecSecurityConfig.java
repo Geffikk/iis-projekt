@@ -1,6 +1,8 @@
 package org.forum;
 
+import org.forum.entities.user.User;
 import org.forum.service.UserDetailsServiceImpl;
+import org.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -17,6 +21,8 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+import java.util.Date;
+
 import static org.forum.AccessRules.*;
 
 @Configuration
@@ -24,6 +30,9 @@ import static org.forum.AccessRules.*;
 public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private CsrfTokenRepository csrfTokenRepository;

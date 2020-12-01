@@ -36,7 +36,7 @@
                                     </form>
                                     <div th:if="${!section.getMembersUsername().contains(#authentication.name)}" sec:authorize="!hasRole('ANONYMOUS')">
                                         <form th:action="@{/section/} + ${section.id} + '/register'">
-                                            <button type="submit" th:text="Register" class="right waves-effect waves-light btn"></button>
+                                            <button th:disabled="${section.getRegisterApplicationAsList().contains(#authentication.name)}" type="submit" th:text="Register" class="right waves-effect waves-light btn"></button>
                                         </form>
                                     </div>
                                 </div>

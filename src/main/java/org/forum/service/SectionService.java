@@ -30,6 +30,8 @@ public interface SectionService {
 
     void delete(Section section);
 
+    boolean deleteModeratorInCurrentSection(Authentication auth, User userForDelete, Section section, Integer id_S);
+
     boolean deleteUserInCurrentSection(Authentication auth, User userForDelete, Section section, Integer id_S);
 
     boolean addUserInCurrentSection(Authentication auth, User userForAdd, Section section,Integer id_S);

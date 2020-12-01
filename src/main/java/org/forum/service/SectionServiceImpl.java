@@ -99,6 +99,31 @@ public class SectionServiceImpl implements SectionService {
 
         userService.save(userForDelete);
         section.getMembers().remove(userForDelete);
+
+        if(section.getModerators().contains(userForDelete)) {
+            section.getModerators().remove(userForDelete);
+        }
+
+        sectionService.save(section);
+        return true;
+    }
+
+    public boolean deleteModeratorInCurrentSection(Authentication auth, User userForDelete, Section section, Integer id_S) {
+        List<GrantedAuthority> updatedAuthorities =
+                auth.getAuthorities().stream()
+                        .filter(r -> !id_S.toString().equals(r.getAuthority()))
+                        .collect(Collectors.toList());
+
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(
+                auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+
+        List<String> permissions = userForDelete.getPermissionList();
+        permissions.remove(id_S.toString());
+        userForDelete.setPermissionsFromListToString(permissions);
+
+        userService.save(userForDelete);
+        section.getModerators().remove(userForDelete);
         sectionService.save(section);
         return true;
     }

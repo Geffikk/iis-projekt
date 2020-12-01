@@ -125,11 +125,8 @@ public class SectionController {
                          Authentication authentication,
                          RedirectAttributes model) {
         User user = userService.findByUsername(authentication.getName());
-// todo tests and checking if user is admin
-//        if (!user.getRoles().contains(adminRole)) {
-//            return "redirect:/section/" + id;
-//        }
         Section section = sectionService.findOne(id);
+
         if(!user.equals(section.getUser()) || !section.getModerators().contains(user)){
             throw new AccessDeniedException("");
         }
@@ -144,16 +141,34 @@ public class SectionController {
     public String deleteUserFromSection(@PathVariable Integer id_S,
                                         @PathVariable Integer id_U) {
 
-        // todo tests and checking if user is admin
-        //        if (!user.getRoles().contains(adminRole)) {
-        //            return "redirect:/section/" + id;
-        //        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Section section = sectionService.findOne(id_S);
+
+        if(!section.getModeratorsUsername().contains(auth.getName())) {
+            throw new AccessDeniedException("You dont have permission for delete User");
+        }
+
         User user = userService.findOne(id_U);
         sectionService.deleteUserInCurrentSection(auth, user, section, id_S);
 
         return "redirect:/section/"+section.getId()+"/members";
+    }
+
+    @RequestMapping(value = "delete/moderator/{id_S}/{id_U}", method = RequestMethod.GET)
+    public String deleteModeratorFromSection(@PathVariable Integer id_S,
+                                        @PathVariable Integer id_U) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Section section = sectionService.findOne(id_S);
+        User user = userService.findOne(id_U);
+
+        if(!section.getUser().getUsername().equals(auth.getName())) {
+            throw new AccessDeniedException("You dont have permission for delete Moderator");
+        }
+
+        sectionService.deleteModeratorInCurrentSection(auth, user, section, id_S);
+
+        return "redirect:/section/"+section.getId()+"/moderators";
     }
 
     @RequestMapping(value = "add/member/{id_S}/{id_U}", method = RequestMethod.POST)
@@ -161,6 +176,11 @@ public class SectionController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findOne(id_U);
         Section section = sectionService.findOne(id_S);
+
+        if(!section.getModeratorsUsername().contains(auth.getName())) {
+            throw new AccessDeniedException("You dont have permission for add user");
+        }
+
         sectionService.addUserInCurrentSection(auth, user, section, id_S);
 
         return "redirect:/section/"+section.getId()+"/members";
@@ -171,13 +191,18 @@ public class SectionController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findOne(id_U);
         Section section = sectionService.findOne(id_S);
+
+        if(!section.getUser().getUsername().equals(auth.getName())) {
+            throw new AccessDeniedException("You dont have permission for add moderator");
+        }
+
         sectionService.addModeratorInCurrentSection(user, section);
 
         return "redirect:/section/"+section.getId()+"/moderators";
     }
 
     @RequestMapping(value = "{id}/register", method = RequestMethod.GET)
-    public String registerToSection(@PathVariable Integer id, Authentication auth){
+    public String registerToSection(@PathVariable Integer id, Authentication auth, Model model, String error){
         Section section = sectionService.findOne(id);
 
         if (section.getRegisterApplicationAsList().contains(auth.getName())) {
@@ -185,25 +210,38 @@ public class SectionController {
         } else {
             section.setApplication_registers_user(auth.getName());
         }
+
         sectionService.save(section);
         return "redirect:/";
     }
 
     @RequestMapping(value = "{id}/applications", method = RequestMethod.GET)
     public String getApplicationsOfSection(@PathVariable int id,
-                                         Model model) {
+                                         Model model, Authentication authentication) {
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("users", userService.findAll());
+
+        Section section = sectionService.findOne(id);
+
+        if(!section.getModeratorsUsername().contains(authentication.getName())) {
+            throw new AccessDeniedException("You dont have permission for this operation !");
+        }
+
         return "section/register_application";
     }
 
     @RequestMapping(value = "{id_S}/accept/{id_U}", method = RequestMethod.GET)
     public String acceptApplicationsOfSection(@PathVariable int id_S,
-                                              @PathVariable int id_U) {
+                                              @PathVariable int id_U,
+                                              Authentication authentication) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Section section = sectionService.findOne(id_S);
         User user = userService.findOne(id_U);
+
+        if(!section.getModeratorsUsername().contains(authentication.getName())) {
+            throw new AccessDeniedException("You dont have permission for this operation !");
+        }
 
         List<String> str = section.getRegisterApplicationAsList();
         str.remove(user.getUsername());
@@ -223,25 +261,42 @@ public class SectionController {
         } else {
             section.setApplication_registers_moderator(auth.getName());
         }
+
+        if(!section.getMembersUsername().contains(auth.getName())) {
+            throw new AccessDeniedException("You dont have permission for this operation !");
+        }
+
         sectionService.save(section);
         return "redirect:/";
     }
 
     @RequestMapping(value = "{id}/applications/moderator", method = RequestMethod.GET)
     public String getApplicationsModeratorOfSection(@PathVariable int id,
-                                           Model model) {
+                                           Model model, Authentication authentication) {
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("users", userService.findAll());
+
+        Section section = sectionService.findOne(id);
+
+        if(!section.getUser().getUsername().equals(authentication.getName())) {
+            throw new AccessDeniedException("You dont have permission for this operation !");
+        }
+
         return "section/register_application_moderator";
     }
 
     @RequestMapping(value = "{id_S}/accept/moderator/{id_U}", method = RequestMethod.GET)
     public String acceptApplicationsModeratorOfSection(@PathVariable int id_S,
                                               @PathVariable int id_U,
+                                              Authentication authentication,
                                               Model model) {
 
         Section section = sectionService.findOne(id_S);
         User user = userService.findOne(id_U);
+
+        if(!section.getUser().getUsername().equals(authentication.getName())) {
+            throw new AccessDeniedException("You dont have permission for this operation !");
+        }
 
         List<String> str = section.getRegisterModeratorApplicationAsList();
         str.remove(user.getUsername());

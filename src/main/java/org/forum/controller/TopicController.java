@@ -10,6 +10,7 @@ import org.forum.service.UserService;
 import org.forum.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,11 +66,16 @@ public class TopicController {
     @RequestMapping(value = "{idTopic}/edit/{idPost}", method = RequestMethod.GET)
     public String editPost(@PathVariable int idPost,
                            @PathVariable int idTopic,
+                       Authentication authentication,
                        @Valid @ModelAttribute("editPost") NewPostFrom editPost,
                        Model model) {
 
         Post post = postService.findOne(idPost);
         Topic topic = topicService.findOne(idTopic);
+
+        if(!post.getUser().getUsername().equals(authentication.getName()) && !topic.getSection().getModeratorsUsername().contains(authentication.getName())) {
+            throw new AccessDeniedException("You dont have permission for this operation !");
+        }
 
         editPost.setContent(post.getContent());
         model.addAttribute("editPost", editPost);
@@ -150,6 +156,10 @@ public class TopicController {
                          RedirectAttributes model) {
 
         Topic topic = topicService.findOne(id);
+
+        if(!topic.getSection().getModeratorsUsername().contains(authentication.getName())) {
+            throw new AccessDeniedException("You dont have permission for this operation !");
+        }
 
         if(topic == null) {
             return "redirect:/";

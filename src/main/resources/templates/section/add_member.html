@@ -22,13 +22,15 @@
                     <td th:text="${user.username}">Onions</td>
                     <td th:text="${user.email}">123</td>
                     <td>
-                        <form th:action="@{/section/add/member/} + ${section.id} + '/' + ${user.id}" method="POST">
-                            <button type="submit"
-                                    name="action"
-                                    class="btn waves-effect waves-light"
-                                    th:text="#{add.user.as.member}">
-                            </button>
-                        </form>
+                        <div th:if="${section.getModeratorsUsername().contains(#authentication.name)}">
+                            <form th:action="@{/section/add/member/} + ${section.id} + '/' + ${user.id}" method="POST">
+                                <button type="submit"
+                                        name="action"
+                                        class="btn waves-effect waves-light"
+                                        th:text="#{add.user.as.member}">
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             </table>

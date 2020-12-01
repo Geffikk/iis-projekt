@@ -9,7 +9,7 @@
 <div class="container">
     <div th:if="${section.getUser().getUsername().equals(#authentication.name)}">
         <form th:action="@{/section/} + 'add/moderator/' + ${section.id}">
-            <input type="submit" value="Add User" class="btn waves-effect waves-light" />
+            <input type="submit" value="Add Moderator" class="btn waves-effect waves-light" />
         </form>
     </div>
     <div class="row">
@@ -24,7 +24,7 @@
                     <td th:text="${user.email}">123</td>
                     <td>
                         <div th:if="${section.getUser().getUsername().equals(#authentication.name)}">
-                            <form th:action="@{/section/delete/user/} + ${section.id} + '/' + ${user.id}">
+                            <form th:action="@{/section/delete/moderator/} + ${section.id} + '/' + ${user.id}">
                                 <button type="submit"
                                         name="action"
                                         class="btn waves-effect waves-light"
