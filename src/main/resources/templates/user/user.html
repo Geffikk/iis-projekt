@@ -59,7 +59,7 @@
                             <div class="divider"></div>
                             <div class="input-field col s8 l2">
                                 <select class="browser-default" id="section" th:field="*{isPublic}">
-                                    <option value="0" disabled="disabled" selected="selected">Choose section</option>
+                                    <option value="0" disabled="disabled" selected="selected">Choose profile visibility</option>
                                     <option th:text="public" th:value="public"></option>
                                     <option th:text="private" th:value="private"></option>
                                 </select>
@@ -68,6 +68,10 @@
                                 <div class="input-field col s4">
                                     <input class="btn waves-effect waves-light" type="submit" name="action" th:value="#{user.apply}" />
                                 </div>
+                            </div>
+                            <div class="row" style="padding-left: 25px; margin-top: -20px;">
+                                <div th:if="${userProfile.user.isPublic == 0}"><a th:text="#{user.section.private}"></a></div>
+                                <div th:if="${userProfile.user.isPublic == 1}"><a th:text="#{user.section.public}"></a></div>
                             </div>
                         </div>
                     </form>
@@ -141,7 +145,7 @@
                                                     <div class="row">
                                                         <div class="input-field col s6 l8" style="margin-top: -10px">
                                                             <select class="browser-default" id="section" th:field="*{isPublic}">
-                                                                <option value="0" disabled="disabled" selected="selected">Choose section</option>
+                                                                <option value="0" disabled="disabled" selected="selected">Choose section visibility</option>
                                                                 <option value="-"></option>
                                                                 <option th:text="public" th:value="public"></option>
                                                                 <option th:text="private" th:value="private"></option>
