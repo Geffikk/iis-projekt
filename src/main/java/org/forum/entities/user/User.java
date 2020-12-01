@@ -234,6 +234,32 @@ public class User {
         }
         setPermissions(permissionsAsString.toString());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id == user.id &&
+                active == user.active &&
+                isPublic == user.isPublic &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(createdAt, user.createdAt) &&
+                Objects.equals(lastLoginTime, user.lastLoginTime) &&
+                Objects.equals(role, user.role) &&
+                Objects.equals(permissions, user.permissions) &&
+                Objects.equals(info, user.info) &&
+                Objects.equals(activationCode, user.activationCode) &&
+                Objects.equals(moderatorOfSections, user.moderatorOfSections) &&
+                Objects.equals(memberOfSections, user.memberOfSections);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, username, password, active, createdAt, lastLoginTime, role, permissions, info, activationCode, isPublic, moderatorOfSections, memberOfSections);
+    }
 }
 
 

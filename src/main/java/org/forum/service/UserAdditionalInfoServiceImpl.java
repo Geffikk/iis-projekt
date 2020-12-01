@@ -1,6 +1,9 @@
 package org.forum.service;
 
+<<<<<<< Updated upstream
 import org.forum.entities.Post;
+=======
+>>>>>>> Stashed changes
 import org.forum.entities.user.User;
 import org.forum.entities.user.UserAdditionalInfo;
 import org.forum.repository.UserAdditionalInfoRepository;

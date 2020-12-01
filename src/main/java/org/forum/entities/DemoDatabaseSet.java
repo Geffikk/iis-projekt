@@ -34,6 +34,7 @@ public class DemoDatabaseSet {
 
             // create objects
             System.out.println("Creating new objects...");
+            User tempUzivatel6 = new User("admin@admin.com", "admin", "$2y$12$XGZ.vAdgp66gbRkDXm72H.Pfs.rTPWaGXPErLgB.hF76M1Sw0k1V2", 1 , "");
             User tempUzivatel1 = new User("marosgeffert@gmail.com", "Maros11", "$2y$12$tlG0fqfExC8HNqMv9z5FwOGCseUm1XfCFseAn/MsX2jzuqGFdtQwy", 1, "100,102");
             User tempUzivatel2 = new User("patri.ktomov@gmail.com", "Patres22", "$2y$12$tlG0fqfExC8HNqMv9z5FwOGCseUm1XfCFseAn/MsX2jzuqGFdtQwy", 1, "100,101");
             User tempUzivatel3 = new User("tomaslisicky@zoznam.sk", "TomasLis", "$2y$12$tlG0fqfExC8HNqMv9z5FwOGCseUm1XfCFseAn/MsX2jzuqGFdtQwy", 1, "100,101,103");
@@ -45,19 +46,22 @@ public class DemoDatabaseSet {
             UserAdditionalInfo tempInfo3 = new UserAdditionalInfo("0922546456", "Tomas", "Lysicky", "Nitra", "Student FIT", "VUT FIT");
             UserAdditionalInfo tempInfo4 = new UserAdditionalInfo("0925657895", "Adam", "Ondejka", "Trencin", "Student FIT", "VUT FIT");
             UserAdditionalInfo tempInfo5 = new UserAdditionalInfo("0944548789", "Andrej", "Pavlovic", "Leopoldov", "Student FIT", "VUT FIT");
+            UserAdditionalInfo tempInfo6 = new UserAdditionalInfo("-", "-", "-", "-", "-", "-");
 
-
-            tempUzivatel1.setInfo(tempInfo1);
-            tempUzivatel2.setInfo(tempInfo2);
-            tempUzivatel3.setInfo(tempInfo3);
-            tempUzivatel4.setInfo(tempInfo4);
-            tempUzivatel5.setInfo(tempInfo5);
 
             tempInfo1.setUser(tempUzivatel1);
             tempInfo2.setUser(tempUzivatel2);
             tempInfo3.setUser(tempUzivatel3);
             tempInfo4.setUser(tempUzivatel4);
             tempInfo5.setUser(tempUzivatel5);
+
+            tempUzivatel1.setInfo(tempInfo1);
+            tempUzivatel2.setInfo(tempInfo2);
+            tempUzivatel3.setInfo(tempInfo3);
+            tempUzivatel4.setInfo(tempInfo4);
+            tempUzivatel5.setInfo(tempInfo5);
+            tempUzivatel6.setInfo(tempInfo6);
+            tempUzivatel6.setRole("ADMIN");
 
             Section tempSkupina1 = new Section("IMA", "Matematika");
             Section tempSkupina2 = new Section("Hry", "Pocitacove hry");
@@ -178,6 +182,7 @@ public class DemoDatabaseSet {
             session.save(tempUzivatel3);
             session.save(tempUzivatel4);
             session.save(tempUzivatel5);
+            session.save(tempUzivatel6);
 
             session.save(tempInfo1);
             session.save(tempInfo2);

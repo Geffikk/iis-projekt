@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 @ComponentScan
 @Controller
@@ -178,6 +179,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
+
         if (error != null) {
             model.addAttribute("error", "Your username or password is invalid.");
         }
@@ -189,10 +191,6 @@ public class UserController {
         return "home/login";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(){
-        return "home/register";
-    }
 
 
     @RequestMapping(value = "/logout")

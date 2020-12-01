@@ -3,6 +3,7 @@ package org.forum.controller;
 import org.forum.entities.Section;
 import org.forum.entities.user.User;
 import org.forum.newform.NewSectionForm;
+import org.forum.newform.NewTopicForm;
 import org.forum.service.SectionService;
 import org.forum.service.UserService;
 import org.forum.service.TopicService;
@@ -43,6 +44,7 @@ public class SectionController {
         model.addAttribute("topics", topicService.findBySection(id));
         return "section/section";
     }
+
 
     /** SECTION MODERATORS OVERVIEW **/
     @RequestMapping(value = "{id}/moderators", method = RequestMethod.GET)
