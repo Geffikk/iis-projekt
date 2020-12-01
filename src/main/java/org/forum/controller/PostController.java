@@ -28,6 +28,7 @@ public class PostController {
                          Authentication authentication,
                          RedirectAttributes model) {
         Post post = postService.findOne(id);
+
         if (post == null || authentication == null || authentication.getName() == null) {
             return "redirect:/";
         }
