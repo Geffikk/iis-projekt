@@ -28,26 +28,17 @@ public class User {
     @Column(name = "heslo", length = 60, nullable = false)
     private String password;
 
-    @Column(name = "je_aktivny")
-    private int active = 1;
-
     @Column(name = "is_email_verifed")
-    private boolean removed;
+    private int active = 0;
 
     @Column(name = "datum_registarcie")
     private Date createdAt;
-
-    @Column(name = "posledny_datum_prihlasenia")
-    private Date lastLoginTime;
 
     @Column(name = "rola")
     private String role = "USER";
 
     @Column(name = "prava")
     private String permissions = "";
-
-    @Column(name = "id_profile_picture")
-    private int idProfilePicture;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "uzivatelske_info_id")
@@ -84,11 +75,11 @@ public class User {
     public User() {
     }
 
-    public User(String email, String username, String password, String role, String permissions) {
+    public User(String email, String username, String password, int active, String permissions) {
         this.email = email;
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.active = active;
         this.permissions = permissions;
     }
 
@@ -133,13 +124,6 @@ public class User {
         this.active = active;
     }
 
-    public boolean isRemoved() {
-        return removed;
-    }
-
-    public void setRemoved(boolean removed) {
-        this.removed = removed;
-    }
 
     public Date getCreatedAt() {
         return createdAt;
@@ -147,14 +131,6 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
     }
 
     public String  getRole() {
@@ -165,13 +141,6 @@ public class User {
         this.role = role;
     }
 
-    public int getIdProfilePicture() {
-        return idProfilePicture;
-    }
-
-    public void setIdProfilePicture(int idProfilePicture) {
-        this.idProfilePicture = idProfilePicture;
-    }
 
     public UserAdditionalInfo getInfo() {
         return info;

@@ -1,5 +1,6 @@
 package org.forum;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
@@ -8,9 +9,11 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
+@ConditionalOnClass({SpringSecurityDialect.class})
 public class ThymeleafConfiguration {
 
     private static final String HTML_5 = "HTML5";
+
 
     @Bean
     public SpringSecurityDialect springSecurityDialect() {

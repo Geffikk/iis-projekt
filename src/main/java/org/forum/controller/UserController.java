@@ -84,30 +84,6 @@ public class UserController {
         return "user/user";
     }
 
-    @RequestMapping(value = "/myprofile/edit/picture", method = RequestMethod.POST)
-    public String processAndSaveProfilePicture(@RequestPart MultipartFile profilePicture,
-                                               HttpServletRequest request,
-                                               Authentication authentication,
-                                               RedirectAttributes redirectModel) {
-        if (authentication.getName() == null) {
-            return "redirect:/login";
-        }
-        if (profilePicture.isEmpty()) {
-            return "redirect:/myprofile";
-        }
-        User user = userService.findByUsername(authentication.getName());
-        try {
-            String path =
-                    request.getSession().getServletContext().getRealPath("/resources/public/img/pp/");
-            profilePicture.transferTo(new File(path + user.getIdProfilePicture() + ".jpg"));
-        } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
-        }
-
-        userService.save(user);
-        redirectModel.addFlashAttribute("message", "user.picture.successfully.saved");
-        return "redirect:/myprofile";
-    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
