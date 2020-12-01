@@ -8,7 +8,7 @@
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container">
     <div th:if="${section.getUser().getUsername().equals(#authentication.name)}">
-        <form th:action="@{/section/} + '/add/moderator' + ${section.id}">
+        <form th:action="@{/section/} + 'add/moderator/' + ${section.id}">
             <input type="submit" value="Add User" class="btn waves-effect waves-light" />
         </form>
     </div>

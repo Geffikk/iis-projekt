@@ -21,7 +21,7 @@ public class ActivationController {
     public String activateUserAndRedirectToLoginPage(@PathVariable String username,
         @RequestParam String id) {
         activationService.activate(username, id);
-        return "activation_success";
+        return "home/activation_success";
     }
 
     @ExceptionHandler(ForumException.class)
