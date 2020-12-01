@@ -46,21 +46,17 @@
             </div>
 
             <div class="row" style="margin-bottom: 1px;">
-                <div class="col s6 left">
-                    <a th:href="@{/section/} + ${section.id} + '/members'" th:text="#{page.section.members.in.section}" class="right waves-effect waves-light btn"></a>
+                <div class="center col s6 l3">
+                    <a th:href="@{/section/} + ${section.id} + '/members'" th:text="#{page.section.members.in.section}" class="waves-effect waves-light btn"></a>
                 </div>
-                <div class="col s6 right">
-                    <a th:href="@{/section/} + ${section.id} + '/moderators'" th:text="#{page.section.moderators.in.section}" class="right waves-effect waves-light btn"></a>
+                <div class="center col s6 l3">
+                    <a th:href="@{/section/} + ${section.id} + '/moderators'" th:text="#{page.section.moderators.in.section}" class="waves-effect waves-light btn"></a>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col s6 left">
+                <div class="center col s6 l3">
                     <div th:if="${section.getModeratorsUsername().contains(#authentication.name)}">
-                        <a id="app_member" th:href="@{/section/} + ${section.id} + '/applications'" th:text="#{page.section.applications} +' ('+ ${section.getRegisterApplicationAsList().size()}+ ')'" class="right waves-effect waves-light btn"></a>
-                        <label for="app_member">Members</label>
+                        <a id="app_member" th:href="@{/section/} + ${section.id} + '/applications'" th:text="#{page.section.applications} +' ('+ ${section.getRegisterApplicationAsList().size()}+ ')'" class="waves-effect waves-light btn"></a>
+                        <label for="app_member"></label>
                     </div>
-
                 </div>
                 <div class="center col s6 l3" th:if="${section.getMembersUsername().contains(#authentication.name) && !section.getModeratorsUsername().contains(#authentication.name) || #authorization.expression('hasRole(''ADMIN'')')}">
                     <form th:action="@{/section/} + ${section.id} + '/register/moderator'">

@@ -30,9 +30,9 @@
                         <ul class="collapsible" data-collapsible="accordion">
                             <li th:each="section : ${sections}">
                                 <div class="collapsible-header">
-                                    <form th:action="@{/section/} + ${section.id}">
-                                        <button th:text="${section.name}" th:disabled="${section.getIsPublic() == 0 && #authorization.expression('hasRole(''ROLE_ANONYMOUS'')') ||
-                                                                                         section.getIsPublic() == 2 && !section.getMembersUsername().contains(#authentication.name)}"></button>
+                                    <form th:action="@{/section/} + ${section.id}" style="height: 100%; width: 100%;">
+                                        <button class="btn amber darken-4" th:text="${section.name}" th:disabled="${section.getIsPublic() == 0 && #authorization.expression('hasRole(''ROLE_ANONYMOUS'')') ||
+                                                                                         section.getIsPublic() == 2 && !section.getMembersUsername().contains(#authentication.name)}" style="min-width: 100px;"></button>
                                     </form>
                                     <div th:if="${!section.getMembersUsername().contains(#authentication.name)}" sec:authorize="!hasRole('ANONYMOUS') && !hasRole('ADMIN')" style="z-index: 1;">
                                         <form th:action="@{/section/} + ${section.id} + '/register'">
