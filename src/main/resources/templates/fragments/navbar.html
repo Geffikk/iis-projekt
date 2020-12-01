@@ -19,9 +19,7 @@
             <li sec:authorize="!hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/login}" class="modal-trigger">Sign in</a></li>
 
             <li><a th:href="@{/users}">Users</a></li>
-            <div th:if="${!#authorization.expression('hasRole(''ADMIN'')')}">
-                <li sec:authorize="hasAnyRole('USER, MODERATOR')"><a th:href="@{/myprofile}">My Profile</a></li>
-            </div>
+            <li sec:authorize="hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/myprofile}">My Profile</a></li>
             <li sec:authorize="hasAnyRole('USER, MODERATOR, ADMIN')"><a th:href="@{/logout}">Logout</a></li>
         </ul>
 

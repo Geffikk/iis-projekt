@@ -52,13 +52,10 @@
                 <div class="center col s6 l3">
                     <a th:href="@{/section/} + ${section.id} + '/moderators'" th:text="#{page.section.moderators.in.section}" class="waves-effect waves-light btn"></a>
                 </div>
-                <div class="center col s6 l3">
-                    <div th:if="${section.getModeratorsUsername().contains(#authentication.name)}">
-                        <a id="app_member" th:href="@{/section/} + ${section.id} + '/applications'" th:text="#{page.section.applications} +' ('+ ${section.getRegisterApplicationAsList().size()}+ ')'" class="waves-effect waves-light btn"></a>
-                        <label for="app_member"></label>
-                    </div>
+                <div class="center col s6 l3" th:if="${section.getUser().username.equals(#authentication.name) || #authorization.expression('hasRole(''ADMIN'')')}">
+                    <a id="app_member" th:href="@{/section/} + ${section.id} + '/applications'" th:text="#{page.section.applications} +' ('+ ${section.getRegisterApplicationAsList().size()}+ ')'" class="waves-effect waves-light btn" style="width: 200px;"></a>
                 </div>
-                <div class="center col s6 l3" th:if="${section.getMembersUsername().contains(#authentication.name) && !section.getModeratorsUsername().contains(#authentication.name) || #authorization.expression('hasRole(''ADMIN'')')}">
+                <div class="center col s6 l3" th:if="${section.getMembersUsername().contains(#authentication.name) && !section.getModeratorsUsername().contains(#authentication.name)}">
                     <form th:action="@{/section/} + ${section.id} + '/register/moderator'">
                         <button type="submit" th:text="Register" class="waves-effect waves-light btn" style="width: 200px;"></button>
                     </form>

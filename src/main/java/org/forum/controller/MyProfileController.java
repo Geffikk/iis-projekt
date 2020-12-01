@@ -34,7 +34,7 @@ public class MyProfileController {
         User user = new User();
         int ifPublic;
 
-        if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))) {
+        if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER")) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You are not logged in !");
         }
 

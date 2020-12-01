@@ -167,8 +167,8 @@ public class TopicController {
         if(topic == null) {
             return "redirect:/";
         }
-        if(!authentication.getName().equals(topic.getUser().getUsername())) {
-            return "redirect:/topic/" + id;
+        if(!authentication.getName().equals(topic.getUser().getUsername()) && !topic.getSection().getModeratorsUsername().contains(authentication.getName())) {
+            throw new AccessDeniedException("You dont have permission for this operation !");
         }
 
         topicService.delete(topic);
