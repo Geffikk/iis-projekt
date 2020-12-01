@@ -53,7 +53,8 @@ public class Topic {
     public Topic() {
     }
 
-    public Topic(String predmet) {
+    public Topic(String predmet, String kontent) {
+        this.content = kontent;
         this.title = predmet;
     }
 
