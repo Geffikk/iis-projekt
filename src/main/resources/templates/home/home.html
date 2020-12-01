@@ -34,7 +34,7 @@
                                         <button th:text="${section.name}" th:disabled="${section.getIsPublic() == 0 && #authorization.expression('hasRole(''ROLE_ANONYMOUS'')') ||
                                                                                          section.getIsPublic() == 2 && !section.getMembersUsername().contains(#authentication.name)}"></button>
                                     </form>
-                                    <div th:if="${!section.getMembersUsername().contains(#authentication.name)}" sec:authorize="!hasRole('ANONYMOUS')">
+                                    <div th:if="${!section.getMembersUsername().contains(#authentication.name)}" sec:authorize="!hasRole('ANONYMOUS') && !hasRole('ADMIN')" style="z-index: 1;">
                                         <form th:action="@{/section/} + ${section.id} + '/register'">
                                             <button th:disabled="${section.getRegisterApplicationAsList().contains(#authentication.name)}" type="submit" th:text="Register" class="right waves-effect waves-light btn"></button>
                                         </form>

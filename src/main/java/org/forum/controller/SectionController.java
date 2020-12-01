@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,7 +68,7 @@ public class SectionController {
 
         Section section = sectionService.findOne(id);
 
-        if(!section.getMembersUsername().contains(authentication.getName())) {
+        if(!section.getMembersUsername().contains(authentication.getName()) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You have no permission for invite member in this section");
         }
 
@@ -81,7 +82,7 @@ public class SectionController {
 
         Section section = sectionService.findOne(id);
 
-        if(!section.getUser().getUsername().equals(authentication.getName())) {
+        if(!section.getUser().getUsername().equals(authentication.getName()) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You have no permission for invite member in this section");
         }
         return "section/add_moderator";
@@ -127,7 +128,7 @@ public class SectionController {
         User user = userService.findByUsername(authentication.getName());
         Section section = sectionService.findOne(id);
 
-        if(!user.equals(section.getUser()) || !section.getModerators().contains(user)){
+        if(!user.equals(section.getUser()) || !section.getModerators().contains(user) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
             throw new AccessDeniedException("");
         }
 
@@ -144,7 +145,7 @@ public class SectionController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Section section = sectionService.findOne(id_S);
 
-        if(!section.getModeratorsUsername().contains(auth.getName())) {
+        if(!section.getModeratorsUsername().contains(auth.getName()) && !auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for delete User");
         }
 
@@ -162,7 +163,7 @@ public class SectionController {
         Section section = sectionService.findOne(id_S);
         User user = userService.findOne(id_U);
 
-        if(!section.getUser().getUsername().equals(auth.getName())) {
+        if(!section.getUser().getUsername().equals(auth.getName()) && !auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for delete Moderator");
         }
 
@@ -177,7 +178,7 @@ public class SectionController {
         User user = userService.findOne(id_U);
         Section section = sectionService.findOne(id_S);
 
-        if(!section.getModeratorsUsername().contains(auth.getName())) {
+        if(!section.getModeratorsUsername().contains(auth.getName()) && !auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for add user");
         }
 
@@ -192,7 +193,7 @@ public class SectionController {
         User user = userService.findOne(id_U);
         Section section = sectionService.findOne(id_S);
 
-        if(!section.getUser().getUsername().equals(auth.getName())) {
+        if(!section.getUser().getUsername().equals(auth.getName()) && !auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for add moderator");
         }
 
@@ -223,7 +224,7 @@ public class SectionController {
 
         Section section = sectionService.findOne(id);
 
-        if(!section.getModeratorsUsername().contains(authentication.getName())) {
+        if(!section.getModeratorsUsername().contains(authentication.getName()) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for this operation !");
         }
 
@@ -239,7 +240,7 @@ public class SectionController {
         Section section = sectionService.findOne(id_S);
         User user = userService.findOne(id_U);
 
-        if(!section.getModeratorsUsername().contains(authentication.getName())) {
+        if(!section.getModeratorsUsername().contains(authentication.getName()) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for this operation !");
         }
 
@@ -262,7 +263,7 @@ public class SectionController {
             section.setApplication_registers_moderator(auth.getName());
         }
 
-        if(!section.getMembersUsername().contains(auth.getName())) {
+        if(!section.getMembersUsername().contains(auth.getName()) && !auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for this operation !");
         }
 
@@ -278,7 +279,7 @@ public class SectionController {
 
         Section section = sectionService.findOne(id);
 
-        if(!section.getUser().getUsername().equals(authentication.getName())) {
+        if(!section.getUser().getUsername().equals(authentication.getName()) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for this operation !");
         }
 
@@ -294,7 +295,7 @@ public class SectionController {
         Section section = sectionService.findOne(id_S);
         User user = userService.findOne(id_U);
 
-        if(!section.getUser().getUsername().equals(authentication.getName())) {
+        if(!section.getUser().getUsername().equals(authentication.getName()) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for this operation !");
         }
 

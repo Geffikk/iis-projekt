@@ -23,7 +23,7 @@
                     <td th:text="${user.username}">Onions</td>
                     <td th:text="${user.email}">123</td>
                     <td>
-                        <div th:if="${section.getUser().getUsername().equals(#authentication.name)}">
+                        <div th:if="${section.getUser().getUsername().equals(#authentication.name) || #authorization.expression('hasRole(''ADMIN'')')}">
                             <form th:action="@{/section/delete/moderator/} + ${section.id} + '/' + ${user.id}">
                                 <button type="submit"
                                         name="action"

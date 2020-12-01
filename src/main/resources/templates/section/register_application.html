@@ -15,7 +15,7 @@
                 <th>EMAIL</th>
             </tr>
             <tr th:each="user : ${users}">
-                <div th:if="${section.getRegisterApplicationAsList().contains(user.username)}">
+                <div th:if="${section.getRegisterApplicationAsList().contains(user.username) || #authorization.expression('hasRole(''ADMIN'')')}">
                     <td th:text="${user.username}">Onions</td>
                     <td th:text="${user.email}">123</td>
                     <td>

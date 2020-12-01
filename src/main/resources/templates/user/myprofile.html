@@ -17,7 +17,7 @@
                         <h6 th:text="'@' + ${userProfile.user.username}"></h6>
                         <div class="divider"></div>
                         <h6 th:text="${userProfile.user.info.name} + ' ' + ${userProfile.user.info.lastName}" class="bold"></h6>
-                        <a th:if="${userProfile.user.username} eq ${userProfile.user.username}" th:href="@{/myprofile/edit}">
+                        <a th:if="${userProfile.user.username} eq ${userProfile.user.username || #authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/myprofile/edit}">
                             <i class="material-icons medium black-text">mode_edit</i>
                         </a>
                     </div>

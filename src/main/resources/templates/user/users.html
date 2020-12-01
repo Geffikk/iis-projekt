@@ -27,7 +27,7 @@
                                         name="action"
                                         class="btn waves-effect waves-light"
                                         th:text="#{user.view}"
-                                        th:disabled="${user.isPublic == 0 && user.getUsername() != #authentication.name}">
+                                        th:disabled="${user.isPublic == 0 && user.getUsername() != #authentication.name || #authorization.expression('hasRole(''ADMIN'')')}">
                                 </button>
                             </form>
                         </td>

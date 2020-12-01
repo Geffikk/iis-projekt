@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -73,7 +74,8 @@ public class TopicController {
         Post post = postService.findOne(idPost);
         Topic topic = topicService.findOne(idTopic);
 
-        if(!post.getUser().getUsername().equals(authentication.getName()) && !topic.getSection().getModeratorsUsername().contains(authentication.getName())) {
+        if(!post.getUser().getUsername().equals(authentication.getName()) && !topic.getSection().getModeratorsUsername().contains(authentication.getName())
+                && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for this operation !");
         }
 
@@ -157,7 +159,8 @@ public class TopicController {
 
         Topic topic = topicService.findOne(id);
 
-        if(!topic.getSection().getModeratorsUsername().contains(authentication.getName())) {
+        if(!topic.getSection().getModeratorsUsername().contains(authentication.getName()) &&
+                !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             throw new AccessDeniedException("You dont have permission for this operation !");
         }
 

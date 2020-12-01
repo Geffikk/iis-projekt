@@ -1,5 +1,6 @@
 package org.forum.service;
 
+import org.forum.entities.Topic;
 import org.forum.entities.user.User;
 import org.forum.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +56,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
 }

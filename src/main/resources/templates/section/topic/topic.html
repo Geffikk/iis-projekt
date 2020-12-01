@@ -41,8 +41,8 @@
                     <h6 th:text="${topic.user.info.footer}" class="blue-grey-text lighten-3-text"></h6>
                 </div>
             </div>
-            <div class="row" th:if="${topic.user.username} eq ${#authentication.name} or ${topic.getSection().getModeratorsUsername().contains(#authentication.name)}" sec:authorize="isAuthenticated()">
-                <div class="row" th:if="${topic.user.username} eq ${topic.user.username}">
+            <div class="row" th:if="${topic.user.username == #authentication.name || topic.getSection().getModeratorsUsername().contains(#authentication.name) || #authorization.expression('hasRole(''ADMIN'')')}" sec:authorize="isAuthenticated()">
+                <div class="row" th:if="${topic.user.username == topic.user.username || #authorization.expression('hasRole(''ADMIN'')')}">
                     <div class="col s10 right">
                         <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/topic/delete/} + ${topic.id}">
                             <i class="material-icons white black-text">delete</i>
@@ -73,7 +73,7 @@
                 <h6 th:text="${post.user.info.footer}" class="blue-grey-text lighten-3-text"></h6>
             </div>
 
-            <div class="row" th:if="${post.user.username} eq ${#authentication.name} or ${topic.getSection().getModeratorsUsername().contains(#authentication.name)}" sec:authorize="isAuthenticated()">
+            <div class="row" th:if="${post.user.username} eq ${#authentication.name} or ${topic.getSection().getModeratorsUsername().contains(#authentication.name)} or ${#authorization.expression('hasRole(''ADMIN'')')}" sec:authorize="isAuthenticated()">
                 <div class="col s10 right">
                     <a class="btn-floating btn waves-effect waves-ligh green" th:href="@{/post/delete/} + ${post.id}">
                         <i class="material-icons white black-text">delete</i>

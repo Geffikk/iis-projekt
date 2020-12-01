@@ -2,16 +2,19 @@ package org.forum.controller;
 
 import org.forum.entities.Section;
 import org.forum.entities.user.User;
+import org.forum.entities.user.UserAdditionalInfo;
 import org.forum.entities.user.UserProfile;
 import org.forum.entities.user.exception.UserNotFoundException;
 import org.forum.newform.NewSectionForm;
 import org.forum.newform.ProfilForm;
 import org.forum.service.SectionService;
+import org.forum.service.UserAdditionalInfoService;
 import org.forum.service.UserProfileService;
 import org.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +42,9 @@ public class UserController {
     @Autowired
     private SectionService sectionService;
 
+    @Autowired
+    private UserAdditionalInfoService userAdditionalInfoService;
+
     @RequestMapping(value = "/user/{username}")
     public String findUserByUsernameAndViewProfilePage(@PathVariable String username,
                                                        Model model, Authentication authentication) {
@@ -49,7 +55,7 @@ public class UserController {
             throw new UserNotFoundException();
         }
 
-        if (userProfile.getUser().getIsPublic() == 0 && !authentication.getName().equals(username)) {
+        if (userProfile.getUser().getIsPublic() == 0 && !authentication.getName().equals(username) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             return "redirect:/";
         }
 
@@ -63,7 +69,6 @@ public class UserController {
             model.addAttribute("users", userService.findAllByUsername(name));
         } catch (Exception e) {
             model.addAttribute("users", userService.findAll());
-            System.out.println("kokotina");
         }
         return "user/users";
     }
@@ -84,6 +89,57 @@ public class UserController {
         return "user/user";
     }
 
+    @RequestMapping(value = "/myprofile/edit", method = RequestMethod.GET)
+    public String editMyProfile(Authentication authentication,
+                            Model model) {
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
+        UserProfile userProfile;
+        UserAdditionalInfo userAdditionalInfo = new UserAdditionalInfo();
+        try {
+            userProfile = userProfileService.findOne(username);
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException();
+        }
+
+        userAdditionalInfo.setAboutMe(user.getInfo().getAboutMe());
+        userAdditionalInfo.setCity(user.getInfo().getCity());
+        userAdditionalInfo.setFooter(user.getInfo().getFooter());
+        userAdditionalInfo.setName(user.getInfo().getName());
+        userAdditionalInfo.setLastName(user.getInfo().getLastName());
+        userAdditionalInfo.setPhone(user.getInfo().getPhone());
+
+        model.addAttribute("userProfile", userProfile);
+        model.addAttribute("userAdditionalInfo", userAdditionalInfo);
+        model.addAttribute("profilForm", new ProfilForm());
+        model.addAttribute("newSection", new NewSectionForm());
+
+
+        return "user/user_edit_form";
+    }
+
+    @RequestMapping(value = "/myprofile/edit/confirm", method = RequestMethod.POST)
+    public String confirmEditMyProfile(@Valid @ModelAttribute("profilForm") ProfilForm profilForm, Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName());
+
+        user.getInfo().setAboutMe(profilForm.getAboutMe());
+        user.getInfo().setCity(profilForm.getCity());
+        user.getInfo().setFooter(profilForm.getFooter());
+        user.getInfo().setName(profilForm.getName());
+        user.getInfo().setLastName(profilForm.getLastName());
+        user.getInfo().setPhone(profilForm.getPhone());
+
+        userService.save(user);
+        return "redirect:/myprofile";
+    }
+
+    @RequestMapping(value = "/myprofile/delete")
+    public String deleteMyProfile(Authentication authentication) {
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
+        userService.delete(user);
+        return "redirect:/logout";
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
