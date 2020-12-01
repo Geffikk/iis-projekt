@@ -19,7 +19,10 @@
                     <p th:text="${section.description}"></p>
 
                     <div th:if="${section.getMembersUsername().contains(#authentication.name)}">
-                        <div th:if="${section.getModeratorsUsername().contains(#authentication.name)}">
+                        <div th:if="${section.getModeratorsUsername().contains(#authentication.name) && section.getUser().getUsername().equals(#authentication.name)}">
+                            <h6>You are: CREATOR</h6>
+                        </div>
+                        <div th:if="${section.getModeratorsUsername().contains(#authentication.name) && !section.getUser().getUsername().equals(#authentication.name)}">
                             <h6>You are: MODERATOR</h6>
                         </div>
                         <div th:if="${!section.getModeratorsUsername().contains(#authentication.name)}">
