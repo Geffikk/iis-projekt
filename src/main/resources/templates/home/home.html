@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="fragments/head :: head">
 </head>
 <body>
@@ -30,11 +30,10 @@
                         <ul class="collapsible" data-collapsible="accordion">
                             <li th:each="section : ${sections}">
                                 <div class="collapsible-header">
-                                    <form th:action="@{/section/} + ${section.id}">
-                                        <button th:text="${section.name}" th:disabled="${section.getIsPublic() == 0 && #authorization.expression('hasRole(''ROLE_ANONYMOUS'')') ||
-                                                                                         section.getIsPublic() == 2 && !section.getMembersUsername().contains(#authentication.name)}"></button>
+                                    <form th:action="@{/section/} + ${section.id}" style="height: 100%; width: 100%;">
+                                        <button class="btn amber darken-4" th:text="${section.name}" th:disabled="${section.getIsPublic() == 0 && #authorization.expression('hasRole(''ROLE_ANONYMOUS'')') || section.getIsPublic() == 2 && !section.getMembersUsername().contains(#authentication.name)}" style="min-width: 100px;"></button>
                                     </form>
-                                    <div th:if="${!section.getMembersUsername().contains(#authentication.name)}" sec:authorize="!hasRole('ANONYMOUS')">
+                                    <div th:if="${!section.getMembersUsername().contains(#authentication.name)}" sec:authorize="!hasRole('ANONYMOUS')" style="z-index: 1;">
                                         <form th:action="@{/section/} + ${section.id} + '/register'">
                                             <button type="submit" th:text="Register" class="right waves-effect waves-light btn"></button>
                                         </form>
