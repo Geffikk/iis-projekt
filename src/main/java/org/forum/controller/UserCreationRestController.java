@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,7 @@ public class UserCreationRestController {
             throw new ForumApiException(ErrorCode.INVALID_USER_FORM, HttpStatus.BAD_REQUEST,
                 "/api/users");
         }
+
         LOGGER.info("CREATE NEW USER: {}", userCreationForm.getUsername());
         userCreationService.create(userCreationForm.getNewUserEntity());
         return new ResponseEntity(HttpStatus.CREATED);

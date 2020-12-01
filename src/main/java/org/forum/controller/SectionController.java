@@ -61,16 +61,29 @@ public class SectionController {
     }
 
     @RequestMapping(value = "add/member/{id}", method = RequestMethod.GET)
-    public String addMembersToSection(@PathVariable int id, Model model){
+    public String addMembersToSection(@PathVariable int id, Model model, Authentication authentication){
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("users", userService.findAll());
+
+        Section section = sectionService.findOne(id);
+
+        if(!section.getMembersUsername().contains(authentication.getName())) {
+            throw new AccessDeniedException("You have no permission for invite member in this section");
+        }
+
         return "section/add_member";
     }
 
     @RequestMapping(value = "add/moderator/{id}", method = RequestMethod.GET)
-    public String addModeratorsToSection(@PathVariable int id, Model model){
+    public String addModeratorsToSection(@PathVariable int id, Model model, Authentication authentication){
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("users", userService.findAll());
+
+        Section section = sectionService.findOne(id);
+
+        if(!section.getUser().getUsername().equals(authentication.getName())) {
+            throw new AccessDeniedException("You have no permission for invite member in this section");
+        }
         return "section/add_moderator";
     }
 
@@ -90,8 +103,6 @@ public class SectionController {
         if (result.hasErrors()) {
             return "section/new_section_form";
         }
-        System.out.println(newSkupina.getIsPublic());
-
         User user = userService.findByUsername(authentication.getName());
 
         Section section = new Section();
@@ -188,8 +199,7 @@ public class SectionController {
 
     @RequestMapping(value = "{id_S}/accept/{id_U}", method = RequestMethod.GET)
     public String acceptApplicationsOfSection(@PathVariable int id_S,
-                                              @PathVariable int id_U,
-                                           Model model) {
+                                              @PathVariable int id_U) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Section section = sectionService.findOne(id_S);

@@ -28,9 +28,7 @@
 
                         <a th:href="@{/section/} + ${section.id} + '/moderators'" th:text="#{page.section.moderators.in.section}" class="right waves-effect waves-light btn"></a>
 
-                        <div th:if="${section.isPublic != 1}">
-                            <a th:href="@{/section/} + ${section.id} + '/members'" th:text="#{page.section.members.in.section}" class="right waves-effect waves-light btn"></a>
-                        </div>
+                        <a th:href="@{/section/} + ${section.id} + '/members'" th:text="#{page.section.members.in.section}" class="right waves-effect waves-light btn"></a>
 
                         <div th:if="${section.getUser().username.equals(#authentication.name)}">
                             <a th:href="@{/section/delete/} + ${section.id}" th:text="#{page.section.delete.section}" class="waves-effect waves-light btn"></a>
@@ -41,12 +39,12 @@
                         </div>
 
                         <div th:if="${section.getModeratorsUsername().contains(#authentication.name)}">
-                            <a id="app_member" th:href="@{/section/} + ${section.id} + '/applications'" th:text="#{page.section.applications}" class="right waves-effect waves-light btn"></a>
+                            <a id="app_member" th:href="@{/section/} + ${section.id} + '/applications'" th:text="#{page.section.applications} + ' (' + ${section.getRegisterApplicationAsList().size()} + ')'" class="right waves-effect waves-light btn"></a>
                             <label for="app_member">Members</label>
                         </div>
 
                         <div th:if="${section.getUser().username.equals(#authentication.name)}">
-                            <a id="app_moderator" th:href="@{/section/} + ${section.id} + '/applications/moderator'" th:text="#{page.section.applications}" class="right waves-effect waves-light btn"></a>
+                            <a id="app_moderator" th:href="@{/section/} + ${section.id} + '/applications/moderator'" th:text="#{page.section.applications} + ' (' + ${section.getRegisterModeratorApplicationAsList().size()} + ')'" class="right waves-effect waves-light btn"></a>
                             <label for="app_moderator">Moderators</label>
                         </div>
 

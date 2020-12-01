@@ -84,8 +84,7 @@ function isPasswordValid() {
 
 function isUsernameValid() {
   let username = usernameSignupField.val();
-  let usernameRegex = new RegExp("[a-zA-Z0-9_\\-]*");
-
+  let usernameRegex = new RegExp("[a-zA-Z0-9_\\-]+");
   return usernameRegex.test(username);
 }
 

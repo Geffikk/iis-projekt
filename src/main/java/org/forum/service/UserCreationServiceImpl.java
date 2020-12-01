@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserCreationServiceImpl implements UserCreationService {
 
@@ -21,6 +23,8 @@ public class UserCreationServiceImpl implements UserCreationService {
 
     @Override
     public void create(User user) {
+
+        List<User> users = userService.findAll();
         userService.save(prepareUzivatel(user));
         activationSenderService.sendActivationCode(user);
     }

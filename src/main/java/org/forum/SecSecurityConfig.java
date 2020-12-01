@@ -63,6 +63,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     private void configureLoginForm(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("/login")
+                .failureUrl("/login?error=true")
                 .permitAll();
     }
 
