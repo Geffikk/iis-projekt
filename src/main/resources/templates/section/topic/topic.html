@@ -25,7 +25,6 @@
                     <div class="row">
                         <div class="col s11 right">
                             <a th:href="@{/user/} + ${topic.user.username}" th:text="'@' + ${topic.user.username}"></a>
-                            <img th:src="@{/resources/img/pp/} + ${topic.user.idProfilePicture} + '.jpg'" class="responsive-img" />
                         </div>
                     </div>
                     <div class="col s12"></div>
@@ -60,7 +59,6 @@
             <div class="col s2  center">
                 <a th:href="@{/user/} + ${post.user.username}" th:text="'@' + ${post.user.username}"></a>
                 <div class="col s12">
-                    <img th:src="@{/resources/img/pp/} + ${post.user.idProfilePicture} + '.jpg'" class="responsive-img" />
                 </div>
             </div>
 

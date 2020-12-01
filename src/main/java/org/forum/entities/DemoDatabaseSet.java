@@ -34,17 +34,17 @@ public class DemoDatabaseSet {
 
             // create objects
             System.out.println("Creating new objects...");
-            User tempUzivatel1 = new User("marosgeffert@gmail.com", "Marosko", "123456", "USER", "100,102");
-            User tempUzivatel2 = new User("patriktomov@gmail.com", "Patres", "123456", "USER", "100,101");
-            User tempUzivatel3 = new User("andrejchuj@gmail.com", "Ander", "123456", "USER", "100,101,102");
-            User tempUzivatel4 = new User("adamondrejka@gmail.com", "Adam", "123456", "USER", "");
-            User tempUzivatel5 = new User("tomaslisina@gmail.com", "Tomasqo", "123456", "USER", "");
+            User tempUzivatel1 = new User("marosgeffert@gmail.com", "Maros11", "$2y$12$tlG0fqfExC8HNqMv9z5FwOGCseUm1XfCFseAn/MsX2jzuqGFdtQwy", 1, "100,102");
+            User tempUzivatel2 = new User("patri.ktomov@gmail.com", "Patres22", "$2y$12$tlG0fqfExC8HNqMv9z5FwOGCseUm1XfCFseAn/MsX2jzuqGFdtQwy", 1, "100,101");
+            User tempUzivatel3 = new User("tomaslisicky@zoznam.sk", "TomasLis", "$2y$12$tlG0fqfExC8HNqMv9z5FwOGCseUm1XfCFseAn/MsX2jzuqGFdtQwy", 1, "100,101,103");
+            User tempUzivatel4 = new User("adamondrejka@azet.sk", "Adam44", "$2y$12$tlG0fqfExC8HNqMv9z5FwOGCseUm1XfCFseAn/MsX2jzuqGFdtQwy", 1, "100,101");
+            User tempUzivatel5 = new User("pavlo123@gmail.com", "Pavlov1c", "$2y$12$tlG0fqfExC8HNqMv9z5FwOGCseUm1XfCFseAn/MsX2jzuqGFdtQwy", 1 , "101,103");
 
-            UserAdditionalInfo tempInfo1 = new UserAdditionalInfo("441223118", "Maros", "Geffer", "Bardejov", "Som chuj1", "Chuj1");
-            UserAdditionalInfo tempInfo2 = new UserAdditionalInfo("441223118", "Patrik", "Tomov", "Bardejov", "Som chuj2", "Chuj2");
-            UserAdditionalInfo tempInfo3 = new UserAdditionalInfo("441223118", "Andrej", "Pavlovic", "Leopoldov", "Som chuj", "Chuj1");
-            UserAdditionalInfo tempInfo4 = new UserAdditionalInfo("441223118", "Adam", "Ondejka", "Bardejov", "Som chuj", "Chuj1");
-            UserAdditionalInfo tempInfo5 = new UserAdditionalInfo("441223118", "Tomas", "Lysicky", "Bardejov", "Som chuj", "Chuj1");
+            UserAdditionalInfo tempInfo1 = new UserAdditionalInfo("0904456852", "Maros", "Geffer", "Bardejov", "Student FIT", "VUT FIT");
+            UserAdditionalInfo tempInfo2 = new UserAdditionalInfo("0944111254", "Patrik", "Tomov", "Bardejov", "Student FIT", "VUT FIT");
+            UserAdditionalInfo tempInfo3 = new UserAdditionalInfo("0922546456", "Tomas", "Lysicky", "Nitra", "Student FIT", "VUT FIT");
+            UserAdditionalInfo tempInfo4 = new UserAdditionalInfo("0925657895", "Adam", "Ondejka", "Trencin", "Student FIT", "VUT FIT");
+            UserAdditionalInfo tempInfo5 = new UserAdditionalInfo("0944548789", "Andrej", "Pavlovic", "Leopoldov", "Student FIT", "VUT FIT");
 
 
             tempUzivatel1.setInfo(tempInfo1);
@@ -53,134 +53,119 @@ public class DemoDatabaseSet {
             tempUzivatel4.setInfo(tempInfo4);
             tempUzivatel5.setInfo(tempInfo5);
 
+            tempInfo1.setUser(tempUzivatel1);
+            tempInfo2.setUser(tempUzivatel2);
+            tempInfo3.setUser(tempUzivatel3);
+            tempInfo4.setUser(tempUzivatel4);
+            tempInfo5.setUser(tempUzivatel5);
+
             Section tempSkupina1 = new Section("IMA", "Matematika");
-            Section tempSkupina2 = new Section("ISA", "Siete 2");
-            Section tempSkupina3 = new Section("Hry", "Pocitacove hry");
-            Section tempSkupina4 = new Section("Vtipy", "Vtipy");
-            Section tempSkupina5 = new Section("Bazar", "BazarPiko");
+            Section tempSkupina2 = new Section("Hry", "Pocitacove hry");
+            Section tempSkupina3 = new Section("AutoBazar", "Predaj aut");
+            Section tempSkupina4 = new Section("Vtipy", "Rozne vtipy");
 
             tempSkupina1.setUser(tempUzivatel1);
-            tempSkupina3.setUser(tempUzivatel3);
-            tempSkupina4.setUser(tempUzivatel5);
             tempSkupina2.setUser(tempUzivatel2);
-            tempSkupina5.setUser(tempUzivatel4);
+            tempSkupina3.setUser(tempUzivatel1);
+            tempSkupina4.setUser(tempUzivatel5);
 
-            tempSkupina1.setModerators_list(tempUzivatel1.getUsername());
-            tempSkupina2.setModerators_list(tempUzivatel2.getUsername());
-            tempSkupina3.setModerators_list(tempUzivatel3.getUsername());
-            tempSkupina4.setModerators_list(tempUzivatel4.getUsername());
-            tempSkupina5.setModerators_list(tempUzivatel5.getUsername());
+            tempSkupina1.setModerators_list("Maros11,Patres22,TomasLis");
+            tempSkupina2.setModerators_list("Patres22,TomasLis,Adam44");
+            tempSkupina3.setModerators_list("Maros12");
+            tempSkupina4.setModerators_list("Pavlov1c");
 
-            List<User> moderator1 = new ArrayList<>();
-            List<User> moderator2 = new ArrayList<>();
-            List<User> moderator3 = new ArrayList<>();
-            List<User> moderator4 = new ArrayList<>();
-            List<User> moderator5 = new ArrayList<>();
 
-            moderator1.add(tempUzivatel1);
-            moderator2.add(tempUzivatel2);
-            moderator3.add(tempUzivatel3);
-            moderator4.add(tempUzivatel4);
-            moderator5.add(tempUzivatel5);
+            List<User> moderatorsIMA = new ArrayList<>();
+            List<User> moderatorsHry = new ArrayList<>();
+            List<User> moderatorsAutoBazar = new ArrayList<>();
+            List<User> moderatorsVtipy = new ArrayList<>();
 
-            tempSkupina1.setModerators(moderator1);
-            tempSkupina2.setModerators(moderator2);
-            tempSkupina3.setModerators(moderator3);
-            tempSkupina4.setModerators(moderator4);
-            tempSkupina5.setModerators(moderator5);
 
-            List<User> members = new ArrayList<>();
-            members.add(tempUzivatel1);
-            members.add(tempUzivatel2);
-            members.add(tempUzivatel3);
+            moderatorsIMA.add(tempUzivatel1);
+            moderatorsIMA.add(tempUzivatel2);
+            moderatorsIMA.add(tempUzivatel3);
+            moderatorsHry.add(tempUzivatel2);
+            moderatorsHry.add(tempUzivatel3);
+            moderatorsHry.add(tempUzivatel4);
+            moderatorsAutoBazar.add(tempUzivatel1);
+            moderatorsVtipy.add(tempUzivatel5);
 
-            List<User> members3 = new ArrayList<>();
-            members3.add(tempUzivatel2);
-            members3.add(tempUzivatel3);
+            tempSkupina1.setModerators(moderatorsIMA);
+            tempSkupina2.setModerators(moderatorsHry);
+            tempSkupina3.setModerators(moderatorsAutoBazar);
+            tempSkupina4.setModerators(moderatorsVtipy);
 
-            List<User> members2 = new ArrayList<>();
-            members2.add(tempUzivatel1);
-            members2.add(tempUzivatel3);
+            List<User> membersIMA = new ArrayList<>();
+            membersIMA.add(tempUzivatel1);
+            membersIMA.add(tempUzivatel2);
+            membersIMA.add(tempUzivatel3);
+            membersIMA.add(tempUzivatel4);
 
-            tempSkupina1.setMembers(members);
-            tempSkupina2.setMembers(members3);
-            tempSkupina3.setMembers(members2);
 
-            Topic tempVlakno1 = new Topic("Polsemka");
-            Topic tempVlakno2 = new Topic("Skuska");
-            Topic tempVlakno3 = new Topic("Metin 2");
-            Topic tempVlakno4 = new Topic("Predam sufusky");
-            Topic tempVlakno5 = new Topic("Vtipy o ciganoch");
-            Topic tempVlakno6 = new Topic("CSKO");
+            List<User> membersHry = new ArrayList<>();
+            membersHry.add(tempUzivatel2);
+            membersHry.add(tempUzivatel3);
+            membersHry.add(tempUzivatel4);
+            membersHry.add(tempUzivatel5);
+
+            List<User> membersAutoBazar = new ArrayList<>();
+            membersAutoBazar.add(tempUzivatel1);
+
+
+            List<User> membersVtipy = new ArrayList<>();
+            membersVtipy.add(tempUzivatel5);
+            membersVtipy.add(tempUzivatel3);
+
+
+            tempSkupina1.setMembers(membersIMA);
+            tempSkupina2.setMembers(membersHry);
+            tempSkupina3.setMembers(membersAutoBazar);
+            tempSkupina4.setMembers(membersVtipy);
+
+            Topic tempVlakno1 = new Topic("Polsemka", "Čo by podľa vás malo byť na poslemke?");
+            Topic tempVlakno2 = new Topic("Skúška", "Budu na skúške aj derivácie?");
+            Topic tempVlakno3 = new Topic("Metin 2", "Čo nové vo svete Metinu2?");
+            Topic tempVlakno4 = new Topic("CSKO", "Niekto hru?");
+            Topic tempVlakno5 = new Topic("Predám ŠKODU 120", "Niekto ponuky?");
 
             tempVlakno1.setSection(tempSkupina1);
             tempVlakno2.setSection(tempSkupina1);
-            tempVlakno3.setSection(tempSkupina3);
-            tempVlakno4.setSection(tempSkupina5);
-            tempVlakno5.setSection(tempSkupina4);
-            tempVlakno6.setSection(tempSkupina3);
+            tempVlakno3.setSection(tempSkupina2);
+            tempVlakno4.setSection(tempSkupina2);
+            tempVlakno5.setSection(tempSkupina3);
 
-            tempVlakno1.setUser(tempUzivatel1);
-            tempVlakno2.setUser(tempUzivatel1);
-            tempVlakno3.setUser(tempUzivatel3);
-            tempVlakno4.setUser(tempUzivatel2);
-            tempVlakno5.setUser(tempUzivatel5);
-            tempVlakno6.setUser(tempUzivatel3);
+            tempVlakno1.setUser(tempUzivatel4);
+            tempVlakno2.setUser(tempUzivatel3);
+            tempVlakno3.setUser(tempUzivatel1);
+            tempVlakno4.setUser(tempUzivatel3);
+            tempVlakno5.setUser(tempUzivatel1);
 
 
-            Post tempPrispevok1 = new Post("Co bude na polsemke?", 0);
-            Post tempPrispevok2 = new Post("Podla mna logaritmy.", 0);
-            Post tempPrispevok3 = new Post("Ja si myslim ze nic.", 0);
-            Post tempPrispevok4 = new Post("Co nove vo svete Metinu2?", 0);
-            Post tempPrispevok5 = new Post("Viete, ako hovoríme navoňanej cigánke?\n" + "Arómka", 0);
-            Post tempPrispevok6 = new Post("Stará cigánska múdrosť: ", 0);
-            Post tempPrispevok7 = new Post("Vtip 5", 0);
-            Post tempPrispevok8 = new Post("Vtip 6", 0);
-            Post tempPrispevok9 = new Post("Kolko kilovaty ma sufusky?", 0);
-            Post tempPrispevok10 = new Post("100000kW", 0);
-            Post tempPrispevok11 = new Post("Kupim za 10 evry", 0);
-            Post tempPrispevok12 = new Post("Ja tam 150 eur!", 0);
-            Post tempPrispevok13 = new Post("Kolko FSP mate po update?", 0);
-            Post tempPrispevok14 = new Post("Niekto hru?", 0);
-            Post tempPrispevok15 = new Post("Sme 4 hladame este 1", 0);
-            Post tempPrispevok16 = new Post("DM me pls", 0);
+            Post tempPrispevok1 = new Post("Podľa mňa logaritmy.", 0);
+            Post tempPrispevok2 = new Post("Čo som čítal tak by tam mali byť aj derivácie.", 0);
+            Post tempPrispevok3 = new Post("Áno máte pravdu budu tam aj logaritmy aj derivácie.", 0);
+            Post tempPrispevok4 = new Post("Nič všetko po starom.", 0);
+            Post tempPrispevok5 = new Post("Sme 4 hľadáme ešte 1.", 0);
+            Post tempPrispevok6 = new Post("Ja by som šiel keď tak napište mi.", 0);
+            Post tempPrispevok7 = new Post("Ak máte ešte voľné pridal by som sa.", 0);
 
 
             tempPrispevok1.setTopic(tempVlakno1);
             tempPrispevok2.setTopic(tempVlakno1);
             tempPrispevok3.setTopic(tempVlakno1);
             tempPrispevok4.setTopic(tempVlakno3);
-            tempPrispevok5.setTopic(tempVlakno5);
-            tempPrispevok6.setTopic(tempVlakno5);
-            tempPrispevok7.setTopic(tempVlakno5);
-            tempPrispevok8.setTopic(tempVlakno5);
-            tempPrispevok9.setTopic(tempVlakno4);
-            tempPrispevok10.setTopic(tempVlakno4);
-            tempPrispevok11.setTopic(tempVlakno4);
-            tempPrispevok12.setTopic(tempVlakno4);
-            tempPrispevok13.setTopic(tempVlakno6);
-            tempPrispevok14.setTopic(tempVlakno6);
-            tempPrispevok15.setTopic(tempVlakno6);
-            tempPrispevok16.setTopic(tempVlakno6);
+            tempPrispevok5.setTopic(tempVlakno4);
+            tempPrispevok6.setTopic(tempVlakno4);
+            tempPrispevok7.setTopic(tempVlakno4);
 
 
             tempPrispevok1.setUser(tempUzivatel1);
-            tempPrispevok2.setUser(tempUzivatel3);
-            tempPrispevok3.setUser(tempUzivatel2);
-            tempPrispevok4.setUser(tempUzivatel5);
-            tempPrispevok5.setUser(tempUzivatel5);
+            tempPrispevok2.setUser(tempUzivatel2);
+            tempPrispevok3.setUser(tempUzivatel3);
+            tempPrispevok4.setUser(tempUzivatel3);
+            tempPrispevok5.setUser(tempUzivatel2);
             tempPrispevok6.setUser(tempUzivatel4);
-            tempPrispevok7.setUser(tempUzivatel1);
-            tempPrispevok8.setUser(tempUzivatel1);
-            tempPrispevok9.setUser(tempUzivatel2);
-            tempPrispevok10.setUser(tempUzivatel3);
-            tempPrispevok11.setUser(tempUzivatel3);
-            tempPrispevok12.setUser(tempUzivatel3);
-            tempPrispevok13.setUser(tempUzivatel5);
-            tempPrispevok14.setUser(tempUzivatel5);
-            tempPrispevok15.setUser(tempUzivatel4);
-            tempPrispevok16.setUser(tempUzivatel4);
-
+            tempPrispevok7.setUser(tempUzivatel5);
 
             // start a transactions
             session.beginTransaction();
@@ -205,14 +190,13 @@ public class DemoDatabaseSet {
             session.save(tempSkupina2);
             session.save(tempSkupina3);
             session.save(tempSkupina4);
-            session.save(tempSkupina5);
 
             session.save(tempVlakno1);
             session.save(tempVlakno2);
             session.save(tempVlakno3);
             session.save(tempVlakno4);
             session.save(tempVlakno5);
-            session.save(tempVlakno6);
+
 
             session.save(tempPrispevok1);
             session.save(tempPrispevok2);
@@ -221,15 +205,7 @@ public class DemoDatabaseSet {
             session.save(tempPrispevok5);
             session.save(tempPrispevok6);
             session.save(tempPrispevok7);
-            session.save(tempPrispevok8);
-            session.save(tempPrispevok9);
-            session.save(tempPrispevok10);
-            session.save(tempPrispevok11);
-            session.save(tempPrispevok12);
-            session.save(tempPrispevok13);
-            session.save(tempPrispevok14);
-            session.save(tempPrispevok15);
-            session.save(tempPrispevok16);
+
 
 
             // commit transaction
