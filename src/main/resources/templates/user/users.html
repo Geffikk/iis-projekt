@@ -1,7 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/head :: head">
 </head>
 <body>
@@ -19,18 +19,21 @@
                         <th>EMAIL</th>
                     </tr>
                     <tr th:each="user : ${users}">
-                        <td th:text="${user.username}">Onions</td>
-                        <td th:text="${user.email}">123</td>
-                        <td>
-                            <form th:action="@{/user/} + ${user.username}">
-                                <button type="submit"
-                                        name="action"
-                                        class="btn waves-effect waves-light"
-                                        th:text="#{user.view}"
-                                        th:disabled="${user.isPublic == 0 && user.getUsername() != #authentication.name || #authorization.expression('hasRole(''ADMIN'')')}">
-                                </button>
-                            </form>
-                        </td>
+                        <div th:if="${!user.getRoleList().contains('ADMIN')}">
+                            <td th:text="${user.username}">Onions</td>
+                            <td th:text="${user.email}">123</td>
+                            <td>
+
+                                    <form th:action="@{/user/} + ${user.username}">
+                                        <button type="submit"
+                                                name="action"
+                                                class="btn waves-effect waves-light"
+                                                th:text="#{user.view}"
+                                                th:disabled="${user.isPublic == 0 && !#authorization.expression('hasRole(''ADMIN'')') && user.getUsername() != #authentication.name}">
+                                        </button>
+                                    </form>
+                            </td>
+                        </div>
                     </tr>
                 </table>
             </div>

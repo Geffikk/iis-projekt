@@ -13,6 +13,7 @@ import org.forum.service.UserProfileService;
 import org.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -56,7 +57,7 @@ public class UserController {
         }
 
         if (userProfile.getUser().getIsPublic() == 0 && !authentication.getName().equals(username) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            return "redirect:/";
+            throw new AccessDeniedException("You dont have permission for this operation");
         }
 
         model.addAttribute("userProfile", userProfile);
@@ -98,6 +99,40 @@ public class UserController {
         UserAdditionalInfo userAdditionalInfo = new UserAdditionalInfo();
         try {
             userProfile = userProfileService.findOne(username);
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException();
+        }
+
+        userAdditionalInfo.setAboutMe(user.getInfo().getAboutMe());
+        userAdditionalInfo.setCity(user.getInfo().getCity());
+        userAdditionalInfo.setFooter(user.getInfo().getFooter());
+        userAdditionalInfo.setName(user.getInfo().getName());
+        userAdditionalInfo.setLastName(user.getInfo().getLastName());
+        userAdditionalInfo.setPhone(user.getInfo().getPhone());
+
+        model.addAttribute("userProfile", userProfile);
+        model.addAttribute("userAdditionalInfo", userAdditionalInfo);
+        model.addAttribute("profilForm", new ProfilForm());
+        model.addAttribute("newSection", new NewSectionForm());
+
+
+        return "user/user_edit_form";
+    }
+
+    @RequestMapping(value = "/user/edit/{id}", method = RequestMethod.GET)
+    public String editProfile(Authentication authentication,
+                              @PathVariable int id,
+                                Model model) {
+        if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            throw new AccessDeniedException("You dont have permission for this operation");
+        }
+
+        String username = authentication.getName();
+        User user = userService.findOne(id);
+        UserProfile userProfile;
+        UserAdditionalInfo userAdditionalInfo = new UserAdditionalInfo();
+        try {
+            userProfile = userProfileService.findOne(user.getUsername());
         } catch (NullPointerException e) {
             throw new UserNotFoundException();
         }

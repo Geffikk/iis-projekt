@@ -21,7 +21,14 @@ public class AccessRules {
 
     protected static final String[] FOR_ADMINS = {
         "/admin/**",
-        "/section/new"};
+        "/topic/new/**",
+        "/topic/delete/**",
+        "/section/delete/**",
+        "/section/new/**",
+        "/post/**",
+        "/section/**/add/**",
+        "/section/add/**",
+        "/myprofile/**"};
 
     protected static final String[] ADMINS_ROLES = {"ADMIN", "USER", "MODERATOR"};
 
