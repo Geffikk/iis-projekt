@@ -15,6 +15,8 @@ public class AccessRules {
         "/section/delete/**",
         "/section/new/**",
         "/post/**",
+        "/section/**/add/**",
+        "/section/add/**",
         "/myprofile/**"};
 
     protected static final String[] FOR_ADMINS = {

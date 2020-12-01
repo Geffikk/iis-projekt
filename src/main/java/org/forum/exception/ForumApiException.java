@@ -46,7 +46,6 @@ public class ForumApiException extends ForumException {
         this.path = path;
     }
 
-
     @Override
     public String toString() {
         return "ForumApiException{" +

@@ -19,7 +19,7 @@ public class GlobalExceptionHandlerController {
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Page not found")
     @ExceptionHandler(NoHandlerFoundException.class)
     public String handle() {
-        return "errors/404";
+        return "fragments/404";
     }
 
     @ExceptionHandler(ForumApiException.class)
