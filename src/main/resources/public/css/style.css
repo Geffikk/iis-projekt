@@ -19,3 +19,7 @@ body>.container {
 .bold {
 	font-weight: bold;
 }
+.stretch {
+	position: relative;
+	min-height: 73vh; /* calculated for 1920 x 1080 */
+}
