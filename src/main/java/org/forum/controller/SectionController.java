@@ -8,6 +8,7 @@ import org.forum.service.UserService;
 import org.forum.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -59,14 +60,14 @@ public class SectionController {
         return "section/members";
     }
 
-    @RequestMapping(value = "{id}/add/member", method = RequestMethod.GET)
+    @RequestMapping(value = "add/member/{id}", method = RequestMethod.GET)
     public String addMembersToSection(@PathVariable int id, Model model){
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("users", userService.findAll());
         return "section/add_member";
     }
 
-    @RequestMapping(value = "{id}/add/moderator", method = RequestMethod.GET)
+    @RequestMapping(value = "add/moderator/{id}", method = RequestMethod.GET)
     public String addModeratorsToSection(@PathVariable int id, Model model){
         model.addAttribute("section", sectionService.findOne(id));
         model.addAttribute("users", userService.findAll());
@@ -119,7 +120,7 @@ public class SectionController {
 //        }
         Section section = sectionService.findOne(id);
         if(!user.equals(section.getUser()) || !section.getModerators().contains(user)){
-            return "redirect:/section/" + id;
+            throw new AccessDeniedException("");
         }
 
         sectionService.delete(id);
