@@ -60,6 +60,7 @@
                             <div class="input-field col s8 l2">
                                 <select class="browser-default" id="section" th:field="*{isPublic}">
                                     <option value="0" disabled="disabled" selected="selected">Choose section</option>
+                                    <option value="-"></option>
                                     <option th:text="public" th:value="public"></option>
                                     <option th:text="private" th:value="private"></option>
                                 </select>

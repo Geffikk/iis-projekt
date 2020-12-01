@@ -5,105 +5,93 @@
 <head th:replace="fragments/head :: head">
 </head>
 <body>
-    <nav th:replace="fragments/navbar :: navbar"></nav>
+<nav th:replace="fragments/navbar :: navbar"></nav>
 
-    <div class="container">
+<div class="container">
 
 
-        <div class="row">
-            <div class="col s12">
+    <div class="row">
+        <div class="col s12">
 
-                <div class="row" style="margin-bottom: 1px;">
-                    <div class="col s12">
-                        <h3 th:text="#{page.section.topics.in.section} + ' ' + ${section.name}">Topics in section</h3>
-                        <p th:text="${section.description}"></p>
+            <div class="row" style="margin-bottom: 1px;">
+                <div class="col s12">
+                    <h3 th:text="#{page.section.topics.in.section} + ' ' + ${section.name}">Topics in section</h3>
+                    <p th:text="${section.description}"></p>
 
-                        <div th:if="${section.getMembersUsername().contains(#authentication.name)}">
-                            <div th:if="${section.getModeratorsUsername().contains(#authentication.name)}">
-                                <h6>You are: MODERATOR</h6>
-                            </div>
-                            <div th:if="${!section.getModeratorsUsername().contains(#authentication.name)}">
-                                <h6>You are: MEMBER</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                        <a th:href="@{/section/} + ${section.id} + '/moderators'" th:text="#{page.section.moderators.in.section}" class="right waves-effect waves-light btn"></a>
-
-                        <a th:href="@{/section/} + ${section.id} + '/members'" th:text="#{page.section.members.in.section}" class="right waves-effect waves-light btn"></a>
-
-                <div class="row">
-                    <div class="col s6 left">
-                <div class="row">
-                    <div class="col s6 left">
-                        <div th:if="${section.getUser().username.equals(#authentication.name)}">
-                            <a th:href="@{/section/delete/} + ${section.id}" th:text="#{page.section.delete.section}" class="waves-effect waves-light btn"></a>
-                        </div>
-                    </div>
-                    <div class="col s6 right">
-                        <div th:if="${section.getMembersUsername().contains(#authentication.name)}">
-                            <a th:href="@{/topic/new}" th:text="#{page.section.new.topic}" class="right waves-effect waves-light btn"></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row" style="margin-bottom: 1px;">
-                    <div class="col s6 left">
-                        <div th:if="${section.isPublic != 0}">
-                            <a th:href="@{/section/} + ${section.id} + '/members'" th:text="#{page.section.members.in.section}" class="right waves-effect waves-light btn"></a>
-                        </div>
-                    </div>
-                    <div class="col s6 right">
-                        <a th:href="@{/section/} + ${section.id} + '/moderators'" th:text="#{page.section.moderators.in.section}" class="right waves-effect waves-light btn"></a>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col s6 left">
+                    <div th:if="${section.getMembersUsername().contains(#authentication.name)}">
                         <div th:if="${section.getModeratorsUsername().contains(#authentication.name)}">
-                            <a id="app_member" th:href="@{/section/} + ${section.id} + '/applications'" th:text="#{page.section.applications} + ' (' + ${section.getRegisterApplicationAsList().size()} + ')'" class="right waves-effect waves-light btn"></a>
-                            <label for="app_member">Members</label>
+                            <h6>You are: MODERATOR</h6>
                         </div>
-
-                        <div th:if="${section.getUser().username.equals(#authentication.name)}">
-                            <a id="app_moderator" th:href="@{/section/} + ${section.id} + '/applications/moderator'" th:text="#{page.section.applications} + ' (' + ${section.getRegisterModeratorApplicationAsList().size()} + ')'" class="right waves-effect waves-light btn"></a>
-                            <label for="app_moderator">Moderators</label>
+                        <div th:if="${!section.getModeratorsUsername().contains(#authentication.name)}">
+                            <h6>You are: MEMBER</h6>
                         </div>
-                    </div>
-                    <div class="col s6 right">
-                    </div>
-                    <div class="col s6 right">
-
-                        <div th:if="${section.getMembersUsername().contains(#authentication.name) && !section.getModeratorsUsername().contains(#authentication.name)}">
-                            <form th:action="@{/section/} + ${section.id} + '/register/moderator'">
-                                <button type="submit" th:text="Register" class="right waves-effect waves-light btn"></button>
-                            </form>
-                        </div>
-
-                        <div th:if="${section.getUser().username.equals(#authentication.name)}">
-                            <a id="app_moderator" th:href="@{/section/} + ${section.id} + '/applications/moderator'" th:text="#{page.section.applications.mod}" class="right waves-effect waves-light btn"></a>
-                            <label for="app_moderator">Moderators</label>
-                        </div>
-
                     </div>
                 </div>
+            </div>
 
-                <div class="divider"></div>
-                <div class="row" th:each="topic : ${topics}">
-                    <div class="col s12">
-                        <div class="section">
-                            <a th:href="@{/topic/} + ${topic.id}" th:text="${topic.user.username} + ': ' + ${topic.title}"></a>
-                            <span class="right" th:text="${topic.creationDate} ? ${#calendars.format(topic.creationDate, 'dd MMMM yyyy HH:mm')}"></span> <span class="truncate"
-                                th:text="${topic.content}"></span>
-                        </div>
-                        <div class="divider"></div>
+            <div class="row">
+                <div class="col s6 left">
+                    <div th:if="${section.getUser().username.equals(#authentication.name)}">
+                        <a th:href="@{/section/delete/} + ${section.id}" th:text="#{page.section.delete.section}" class="waves-effect waves-light btn"></a>
                     </div>
+                </div>
+                <div class="col s6 right">
+                    <div th:if="${section.getMembersUsername().contains(#authentication.name)}">
+                        <a th:href="@{/topic/new}" th:text="#{page.section.new.topic}" class="right waves-effect waves-light btn"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 1px;">
+                <div class="col s6 left">
+                    <div th:if="${section.isPublic != 0}">
+                        <a th:href="@{/section/} + ${section.id} + '/members'" th:text="#{page.section.members.in.section}" class="right waves-effect waves-light btn"></a>
+                    </div>
+                </div>
+                <div class="col s6 right">
+                    <a th:href="@{/section/} + ${section.id} + '/moderators'" th:text="#{page.section.moderators.in.section}" class="right waves-effect waves-light btn"></a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s6 left">
+                    <div th:if="${section.getModeratorsUsername().contains(#authentication.name)}">
+                        <a id="app_member" th:href="@{/section/} + ${section.id} + '/applications'" th:text="#{page.section.applications} +' ('+${section.getRegisterApplicationAsList().size()}+')'" class="right waves-effect waves-light btn"></a>
+                        <label for="app_member">Members</label>
+                    </div>
+
+                </div>
+                <div class="col s6 right">
+
+                    <div th:if="${section.getMembersUsername().contains(#authentication.name) && !section.getModeratorsUsername().contains(#authentication.name)}">
+                        <form th:action="@{/section/} + ${section.id} + '/register/moderator'">
+                            <button type="submit" th:text="Register" class="right waves-effect waves-light btn"></button>
+                        </form>
+                    </div>
+
+                    <div th:if="${section.getUser().username.equals(#authentication.name)}">
+                        <a id="app_moderator" th:href="@{/section/} + ${section.id} + '/applications/moderator'" th:text="#{page.section.applications.mod} +' ('+${section.getRegisterModeratorApplicationAsList().size()}+')'" class="right waves-effect waves-light btn"></a>
+                        <label for="app_moderator">Moderators</label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="divider"></div>
+            <div class="row" th:each="topic : ${topics}">
+                <div class="col s12">
+                    <div class="section">
+                        <a th:href="@{/topic/} + ${topic.id}" th:text="${topic.user.username} + ': ' + ${topic.title}"></a>
+                        <span class="right" th:text="${topic.creationDate} ? ${#calendars.format(topic.creationDate, 'dd MMMM yyyy HH:mm')}"></span> <span class="truncate"
+                                                                                                                                                           th:text="${topic.content}"></span>
+                    </div>
+                    <div class="divider"></div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <footer th:replace="fragments/footer :: footer"></footer>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>
