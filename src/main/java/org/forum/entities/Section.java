@@ -129,6 +129,9 @@ public class Section {
     }
 
     public List<User> getModerators() {
+        if(moderators == null){
+            moderators = new ArrayList<>();
+        }
         return moderators;
     }
 
@@ -137,6 +140,9 @@ public class Section {
     }
 
     public List<User> getMembers() {
+        if(members == null){
+            members = new ArrayList<>();
+        }
         return members;
     }
 
